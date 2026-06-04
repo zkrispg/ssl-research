@@ -1,0 +1,217 @@
+\section{Method}
+\label{sec:method}
+
+Our design philosophy is \emph{intervention, not competition}: rather than
+proposing a new system, we hold a strong, widely used SELD backbone fixed and
+vary three binary factors in a fully crossed factorial design---the geometry
+prior (the variable of interest), the temporal architecture, and the input
+modality---so that any change in a metric can be attributed to a named factor
+rather than to a tangle of co-varying design choices. This section describes the
+shared backbone (Sec.~\ref{sec:backbone}), the one-bit geometry intervention
+(Sec.~\ref{sec:gca}), the three temporal backbones that span the locality
+spectrum (Sec.~\ref{sec:arch}), and the metrics, statistics, and probing
+protocol (Sec.~\ref{sec:stats}).
+
+\subsection{Shared backbone}
+\label{sec:backbone}
+We adopt the official DCASE~2024 Task~3 baseline~\cite{krause2024sde} as the
+fixed scaffold. Audio sampled at $24$\,kHz is segmented into $5$-second
+($250$-frame) inputs. The two input modalities differ only in their channel
+composition: the four-channel \emph{microphone-array} (MIC) input is rendered as
+ten feature maps ($4$ log-mel spectrograms $+$ $6$ GCC-PHAT cross-correlation
+maps), while the \emph{first-order Ambisonics} (FOA) input is rendered as seven
+maps ($4$ log-mel spectrograms $+$ $3$ acoustic intensity-vector maps). Both
+modalities thus carry their spatial information through standard, implicitly
+geometric features; the explicit prior we ablate is added on top.
+
+A shared three-block 2-D convolutional stack ($64$ filters per block, batch
+normalization, ReLU) with frequency pooling factors $[4,4,2]$ and a single
+temporal pooling of $5$ reduces each input to a $50$-frame sequence of
+$128$-dimensional embeddings. A temporal model (Sec.~\ref{sec:arch}) then mixes
+this sequence over time before per-frame Multi-ACCDDOA
+heads~\cite{shimada2022multiaccdoa} emit $3$ tracks $\times$ $13$ classes
+$\times$ (activity, $3$-axis Cartesian DOA, distance), trained with the auxiliary
+duplicating permutation-invariant (ADPIT) loss. All cells start from the official
+synthetic-data-pretrained weights and fine-tune for $60$ epochs with the
+\emph{identical} optimizer (Adam, learning rate $10^{-3}$, batch size $32$,
+dropout $0.05$); we verify baseline parity against the published numbers in
+Section~\ref{sec:repro}. Because the convolutional front-end, heads, loss,
+optimizer, data, and width are held fixed across every cell, capacity and recipe
+are controlled and the only differences are the three factors we vary.
+
+\subsection{The geometry prior as a one-bit intervention}
+\label{sec:gca}
+The geometry-aware channel-attention (GCA) block performs single-head attention
+\emph{over the microphone-channel dimension} of the input feature tensor, i.e.\
+upstream of the shared convolutional front-end, letting the network reweight and
+recombine the array channels before convolution. Operating on the raw array
+channels rather than post-convolution feature maps is what makes a
+microphone-pair geometry bias well-defined. Its geometry-aware variant injects a
+fixed, layout-derived feature $g_{ij}\in\mathbb{R}^4$ for each ordered channel
+pair $(i,j)$ into the attention \emph{keys}, so that geometry shapes the score
+before the dot product rather than as a constant added afterwards:
+\begin{equation}
+  \mathrm{att}(i,j) = \frac{q_i^\top\!\bigl(k_j + W_g\,g_{ij}\bigr)}{\sqrt{d}}
+  = \frac{q_i^\top k_j}{\sqrt{d}} + \frac{q_i^\top W_g\,g_{ij}}{\sqrt{d}},
+  \label{eq:gca}
+\end{equation}
+where $q_i,k_j\in\mathbb{R}^d$ are the learned query/key projections of the
+per-channel embeddings, $d$ is their dimension, and $W_g\in\mathbb{R}^{d\times4}$
+(with bias) is the only learned geometry parameter. The pair feature $g_{ij}$ is a
+deterministic, non-trainable function of the array layout (a registered buffer):
+for the microphone array it is $(\Delta x,\Delta y,\,\text{dist},\,\text{bearing})$
+between mics $i$ and $j$ in the array plane, and for Ambisonics it is the
+difference of the two channels' direction-of-maximum-response vectors together with
+a both-directional indicator, so the omnidirectional $W$ channel and the $X/Y/Z$
+first-order dipoles are correctly distinguished. Because the geometry enters only
+through the keys, its contribution to the logit, $q_i^\top W_g\,g_{ij}/\sqrt{d}$,
+is \emph{content-dependent} (it is modulated by the query) rather than a fixed
+additive bias. The prior therefore tells the channel-attention
+layer which channels are spatially related \emph{before} it has seen any data.
+
+This block is the locus of our single intervention. The one-bit toggle is our
+sole design variable: \textbf{\texttt{full}} keeps the geometry projection $W_g$
+active, so Eq.~\eqref{eq:gca} is geometry-aware; \textbf{\texttt{no\_geom}} drops
+the $W_g\,g_{ij}$ term, reducing Eq.~\eqref{eq:gca} to plain content-based channel
+attention. Crucially, the two variants differ by exactly the $80$ parameters of
+$W_g$ (a $\mathrm{Linear}(4,16)$ projection: $4\times16$ weights plus $16$ biases)
+and are otherwise bit-for-bit identical in architecture, initialization, data,
+and optimization, so a paired \texttt{full}$-$\texttt{no\_geom} contrast isolates
+the \emph{geometric prior} with essentially no change in capacity. To further
+separate the geometric bias from the attention \emph{mechanism} that carries it,
+each cell also includes a \textbf{no-GCA} control that removes channel attention
+entirely, and the MIC+CRNN cell additionally includes a vanilla
+squeeze-and-excitation control~\cite{hu2018senet}; both confirm that it is the
+geometry, not channel attention per se, that produces the effects we report. The
+toggle is well-defined and applied identically in both modalities, making the
+prior directly comparable across MIC and FOA.
+
+\subsection{Three temporal backbones spanning the locality spectrum}
+\label{sec:arch}
+The hypothesis we test is that the geometry prior's usefulness depends on how
+much \emph{temporal locality} the backbone already assumes
+(Fig.~\ref{fig:locality}). We therefore swap \emph{only} the temporal model that
+sits between the shared convolutional front-end and the shared heads, choosing
+three backbones that span the locality--globality spectrum while being matched in
+width ($128$) and depth ($\approx\!4$ temporal layers):
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.92\textwidth]{locality_spectrum.png}
+\caption{The temporal-locality spectrum and our hypothesis. As the temporal
+backbone changes from a recurrent CRNN (strong built-in locality) through a
+convolution--attention Conformer (hybrid) to a pure-attention Transformer
+(global all-to-all mixing), the value of the hand-crafted array-geometry prior is
+predicted---and measured---to move monotonically from helpful, through neutral, to
+harmful for directional accuracy. Numbers are the in-domain extreme effects on
+DOAE$_\mathrm{CD}$ (Sec.~\ref{sec:main}).}
+\label{fig:locality}
+\end{figure*}
+\begin{itemize}
+  \item \textbf{CRNN+MHSA} (the official baseline), the most \emph{local}
+  backbone: a two-layer bidirectional GRU~\cite{cho2014gru} whose recurrence
+  imposes a strong recency/locality bias and limits arbitrary channel
+  recombination, followed by two layers of eight-head
+  self-attention~\cite{sudarsanam2021attention}.
+  \item \textbf{Conformer}, the \emph{hybrid}: a linear projection followed by
+  four Conformer blocks~\cite{gulati2020conformer}, each interleaving eight-head
+  self-attention with a depthwise-convolution module (kernel $31$) and
+  feed-forward layers (dimension $512$). It restores locality \emph{within} an
+  attention model, and so is expected to behave between the two extremes.
+  \item \textbf{Transformer}, the most \emph{global} backbone: a linear
+  projection followed by a four-layer pre-norm Transformer
+  encoder~\cite{vaswani2017attention} with eight heads, which removes recurrence
+  and convolution-in-time entirely and mixes all frames and channels globally
+  through self-attention.
+\end{itemize}
+All three consume the identical $50$-frame convolutional sequence and feed the
+identical Multi-ACCDDOA heads, so the comparison isolates temporal mixing. The
+ordering CRNN $\to$ Conformer $\to$ Transformer is thus a monotonic decrease in
+built-in locality, which is the axis along which we predict the prior's effect to
+vary. Crossing the three architectures with the two modalities gives six cells;
+within each, the geometry toggle and its controls yield the task identifiers in
+Table~\ref{tab:grid}. Every cell is run with five random seeds.
+
+\begin{table}[t]
+\centering
+\caption{The grid and task IDs. ``full''/``no\_geom'' is the geometry-bias
+toggle; controls remove channel attention. All cells use five seeds.}
+\label{tab:grid}
+\begin{tabular}{llccc}
+\toprule
+Architecture & Modality & \texttt{full} & \texttt{no\_geom} & control \\
+\midrule
+CRNN+MHSA   & MIC & 110 & 111 & 112 / 113 \\
+CRNN+MHSA   & FOA & 130 & 131 & 100 \\
+Conformer   & MIC & 161 & 162 & 160 \\
+Conformer   & FOA & 171 & 172 & 170 \\
+Transformer & MIC & 141 & 142 & 140 \\
+Transformer & FOA & 151 & 152 & 150 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Metrics, statistical protocol, and probing}
+\label{sec:stats}
+\textbf{Metrics.} We report the official DCASE~2024 metrics: location-aware
+$F_{20\degsym}$ (detection $F$-score counting a detection correct only within
+$20\degsym$), class-dependent localization error DOAE$_\mathrm{CD}$ (degrees),
+location recall, relative distance error (RDE), and the aggregate SELD score. Our
+headline metric is DOAE$_\mathrm{CD}$, the directional accuracy the geometry
+prior is explicitly designed to improve; RDE serves as the orthogonal distance
+axis used to test whether the architecture that modulates direction also
+modulates distance.
+
+\textbf{Paired contrasts.} Within each cell we match the \texttt{full} and
+\texttt{no\_geom} runs by seed and summarize the geometry effect as the paired
+difference $\Delta=\text{full}-\text{no\_geom}$, reported with a paired $t$-test,
+a Wilcoxon signed-rank test, the standardized effect size Cohen's \dz, and a
+bias-corrected bootstrap $95\%$ confidence interval ($5000$ resamples).
+
+\textbf{Primary test.} Because individual per-cell contrasts have limited power
+at $n=5$, our hypothesis does not rest on any single $t$-test, but accounts for
+variance explicitly rather than over-interpreting a few
+runs~\cite{bouthillier2021variance}. Our \emph{primary} test is a factorial
+Type-II ANOVA over the per-seed metrics that asks whether the geometry effect
+\emph{interacts} with the temporal architecture. The focal test contrasts the two
+locality extremes (recurrent vs.\ pure-attention) in a
+modality$\times$architecture$\times$prior model. Because the same five seeds are
+matched across cells, we corroborate this interaction with a within-seed paired
+second-difference test (and confirm with a per-seed random-intercept mixed model
+that no extra between-seed variance is present), and we test the full graded
+hypothesis with an ordered Jonckheere--Terpstra trend test across all three
+backbones rather than only the extremes. We also fit the unordered three-level
+factorial including the Conformer, and report all of these. We do not correct
+across the secondary per-cell contrasts, which we treat as descriptive; the
+confirmatory claim is the pre-specified architecture$\times$prior interaction and
+its monotone trend.
+
+\textbf{Power and the $n=5$ budget.} Five seeds is a deliberate compute
+trade-off---the grid spans six cells plus no-GCA controls, each retrained and
+evaluated on two external corpora---and the paired design recovers most of the
+power a small $n$ would cost, because the large between-seed variance cancels in
+the within-seed difference $\Delta$. Our confirmatory statistics are therefore
+defined at the \emph{grid} level: the focal interaction uses all $40$ per-seed
+observations of the recurrent/Transformer sub-grid and the trend test all $60$,
+targeting the large effects we observe ($|\dz|\approx0.7$--$1.0$ at the extremes,
+for which a paired $n=5$ test retains usable power) rather than small per-cell
+differences. We treat the independent-dataset replication (Section~\ref{sec:cross})
+as the decisive evidence rather than any single in-domain $p$-value.
+
+\textbf{External validity.} Every effect is re-examined out of distribution. We
+evaluate the STARSS23-trained checkpoints zero-shot on the independent STARSS22
+recordings~\cite{politis2022starss22} (distance-blind, as STARSS22 lacks distance
+labels) and stress-test them on the synthetic TAU-NIGENS-SSE-2021
+corpus~\cite{politis2021nigens}, mapping the overlapping classes to the STARSS
+taxonomy. An effect that reproduces on an independent recording campaign is far
+stronger evidence than any in-domain $p$-value.
+
+\textbf{Mechanism probe.} To ask \emph{why} a cell behaves as it does, we linearly
+probe the representation entering the temporal model. Post-convolutional features
+are pooled over frequency, and a ridge regressor predicts $(\sin,\cos)$ of
+azimuth and elevation on single-source frames using five-fold cross-validation
+split by recording. The resulting angular MAE measures how \emph{linearly
+decodable} direction is in the shared representation; comparing \texttt{full}
+against \texttt{no\_geom} isolates the prior's effect on linear representation
+content, independent of the decoder, and tests whether any behavioural effect is
+mirrored by a change in linearly accessible spatial information.

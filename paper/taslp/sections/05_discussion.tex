@@ -1,0 +1,82 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Inductive bias grades the sign}
+The temporal backbone's inductive
+bias, not the input modality, determines \emph{whether} the prior
+helps direction---and does so as a \emph{gradient}, not a switch. A recurrent
+model has limited capacity to recombine channels over time, so the
+geometry bias acts as a useful scaffold; a Transformer already mixes all channels
+globally, so the same bias acts as a redundant constraint; the
+convolution--attention Conformer, with locality restored by its depthwise
+convolutions but global reach retained by attention, sits between the two and
+shows a near-zero effect. The significant recurrent-versus-Transformer
+architecture$\times$prior interaction (Section~\ref{sec:anova}) and the monotonic
+sign ordering in Table~\ref{tab:dissociation}---both recurrent cells non-positive
+(one a clear benefit, one negligible), both Transformer cells positive, Conformer
+in between---are both explained by this
+single locality axis, with modality setting only the magnitude.
+
+\subsection{Why the recurrent benefit is the anchor}
+The single most robust effect is the recurrent \emph{benefit} on Ambisonics. The
+geometry bias of Eq.~\eqref{eq:gca} aligns the channel attention with the
+directional structure a low-capacity recurrent model would otherwise have to
+learn from scarce real data, yielding the $5.0\degsym$ in-domain FOA+CRNN gain
+(a trend, $p=0.082$) that replicates at full significance zero-shot on STARSS22
+($\dz=-1.50$, $p=0.029$; Table~\ref{tab:cross}). Consistency of sign and magnitude
+on an independent recording campaign indicates a property of the learned model,
+not of one test split. Symmetrically, the
+Transformer is harmed---forcing a global-mixing model's channel attention toward
+a fixed, geometry-derived pattern mismatches the channel statistics of real
+reverberant rooms---and this harm reproduces directionally in-domain
+($+5.7\degsym$) and cross-dataset ($+5.6\degsym$), though at $n=5$ it does not
+reach significance as a standalone contrast.
+
+\subsection{The mechanism is behavioural, not a feature shift}
+We initially hypothesised that the prior changes the \emph{linear} direction
+content of the shared representation. The $n=5$ probe rejects this: no cell shows
+a significant change in linearly decodable direction (Table~\ref{tab:probe}). This
+null is not a foregone conclusion---the geometry bias gates the input channels
+\emph{upstream} of the convolutional front-end and each variant trains its own
+convolutional weights, so the post-convolutional features could in principle
+diverge. That they remain near-identical means the
+prior leaves the linearly accessible spatial content essentially unchanged; its
+behavioural effect must instead reside in nonlinear or distributed changes the
+probe cannot see, or in how each temporal stack \emph{uses} those
+features---consistent with the locality account above. This also corrects a
+fragile three-seed probe from an earlier draft that did not survive added seeds.
+
+\subsection{The cross-dataset picture}
+The full architecture ordering survives domain shift to STARSS22
+(Table~\ref{tab:cross}): both recurrent cells help, both Transformer cells hurt,
+the Conformer helpful-to-neutral. MIC+CRNN, null in-domain, is mildly
+\emph{helped} cross-dataset ($-4.77\degsym$), suggesting the bias can
+also act as a weak regularizer toward array-consistent solutions under
+shift---reinforcing the graded account: the prior's value
+depends jointly on backbone and deployment regime.
+
+\subsection{Practical guidance}
+Do not add an array-geometry prior by default: it most likely helps a
+low-capacity recurrent model and hurts a global-mixing Transformer; when in
+doubt, ablate it with a seed-matched paired test before shipping.
+
+\subsection{Limitations}
+\label{sec:limitations}
+\emph{(i)~Absolute performance is low} ($F_{20\degsym}$ of $9$--$13\%$,
+DOAE$_\mathrm{CD}$ of $36$--$50\degsym$): we deliberately study a compact official
+baseline on a single $4$\,GB GPU, not a leaderboard system. Because the one-bit
+intervention holds capacity, data, and recipe fixed, the \emph{relative} effects
+remain interpretable; we do not claim the magnitudes transfer unchanged to
+$50$M-parameter ensembles.
+\emph{(ii)~Modest seed counts} ($n=5$ per cell) keep most per-cell
+contrasts at the level of trends; our conclusions rest on the grid-level ANOVA
+interaction, its trend, and the significant cross-dataset replication, not on any
+single in-domain $t$-test, and larger budgets would sharpen the per-cell estimates.
+\emph{(iii)~Synthetic transfer is a floor}: under the severe TAU-NIGENS domain
+shift detection collapses for all cells, so that corpus bounds rather than
+extends the effect; the load-bearing external validity is the STARSS22
+replication, which covers both modalities.
+\emph{(iv)~Backbone coverage}: we study three backbones spanning the
+locality spectrum but a single front-end and recipe; we expect
+the graded \emph{phenomenon} to generalize, though the exact crossover point may
+differ for other SELD paradigms.

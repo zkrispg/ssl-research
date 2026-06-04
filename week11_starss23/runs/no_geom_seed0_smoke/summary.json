@@ -1,0 +1,38 @@
+{
+  "args": {
+    "variant": "no_geom",
+    "epochs": 2,
+    "batch_size": 16,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "seed": 0,
+    "num_workers": 0,
+    "train_clip_seconds": 5.0,
+    "eval_clip_seconds": 10.0,
+    "audio_dir": "D:\\ssl-research\\data\\STARSS23\\mic_dev",
+    "metadata_dir": "D:\\ssl-research\\data\\STARSS23\\metadata_dev\\metadata_dev",
+    "cache_dir": "D:\\ssl-research\\data\\STARSS23\\feat_cache",
+    "out_dir": "D:\\ssl-research\\week11_starss23\\runs",
+    "out_suffix": "smoke",
+    "quick_test": true
+  },
+  "best_eval_loss": 0.04040777310729027,
+  "n_params": 590886,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.03475995361804962,
+      "eval_loss": 0.040589869022369385,
+      "lr": 0.0005,
+      "elapsed_s": 29.908230600000024
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.03073340964814027,
+      "eval_loss": 0.04040777310729027,
+      "lr": 0.0,
+      "elapsed_s": 25.777385000000322
+    }
+  ],
+  "total_seconds": 55.75636470000063
+}

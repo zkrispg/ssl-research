@@ -1,0 +1,19 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+We asked when a hand-crafted array-geometry prior helps SELD, via a controlled
+one-bit ablation over modality and three temporal backbones. The
+effect on direction is \textbf{graded by temporal inductive bias}: both recurrent
+cells shift non-positively and both Transformer cells positively, the Conformer in
+between---the prior improving localization by $5.0\degsym$ in an FOA recurrent
+model while degrading it by $5.7\degsym$ in a microphone-array Transformer. A factorial ANOVA confirms the
+recurrent-versus-Transformer architecture$\times$prior interaction ($p=0.039$,
+$n=5$; seed-matched paired $p=0.029$), with a monotone trend across all three
+backbones; the recurrent Ambisonic benefit replicates zero-shot at full
+significance ($\dz=-1.50$, $p=0.029$), and a controlled probe shows the effect is
+behavioural, not a shift in linearly decodable features. Orthogonally, the
+architecture that governs direction is inert on distance---a dissociation, not two
+crossed interactions. Geometry priors are thus a conditional,
+context-dependent design choice, and should be ablated, not assumed. We release a
+reproducible multi-seed pipeline so future work can audit other priors and
+backbones with the same protocol.

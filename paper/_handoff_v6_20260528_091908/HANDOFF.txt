@@ -1,0 +1,52 @@
+﻿TASLP rush COMPLETED at 2026-05-28 09:19:08 (Asia/Shanghai)
+==============================================================================
+Started 2026-05-26 09:15. Wall time: ~47h. Total GPU hours added: ~43.
+
+KEY HEADLINE NUMBERS (paired, A vs B, all on STARSS23 dev-test):
+
+  Stage 3      MIC + CRNN  : 110 vs 111  DOAE delta = -0.88 deg, d_z = -0.13, p_t = 0.84   [null]
+  Tier VI      FOA + CRNN  : 130 vs 131  DOAE delta = -7.72 deg, d_z = -1.73, p_t = 0.095  [HELP]
+  Tier VII     MIC + Xfm   : 141 vs 142  DOAE delta = +8.15 deg, d_z = +2.38, p_t = 0.054  [HURT]
+
+The geometry prior's contribution to DOAE spans 4 effect-size units across
+(modality x architecture). This dissociation is the central paper claim.
+
+COMPLETED EXPERIMENTAL TIERS:
+  Stage 1   FOA reproduce (5 seeds)                                      ~9 GPU-h    done
+  Stage 2   MIC feature extraction                                       ~0.2 GPU-h  done
+  Stage 3   MIC GCA ablation (110/111/112 x 5 seeds)                     ~28 GPU-h   done
+  Stage 4   Vanilla SE-block ablation (113 x 5 seeds)                    ~10 GPU-h   done
+  Tier I    Cross-dataset STARSS22 zero-shot (20 ckpts)                  ~0.3 GPU-h  done
+  Tier III  Linear probe over 78 dev-test files (20 ckpts)               ~0.6 GPU-h  done
+  Tier IV   Attention viz (6 files x 3 cells)                            ~0 (CPU)    done
+  Tier V    A. Per-class breakdown                                       ~0 (CPU)    done
+            B. Multi-source probing                                      ~0.1 GPU-h  done
+            C. Per-class attention map                                   ~0 (CPU)    done
+            D. Data-fraction sweep (5 seeds @ 25/50/100%, 20 ckpts)      ~35 GPU-h   done
+  Tier VI   FOA-modality GCA ablation (130/131 x 3 seeds)                ~11 GPU-h   done
+  Tier VII  Transformer-only architecture (140/141/142 x 3 seeds)        ~20 GPU-h   done
+  ----------                                                            ----------
+  TOTAL                                                                  ~113 GPU-h  done
+  Total ckpts: 69
+
+ARTIFACTS:
+  paper/path_c_progress_v2.md / .docx        complete progress report (rebuilt)
+  paper/path_c_xfm_arch.md / .json           cross-architecture (Tier VII)
+  paper/path_c_foa_gca.md / .json            cross-modality FOA (Tier VI)
+  paper/path_c_data_fraction.md / .json      data-fraction sweep (Tier V D, n=5)
+  paper/path_c_per_class.md / .json          per-class breakdown (Tier V A)
+  paper/path_c_probe_multi.md / .json        multi-source probing (Tier V B)
+  paper/path_c_attn_per_class.json + figs    per-class attention (Tier V C)
+  paper/figs/                                all PNG plots
+
+  D:\ssl-research\dcase2024_baseline\models_audio\*_seed*_*.h5  (69 ckpts on disk)
+  D:\ssl-research\runs\dcase2024_*.log                          (training/test logs)
+
+NEXT STEPS (when you return):
+  1. Review path_c_progress_v2.docx as the master report.
+  2. The dissociation finding (modality x architecture) is the strongest
+     novelty hook. Consider re-organizing the paper around it.
+  3. Optional Tier VIII: FOA + Xfm cell to complete the 2x2 design
+     (would add ~6-8 GPU-h, 6 ckpts).
+
+Hardware: NVIDIA RTX 3050 Ti Laptop GPU (4 GB VRAM).

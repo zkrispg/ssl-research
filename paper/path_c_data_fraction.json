@@ -1,0 +1,891 @@
+{
+  "raw": {
+    "rows": [
+      {
+        "fraction": 0.25,
+        "task": "122",
+        "job": "frac_seed0",
+        "seed": 0,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_122_frac_seed0_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 6.92,
+          "LE": 46.41,
+          "DE": 0.73,
+          "RDE": 0.33,
+          "SELD": 0.615
+        }
+      },
+      {
+        "fraction": 0.25,
+        "task": "123",
+        "job": "frac_seed0",
+        "seed": 0,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_123_frac_seed0_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 7.1,
+          "LE": 38.37,
+          "DE": 0.64,
+          "RDE": 0.3,
+          "SELD": 0.634
+        }
+      },
+      {
+        "fraction": 0.25,
+        "task": "122",
+        "job": "frac_seed1",
+        "seed": 1,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_122_frac_seed1_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 7.24,
+          "LE": 40.62,
+          "DE": 0.62,
+          "RDE": 0.33,
+          "SELD": 0.642
+        }
+      },
+      {
+        "fraction": 0.25,
+        "task": "123",
+        "job": "frac_seed1",
+        "seed": 1,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_123_frac_seed1_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 7.61,
+          "LE": 33.35,
+          "DE": 0.64,
+          "RDE": 0.32,
+          "SELD": 0.668
+        }
+      },
+      {
+        "fraction": 0.25,
+        "task": "122",
+        "job": "frac_seed2",
+        "seed": 2,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_122_frac_seed2_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 6.25,
+          "LE": 35.8,
+          "DE": 0.75,
+          "RDE": 0.35,
+          "SELD": 0.682
+        }
+      },
+      {
+        "fraction": 0.25,
+        "task": "123",
+        "job": "frac_seed2",
+        "seed": 2,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_123_frac_seed2_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 6.69,
+          "LE": 37.51,
+          "DE": 0.59,
+          "RDE": 0.32,
+          "SELD": 0.676
+        }
+      },
+      {
+        "fraction": 0.25,
+        "task": "122",
+        "job": "frac_seed3",
+        "seed": 3,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_122_frac_seed3_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 7.29,
+          "LE": 34.58,
+          "DE": 0.63,
+          "RDE": 0.32,
+          "SELD": 0.671
+        }
+      },
+      {
+        "fraction": 0.25,
+        "task": "123",
+        "job": "frac_seed3",
+        "seed": 3,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_123_frac_seed3_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 6.83,
+          "LE": 46.2,
+          "DE": 0.56,
+          "RDE": 0.35,
+          "SELD": 0.619
+        }
+      },
+      {
+        "fraction": 0.25,
+        "task": "122",
+        "job": "frac_seed4",
+        "seed": 4,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_122_frac_seed4_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 6.89,
+          "LE": 33.73,
+          "DE": 0.54,
+          "RDE": 0.29,
+          "SELD": 0.664
+        }
+      },
+      {
+        "fraction": 0.25,
+        "task": "123",
+        "job": "frac_seed4",
+        "seed": 4,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_123_frac_seed4_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 7.59,
+          "LE": 34.22,
+          "DE": 0.55,
+          "RDE": 0.29,
+          "SELD": 0.663
+        }
+      },
+      {
+        "fraction": 0.5,
+        "task": "120",
+        "job": "frac_seed0",
+        "seed": 0,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_120_frac_seed0_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 8.5,
+          "LE": 41.77,
+          "DE": 0.5,
+          "RDE": 0.27,
+          "SELD": 0.588
+        }
+      },
+      {
+        "fraction": 0.5,
+        "task": "121",
+        "job": "frac_seed0",
+        "seed": 0,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_121_frac_seed0_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 9.0,
+          "LE": 39.43,
+          "DE": 0.42,
+          "RDE": 0.22,
+          "SELD": 0.529
+        }
+      },
+      {
+        "fraction": 0.5,
+        "task": "120",
+        "job": "frac_seed1",
+        "seed": 1,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_120_frac_seed1_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 8.94,
+          "LE": 38.88,
+          "DE": 0.46,
+          "RDE": 0.24,
+          "SELD": 0.575
+        }
+      },
+      {
+        "fraction": 0.5,
+        "task": "121",
+        "job": "frac_seed1",
+        "seed": 1,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_121_frac_seed1_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 8.74,
+          "LE": 41.81,
+          "DE": 0.57,
+          "RDE": 0.31,
+          "SELD": 0.56
+        }
+      },
+      {
+        "fraction": 0.5,
+        "task": "120",
+        "job": "frac_seed2",
+        "seed": 2,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_120_frac_seed2_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 9.28,
+          "LE": 38.04,
+          "DE": 0.48,
+          "RDE": 0.26,
+          "SELD": 0.577
+        }
+      },
+      {
+        "fraction": 0.5,
+        "task": "121",
+        "job": "frac_seed2",
+        "seed": 2,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_121_frac_seed2_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 9.66,
+          "LE": 38.3,
+          "DE": 0.42,
+          "RDE": 0.22,
+          "SELD": 0.525
+        }
+      },
+      {
+        "fraction": 0.5,
+        "task": "120",
+        "job": "frac_seed3",
+        "seed": 3,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_120_frac_seed3_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 8.36,
+          "LE": 41.17,
+          "DE": 0.51,
+          "RDE": 0.28,
+          "SELD": 0.627
+        }
+      },
+      {
+        "fraction": 0.5,
+        "task": "121",
+        "job": "frac_seed3",
+        "seed": 3,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_121_frac_seed3_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 9.68,
+          "LE": 37.74,
+          "DE": 0.48,
+          "RDE": 0.24,
+          "SELD": 0.53
+        }
+      },
+      {
+        "fraction": 0.5,
+        "task": "120",
+        "job": "frac_seed4",
+        "seed": 4,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_120_frac_seed4_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 7.41,
+          "LE": 41.47,
+          "DE": 0.46,
+          "RDE": 0.24,
+          "SELD": 0.503
+        }
+      },
+      {
+        "fraction": 0.5,
+        "task": "121",
+        "job": "frac_seed4",
+        "seed": 4,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\runs\\dcase2024_121_frac_seed4_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 9.01,
+          "LE": 39.36,
+          "DE": 0.47,
+          "RDE": 0.25,
+          "SELD": 0.577
+        }
+      },
+      {
+        "fraction": 1.0,
+        "task": "110",
+        "job": "ablate_seed0",
+        "seed": 0,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\week11_starss23\\runs\\dcase2024_110_ablate_seed0_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 9.78,
+          "LE": 49.86,
+          "DE": 0.79,
+          "RDE": 0.34,
+          "SELD": 0.577
+        }
+      },
+      {
+        "fraction": 1.0,
+        "task": "112",
+        "job": "ablate_seed0",
+        "seed": 0,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\week11_starss23\\runs\\dcase2024_112_ablate_seed0_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 10.4,
+          "LE": 46.19,
+          "DE": 0.69,
+          "RDE": 0.29,
+          "SELD": 0.556
+        }
+      },
+      {
+        "fraction": 1.0,
+        "task": "110",
+        "job": "ablate_seed1",
+        "seed": 1,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\week11_starss23\\runs\\dcase2024_110_ablate_seed1_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 8.93,
+          "LE": 48.39,
+          "DE": 0.52,
+          "RDE": 0.25,
+          "SELD": 0.515
+        }
+      },
+      {
+        "fraction": 1.0,
+        "task": "112",
+        "job": "ablate_seed1",
+        "seed": 1,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\week11_starss23\\runs\\dcase2024_112_ablate_seed1_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 9.14,
+          "LE": 41.92,
+          "DE": 0.58,
+          "RDE": 0.27,
+          "SELD": 0.585
+        }
+      },
+      {
+        "fraction": 1.0,
+        "task": "110",
+        "job": "ablate_seed2",
+        "seed": 2,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\week11_starss23\\runs\\dcase2024_110_ablate_seed2_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 10.04,
+          "LE": 36.93,
+          "DE": 0.53,
+          "RDE": 0.25,
+          "SELD": 0.57
+        }
+      },
+      {
+        "fraction": 1.0,
+        "task": "112",
+        "job": "ablate_seed2",
+        "seed": 2,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\week11_starss23\\runs\\dcase2024_112_ablate_seed2_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 9.71,
+          "LE": 43.7,
+          "DE": 0.45,
+          "RDE": 0.24,
+          "SELD": 0.539
+        }
+      },
+      {
+        "fraction": 1.0,
+        "task": "110",
+        "job": "ablate_seed3",
+        "seed": 3,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\week11_starss23\\runs\\dcase2024_110_ablate_seed3_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 9.67,
+          "LE": 51.42,
+          "DE": 0.82,
+          "RDE": 0.32,
+          "SELD": 0.538
+        }
+      },
+      {
+        "fraction": 1.0,
+        "task": "112",
+        "job": "ablate_seed3",
+        "seed": 3,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\week11_starss23\\runs\\dcase2024_112_ablate_seed3_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 9.83,
+          "LE": 46.75,
+          "DE": 0.66,
+          "RDE": 0.3,
+          "SELD": 0.598
+        }
+      },
+      {
+        "fraction": 1.0,
+        "task": "110",
+        "job": "ablate_seed4",
+        "seed": 4,
+        "cell_kind": "gca",
+        "log": "D:\\ssl-research\\week11_starss23\\runs\\dcase2024_110_ablate_seed4_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 9.51,
+          "LE": 40.28,
+          "DE": 0.45,
+          "RDE": 0.24,
+          "SELD": 0.536
+        }
+      },
+      {
+        "fraction": 1.0,
+        "task": "112",
+        "job": "ablate_seed4",
+        "seed": 4,
+        "cell_kind": "no_gca",
+        "log": "D:\\ssl-research\\week11_starss23\\runs\\dcase2024_112_ablate_seed4_test.log",
+        "log_exists": true,
+        "metrics": {
+          "F1": 9.5,
+          "LE": 52.89,
+          "DE": 0.76,
+          "RDE": 0.33,
+          "SELD": 0.615
+        }
+      }
+    ]
+  },
+  "agg": {
+    "per_fraction": {
+      "frac_25pct": {
+        "n_seeds_gca": 5,
+        "n_seeds_no_gca": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "F1": {
+          "gca_mean": 6.917999999999999,
+          "gca_std": 0.41505421332640396,
+          "no_gca_mean": 7.1640000000000015,
+          "no_gca_std": 0.42447614773977577,
+          "delta_per_seed": [
+            -0.17999999999999972,
+            -0.3700000000000001,
+            -0.4400000000000004,
+            0.45999999999999996,
+            -0.7000000000000002
+          ],
+          "delta_mean": -0.24600000000000008,
+          "delta_std": 0.436440144807968,
+          "t_stat": -1.2603623406526416,
+          "p_t": 0.2760514733087928,
+          "p_w": 0.4375,
+          "cohens_dz": -0.5636511739960107,
+          "boot_ci_95": [
+            -0.5440000000000002,
+            0.1
+          ]
+        },
+        "LE": {
+          "gca_mean": 38.227999999999994,
+          "gca_std": 5.293908763853038,
+          "no_gca_mean": 37.93,
+          "no_gca_std": 5.086831037099622,
+          "delta_per_seed": [
+            8.04,
+            7.269999999999996,
+            -1.7100000000000009,
+            -11.620000000000005,
+            -0.490000000000002
+          ],
+          "delta_mean": 0.29799999999999754,
+          "delta_std": 7.988101777018118,
+          "t_stat": 0.0834175973085402,
+          "p_t": 0.9375273336871062,
+          "p_w": 1.0,
+          "cohens_dz": 0.037305483620319886,
+          "boot_ci_95": [
+            -5.706000000000003,
+            6.025999999999998
+          ]
+        },
+        "DE": {
+          "gca_mean": 0.654,
+          "gca_std": 0.08619744775803978,
+          "no_gca_mean": 0.5960000000000001,
+          "no_gca_std": 0.04277849927241486,
+          "delta_per_seed": [
+            0.08999999999999997,
+            -0.020000000000000018,
+            0.16000000000000003,
+            0.06999999999999995,
+            -0.010000000000000009
+          ],
+          "delta_mean": 0.05799999999999998,
+          "delta_std": 0.07463243262818117,
+          "t_stat": 1.7377424013647405,
+          "p_t": 0.15725246604020734,
+          "p_w": 0.3125,
+          "cohens_dz": 0.7771420273670566,
+          "boot_ci_95": [
+            0.0019999999999999797,
+            0.11399999999999999
+          ]
+        },
+        "RDE": {
+          "gca_mean": 0.324,
+          "gca_std": 0.02190890230020665,
+          "no_gca_mean": 0.316,
+          "no_gca_std": 0.023021728866442676,
+          "delta_per_seed": [
+            0.030000000000000027,
+            0.010000000000000009,
+            0.02999999999999997,
+            -0.02999999999999997,
+            0.0
+          ],
+          "delta_mean": 0.008000000000000007,
+          "delta_std": 0.024899799195977457,
+          "t_stat": 0.7184212081071004,
+          "p_t": 0.5122252586995414,
+          "p_w": 0.5,
+          "cohens_dz": 0.32128773156099993,
+          "boot_ci_95": [
+            -0.011999999999999988,
+            0.026000000000000002
+          ]
+        },
+        "SELD": {
+          "gca_mean": 0.6548,
+          "gca_std": 0.026621419947102768,
+          "no_gca_mean": 0.6520000000000001,
+          "no_gca_std": 0.02432077301403064,
+          "delta_per_seed": [
+            -0.019000000000000017,
+            -0.026000000000000023,
+            0.006000000000000005,
+            0.052000000000000046,
+            0.0010000000000000009
+          ],
+          "delta_mean": 0.0028000000000000026,
+          "delta_std": 0.030572863784735668,
+          "t_stat": 0.20478913526332418,
+          "p_t": 0.847735502836202,
+          "p_w": 1.0,
+          "cohens_dz": 0.09158448550043842,
+          "boot_ci_95": [
+            -0.018200000000000015,
+            0.027600000000000024
+          ]
+        }
+      },
+      "frac_50pct": {
+        "n_seeds_gca": 5,
+        "n_seeds_no_gca": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "F1": {
+          "gca_mean": 8.498,
+          "gca_std": 0.7088159140425668,
+          "no_gca_mean": 9.218,
+          "no_gca_std": 0.42663801987164707,
+          "delta_per_seed": [
+            -0.5,
+            0.1999999999999993,
+            -0.3800000000000008,
+            -1.3200000000000003,
+            -1.5999999999999996
+          ],
+          "delta_mean": -0.7200000000000003,
+          "delta_std": 0.7322567855609121,
+          "t_stat": -2.198639842670226,
+          "p_t": 0.09279328701083994,
+          "p_w": 0.125,
+          "cohens_dz": -0.9832616292500136,
+          "boot_ci_95": [
+            -1.3,
+            -0.1720000000000006
+          ]
+        },
+        "LE": {
+          "gca_mean": 40.266000000000005,
+          "gca_std": 1.6885585568762493,
+          "no_gca_mean": 39.327999999999996,
+          "no_gca_std": 1.5612719173801863,
+          "delta_per_seed": [
+            2.3400000000000034,
+            -2.9299999999999997,
+            -0.259999999999998,
+            3.4299999999999997,
+            2.1099999999999994
+          ],
+          "delta_mean": 0.9380000000000009,
+          "delta_std": 2.546854923233752,
+          "t_stat": 0.8235379815948398,
+          "p_t": 0.45646967565680374,
+          "p_w": 0.625,
+          "cohens_dz": 0.36829738177980653,
+          "boot_ci_95": [
+            -1.1239999999999994,
+            2.7300000000000013
+          ]
+        },
+        "DE": {
+          "gca_mean": 0.48200000000000004,
+          "gca_std": 0.022803508501982754,
+          "no_gca_mean": 0.472,
+          "no_gca_std": 0.06140032573203499,
+          "delta_per_seed": [
+            0.08000000000000002,
+            -0.10999999999999993,
+            0.06,
+            0.030000000000000027,
+            -0.009999999999999953
+          ],
+          "delta_mean": 0.010000000000000031,
+          "delta_std": 0.07516648189186452,
+          "t_stat": 0.29748205865436583,
+          "p_t": 0.7809085271647657,
+          "p_w": 0.8125,
+          "cohens_dz": 0.1330380210475483,
+          "boot_ci_95": [
+            -0.05199999999999995,
+            0.06200000000000001
+          ]
+        },
+        "RDE": {
+          "gca_mean": 0.258,
+          "gca_std": 0.017888543819998333,
+          "no_gca_mean": 0.248,
+          "no_gca_std": 0.037013511046643494,
+          "delta_per_seed": [
+            0.05000000000000002,
+            -0.07,
+            0.04000000000000001,
+            0.040000000000000036,
+            -0.010000000000000009
+          ],
+          "delta_mean": 0.010000000000000009,
+          "delta_std": 0.0504975246918104,
+          "t_stat": 0.44280744277004797,
+          "p_t": 0.6807973982037172,
+          "p_w": 0.8125,
+          "cohens_dz": 0.198029508595335,
+          "boot_ci_95": [
+            -0.034,
+            0.044000000000000025
+          ]
+        },
+        "SELD": {
+          "gca_mean": 0.5740000000000001,
+          "gca_std": 0.04487761134463375,
+          "no_gca_mean": 0.5442,
+          "no_gca_std": 0.023058620947489446,
+          "delta_per_seed": [
+            0.05899999999999994,
+            0.014999999999999902,
+            0.051999999999999935,
+            0.09699999999999998,
+            -0.07399999999999995
+          ],
+          "delta_mean": 0.02979999999999996,
+          "delta_std": 0.06491301872506004,
+          "t_stat": 1.0265248333577943,
+          "p_t": 0.3626636715091815,
+          "p_w": 0.4375,
+          "cohens_dz": 0.45907586159593433,
+          "boot_ci_95": [
+            -0.029600000000000005,
+            0.07279999999999995
+          ]
+        }
+      },
+      "frac_100pct": {
+        "n_seeds_gca": 5,
+        "n_seeds_no_gca": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "F1": {
+          "gca_mean": 9.586,
+          "gca_std": 0.41440318531594306,
+          "no_gca_mean": 9.716,
+          "no_gca_std": 0.46349757280917875,
+          "delta_per_seed": [
+            -0.620000000000001,
+            -0.21000000000000085,
+            0.3299999999999983,
+            -0.16000000000000014,
+            0.009999999999999787
+          ],
+          "delta_mean": -0.13000000000000078,
+          "delta_std": 0.34590461112855936,
+          "t_stat": -0.84037283032037,
+          "p_t": 0.44799757773948584,
+          "p_w": 0.625,
+          "cohens_dz": -0.3758261550080488,
+          "boot_ci_95": [
+            -0.4020000000000007,
+            0.13399999999999893
+          ]
+        },
+        "LE": {
+          "gca_mean": 45.376000000000005,
+          "gca_std": 6.384052788002305,
+          "no_gca_mean": 46.29,
+          "no_gca_std": 4.170929153078483,
+          "delta_per_seed": [
+            3.6700000000000017,
+            6.469999999999999,
+            -6.770000000000003,
+            4.670000000000002,
+            -12.61
+          ],
+          "delta_mean": -0.914,
+          "delta_std": 8.33376745535895,
+          "t_stat": -0.24523916012566238,
+          "p_t": 0.8183393915319301,
+          "p_w": 0.8125,
+          "cohens_dz": -0.1096742865571874,
+          "boot_ci_95": [
+            -7.986,
+            5.19
+          ]
+        },
+        "DE": {
+          "gca_mean": 0.6220000000000001,
+          "gca_std": 0.17020575783445163,
+          "no_gca_mean": 0.6279999999999999,
+          "no_gca_std": 0.11861703081766968,
+          "delta_per_seed": [
+            0.10000000000000009,
+            -0.05999999999999994,
+            0.08000000000000002,
+            0.15999999999999992,
+            -0.31
+          ],
+          "delta_mean": -0.005999999999999983,
+          "delta_std": 0.18809572031282368,
+          "t_stat": -0.0713275551548209,
+          "p_t": 0.9465609591851665,
+          "p_w": 0.8125,
+          "cohens_dz": -0.03189865239900902,
+          "boot_ci_95": [
+            -0.17799999999999996,
+            0.12000000000000002
+          ]
+        },
+        "RDE": {
+          "gca_mean": 0.28,
+          "gca_std": 0.04636809247747853,
+          "no_gca_mean": 0.28600000000000003,
+          "no_gca_std": 0.033615472627943226,
+          "delta_per_seed": [
+            0.050000000000000044,
+            -0.020000000000000018,
+            0.010000000000000009,
+            0.020000000000000018,
+            -0.09000000000000002
+          ],
+          "delta_mean": -0.005999999999999994,
+          "delta_std": 0.05319774431308157,
+          "t_stat": -0.2521988110255188,
+          "p_t": 0.8133161385102923,
+          "p_w": 1.0,
+          "cohens_dz": -0.11278673705953668,
+          "boot_ci_95": [
+            -0.04800000000000002,
+            0.030000000000000027
+          ]
+        },
+        "SELD": {
+          "gca_mean": 0.5472,
+          "gca_std": 0.02576237566685181,
+          "no_gca_mean": 0.5786,
+          "no_gca_std": 0.03090792778560216,
+          "delta_per_seed": [
+            0.020999999999999908,
+            -0.06999999999999995,
+            0.030999999999999917,
+            -0.05999999999999994,
+            -0.07899999999999996
+          ],
+          "delta_mean": -0.031400000000000004,
+          "delta_std": 0.05294619910815121,
+          "t_stat": -1.3261109517998242,
+          "p_t": 0.25545739529250977,
+          "p_w": 0.3125,
+          "cohens_dz": -0.5930548467862709,
+          "boot_ci_95": [
+            -0.07139999999999995,
+            0.008799999999999942
+          ]
+        }
+      }
+    },
+    "summary": [
+      {
+        "frac": 0.25,
+        "n_pairs": 5,
+        "F1_delta": -0.24600000000000008,
+        "SELD_delta": 0.0028000000000000026,
+        "DOAE_delta": 0.29799999999999754
+      },
+      {
+        "frac": 0.5,
+        "n_pairs": 5,
+        "F1_delta": -0.7200000000000003,
+        "SELD_delta": 0.02979999999999996,
+        "DOAE_delta": 0.9380000000000009
+      },
+      {
+        "frac": 1.0,
+        "n_pairs": 5,
+        "F1_delta": -0.13000000000000078,
+        "SELD_delta": -0.031400000000000004,
+        "DOAE_delta": -0.914
+      }
+    ]
+  }
+}

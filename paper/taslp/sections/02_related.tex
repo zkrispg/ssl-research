@@ -1,0 +1,99 @@
+\section{Related Work}
+\label{sec:related}
+
+\subsection{Sound event localization and detection}
+SELD jointly answers \emph{what} sound events occur, \emph{when}, and \emph{from
+where}. It was formalized as a convolutional-recurrent learning problem
+by Adavanne~\emph{et al.}~\cite{adavanne2018seld} and has since been driven by
+the annual DCASE challenge and its evaluation
+protocol~\cite{politis2020overview}. A central thread of progress concerns the
+\emph{output parameterization}: the activity-coupled Cartesian DOA (ACCDOA)
+target folded detection and localization into a single
+regression~\cite{shimada2021accdoa}, and its multi-source extension,
+Multi-ACCDOA with auxiliary duplicating permutation-invariant training, resolved
+same-class polyphony~\cite{shimada2022multiaccdoa}. The DCASE~2024 edition added
+\emph{source distance estimation} to the task, and Krause~\emph{et
+al.}~\cite{krause2024sde} released the official CRNN-with-self-attention baseline
+with a Multi-ACCDDOA head that we adopt here; building our study on this widely
+used reference keeps the geometry ablation interpretable and reproducible.
+On the architecture side, the field has moved from pure CRNNs toward
+attention-augmented and event-independent designs such as
+EINV2~\cite{cao2021einv2}, and the strongest recent challenge entries are large
+ResNet--Conformer ensembles~\cite{dong2025joint}. These advances, however,
+typically bundle a new backbone, new features, and new training tricks together,
+which is precisely the confound our controlled design avoids.
+
+\subsection{Array geometry as a prior}
+How much array geometry a network should be told remains contested.
+\emph{Geometry-aware} approaches inject explicit spatial information---array
+coordinates as mixed-data inputs~\cite{kowalk2022geometry}, geometry-conditioned
+front-ends, or layout-derived attention biases---on the intuition that telling
+the model its microphone arrangement can only help. \emph{Geometry-invariant}
+approaches argue the opposite: that inter-channel phase already carries the
+spatial cue, so explicit geometry is redundant or even limits cross-array
+generalization; representative work uses microphone positional
+encodings~\cite{baek2025gidoaenet} or steered-response-power-style neural
+trackers that are trained to be array-agnostic~\cite{neuralsrp2024}. These
+methods also differ in \emph{where} geometry enters---from array coordinates
+concatenated to the input~\cite{kowalk2022geometry} to positional encodings that
+condition an array-agnostic front-end~\cite{baek2025gidoaenet,neuralsrp2024}---
+whereas our intervention is the most surgical: a layout-derived term enters a
+single channel-attention block (Eq.~\eqref{eq:gca}) and nothing else. The
+classical SELD features sit on this spectrum too: GCC-PHAT maps and Ambisonic
+intensity vectors encode geometry implicitly, so even \texttt{no\_geom} is never
+fully geometry-blind. The decisive
+limitation of this literature is methodological: the two stances are almost
+always compared across
+\emph{different architectures, feature sets, and datasets}, so the reported
+benefit (or harm) of geometry is confounded with capacity, input representation,
+and domain. We remove this confound by toggling a single geometry bias on and
+off inside one fixed architecture, and show that the answer is not universal but
+contingent on factors prior comparisons neither held fixed nor crossed.
+
+\subsection{Inductive bias and locality in temporal models}
+Our explanatory axis---how much \emph{locality} a temporal backbone
+assumes---has a rich grounding in the inductive-bias
+literature~\cite{battaglia2018relational}. Recurrent networks such as
+GRUs~\cite{cho2014gru} process sequences with a strong locality/recency bias and
+limited capacity to recombine channels arbitrarily, whereas the
+Transformer~\cite{vaswani2017attention} removes recurrence entirely and mixes all
+positions and channels globally through self-attention. The Conformer sits
+between them, reintroducing locality into an attention model via an interleaved
+depthwise-convolution module~\cite{gulati2020conformer}. A growing body of
+vision and speech work shows that the \emph{value} of an injected prior depends
+on how much structure the backbone already assumes: soft convolutional biases
+help data-hungry Transformers~\cite{dascoli2021convit}, and hybrid
+convolution--attention models trade off learned and built-in structure as a
+function of scale and data~\cite{dai2021coatnet}. Relative-position formulations
+of attention make the same point from the opposite side, showing that adding
+locality to attention changes what it learns~\cite{shaw2018relative}. The
+unifying principle is \emph{redundancy}: a prior helps when it supplies structure
+the backbone lacks and cannot cheaply learn (a low-capacity recurrent model under
+scarce real data), but is inert or harmful when the backbone already encodes it or
+can learn a better version (a globally-mixing Transformer). This
+predicts that a hand-crafted spatial prior should interact with the temporal
+backbone rather than help uniformly---exactly the graded effect we measure. To
+our knowledge we are the first to test this interaction directly in SELD, with a
+modality$\times$backbone$\times$prior factorial design.
+
+\subsection{Channel attention and the geometry bias}
+Attention has entered SELD over time, where self-attention on learned
+features is now standard~\cite{sudarsanam2021attention}, and over channels, where
+squeeze-and-excitation recalibration~\cite{hu2018senet} reweights feature maps.
+The geometry-aware channel-attention block we ablate augments channel attention
+with a layout-derived bias; removing \emph{only} this bias while keeping the
+mechanism lets our comparison separate ``channel attention with geometry'' from
+``without geometry'' and from ``no channel attention,'' isolating the prior from
+the mechanism that carries it.
+
+\subsection{Statistical rigor and positioning}
+Many SELD ablations---including the official baseline---report single runs with
+jackknife intervals, which cannot establish whether a small metric change is
+reliable rather than seed noise~\cite{bouthillier2021variance}. We instead adopt
+seed-matched paired tests, effect sizes, and a factorial interaction test as
+primary evidence, validate every effect zero-shot on an independent
+dataset~\cite{politis2022starss22}, and stress-test on synthetic
+scenes~\cite{politis2021nigens}, training in-domain on
+STARSS23~\cite{shimada2023starss23}. We do not chase the leaderboard; we ask
+whether a popular inductive bias delivers a consistent gain under matched budgets,
+treating the reproduced baseline (Section~\ref{sec:repro}) as the reference.

@@ -1,0 +1,5 @@
+{
+  "best_eval_loss": 0.02039,
+  "n_params": 590966,
+  "note": "training stopped at epoch 26 (queue runner died); best_eval_loss recovered from queue_full_seed2.log"
+}

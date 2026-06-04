@@ -1,0 +1,33 @@
+{
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "specaug": false,
+  "out_suffix": "baseline_mc8_inmem",
+  "started_at": "2026-05-18 01:02:07",
+  "completed": [
+    {
+      "seed": 0,
+      "best_eval_loss": 0.021191727202863265,
+      "elapsed_s": 2672.0884544849396
+    },
+    {
+      "seed": 1,
+      "best_eval_loss": 0.02132373408247263,
+      "elapsed_s": 2678.092869758606
+    },
+    {
+      "seed": 2,
+      "best_eval_loss": 0.021613068998050995,
+      "elapsed_s": 2649.961822986603
+    }
+  ],
+  "current": {
+    "seed": 2,
+    "stage": "eval",
+    "since": "03:20:48"
+  },
+  "errors": []
+}

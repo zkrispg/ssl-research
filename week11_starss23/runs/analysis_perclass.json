@@ -1,0 +1,603 @@
+{
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "threshold": 0.18,
+  "bonferroni": {
+    "within_metric_alpha": 0.0038461538461538464,
+    "global_alpha": 0.0009615384615384616,
+    "n_classes_active": 13,
+    "n_metrics": 4
+  },
+  "classes": [
+    {
+      "class_id": 0,
+      "class_name": "Female speech, woman speaking",
+      "mean_n_ref": 27097.0,
+      "f1_no_geom_mean": 0.12180791265752997,
+      "f1_full_mean": 0.11652150641056425,
+      "f1_paired": {
+        "mean_delta": -0.005286406246965719,
+        "std_delta": 0.05847354868973345,
+        "t": -0.2021557437469214,
+        "p": 0.8496603518071212,
+        "wilcoxon_W": 5.0,
+        "wilcoxon_p": 0.625
+      },
+      "er_cd_no_geom_mean": 4.239170387865815,
+      "er_cd_full_mean": 4.324744436653504,
+      "er_cd_paired": {
+        "mean_delta": 0.08557404878768882,
+        "std_delta": 0.19772571908631725,
+        "t": 0.967751646489762,
+        "p": 0.3879701586907331,
+        "wilcoxon_W": 6.0,
+        "wilcoxon_p": 0.8125
+      },
+      "le_cd_no_geom_mean": 11.789125817332138,
+      "le_cd_full_mean": 12.006434577792737,
+      "le_cd_paired": {
+        "mean_delta": 0.2173087604605989,
+        "std_delta": 1.7243797312497404,
+        "t": 0.28179243335454324,
+        "p": 0.7920806094366636,
+        "wilcoxon_W": 7.0,
+        "wilcoxon_p": 1.0
+      },
+      "lr_cd_no_geom_mean": 0.2935527918219729,
+      "lr_cd_full_mean": 0.2868730855814297,
+      "lr_cd_paired": {
+        "mean_delta": -0.0066797062405432265,
+        "std_delta": 0.1481358474232073,
+        "t": -0.10082824301745796,
+        "p": 0.924538556105817,
+        "wilcoxon_W": 5.0,
+        "wilcoxon_p": 0.625
+      }
+    },
+    {
+      "class_id": 1,
+      "class_name": "Male speech, man speaking",
+      "mean_n_ref": 39830.0,
+      "f1_no_geom_mean": 0.12520982250765908,
+      "f1_full_mean": 0.12845750354022029,
+      "f1_paired": {
+        "mean_delta": 0.0032476810325612364,
+        "std_delta": 0.03203658911659312,
+        "t": 0.22667942369315197,
+        "p": 0.8317861547452761,
+        "wilcoxon_W": 7.0,
+        "wilcoxon_p": 1.0
+      },
+      "er_cd_no_geom_mean": 3.319663570173236,
+      "er_cd_full_mean": 3.3115942756716046,
+      "er_cd_paired": {
+        "mean_delta": -0.00806929450163194,
+        "std_delta": 0.21337521628602826,
+        "t": -0.0845622624322363,
+        "p": 0.9366726083231592,
+        "wilcoxon_W": 6.0,
+        "wilcoxon_p": 0.8125
+      },
+      "le_cd_no_geom_mean": 12.170576442125626,
+      "le_cd_full_mean": 11.33837513706367,
+      "le_cd_paired": {
+        "mean_delta": -0.832201305061956,
+        "std_delta": 0.49528318014293093,
+        "t": -3.7571610821622468,
+        "p": 0.019823588941054578,
+        "wilcoxon_W": 0.0,
+        "wilcoxon_p": 0.0625
+      },
+      "lr_cd_no_geom_mean": 0.23654531759979913,
+      "lr_cd_full_mean": 0.24366557870951544,
+      "lr_cd_paired": {
+        "mean_delta": 0.007120261109716297,
+        "std_delta": 0.054966718390808564,
+        "t": 0.28965505536776004,
+        "p": 0.7864741170816982,
+        "wilcoxon_W": 7.0,
+        "wilcoxon_p": 1.0
+      }
+    },
+    {
+      "class_id": 2,
+      "class_name": "Clapping",
+      "mean_n_ref": 705.0,
+      "f1_no_geom_mean": 0.0,
+      "f1_full_mean": 0.0,
+      "f1_paired": {
+        "mean_delta": 0.0,
+        "std_delta": 0.0,
+        "t": NaN,
+        "p": NaN,
+        "wilcoxon_W": NaN,
+        "wilcoxon_p": NaN
+      },
+      "er_cd_no_geom_mean": 1.0329078014184396,
+      "er_cd_full_mean": 1.0099290780141845,
+      "er_cd_paired": {
+        "mean_delta": -0.02297872340425533,
+        "std_delta": 0.06843438776890143,
+        "t": -0.7508211769438778,
+        "p": 0.4945163410328954,
+        "wilcoxon_W": 4.0,
+        "wilcoxon_p": 0.875
+      },
+      "le_cd_no_geom_mean": 180.0,
+      "le_cd_full_mean": 180.0,
+      "le_cd_paired": {
+        "mean_delta": 0.0,
+        "std_delta": 0.0,
+        "t": NaN,
+        "p": NaN,
+        "wilcoxon_W": NaN,
+        "wilcoxon_p": NaN
+      },
+      "lr_cd_no_geom_mean": 0.0,
+      "lr_cd_full_mean": 0.0,
+      "lr_cd_paired": {
+        "mean_delta": 0.0,
+        "std_delta": 0.0,
+        "t": NaN,
+        "p": NaN,
+        "wilcoxon_W": NaN,
+        "wilcoxon_p": NaN
+      }
+    },
+    {
+      "class_id": 3,
+      "class_name": "Telephone",
+      "mean_n_ref": 898.0,
+      "f1_no_geom_mean": 0.03020443862259895,
+      "f1_full_mean": 0.01802533554828032,
+      "f1_paired": {
+        "mean_delta": -0.012179103074318626,
+        "std_delta": 0.03265995846136338,
+        "t": -0.8338437543137119,
+        "p": 0.4512683103969076,
+        "wilcoxon_W": 4.0,
+        "wilcoxon_p": 0.4375
+      },
+      "er_cd_no_geom_mean": 7.297772828507794,
+      "er_cd_full_mean": 7.458129175946548,
+      "er_cd_paired": {
+        "mean_delta": 0.1603563474387526,
+        "std_delta": 5.920426925307152,
+        "t": 0.060564499489709114,
+        "p": 0.9546113035762412,
+        "wilcoxon_W": 7.0,
+        "wilcoxon_p": 1.0
+      },
+      "le_cd_no_geom_mean": 14.424306751500378,
+      "le_cd_full_mean": 45.822154352792865,
+      "le_cd_paired": {
+        "mean_delta": 31.397847601292483,
+        "std_delta": 74.58482513723483,
+        "t": 0.9413137518856908,
+        "p": 0.39984117187116,
+        "wilcoxon_W": 7.0,
+        "wilcoxon_p": 1.0
+      },
+      "lr_cd_no_geom_mean": 0.11224944320712693,
+      "lr_cd_full_mean": 0.07639198218262806,
+      "lr_cd_paired": {
+        "mean_delta": -0.035857461024498896,
+        "std_delta": 0.09239541124582766,
+        "t": -0.8677889872474537,
+        "p": 0.43447089189247645,
+        "wilcoxon_W": 4.0,
+        "wilcoxon_p": 0.4375
+      }
+    },
+    {
+      "class_id": 4,
+      "class_name": "Laughter",
+      "mean_n_ref": 4029.0,
+      "f1_no_geom_mean": 0.022626703371875445,
+      "f1_full_mean": 0.012550946132732577,
+      "f1_paired": {
+        "mean_delta": -0.010075757239142866,
+        "std_delta": 0.017169314326666,
+        "t": -1.3122293460791934,
+        "p": 0.25967761367589387,
+        "wilcoxon_W": 3.0,
+        "wilcoxon_p": 0.3125
+      },
+      "er_cd_no_geom_mean": 1.483296103251427,
+      "er_cd_full_mean": 1.6579796475552246,
+      "er_cd_paired": {
+        "mean_delta": 0.17468354430379757,
+        "std_delta": 0.3850464672663691,
+        "t": 1.0144341341110752,
+        "p": 0.3677486672594692,
+        "wilcoxon_W": 5.0,
+        "wilcoxon_p": 0.625
+      },
+      "le_cd_no_geom_mean": 15.20221618788909,
+      "le_cd_full_mean": 15.430817819331697,
+      "le_cd_paired": {
+        "mean_delta": 0.22860163144260426,
+        "std_delta": 2.607803354593577,
+        "t": 0.19601508172485707,
+        "p": 0.8541537026896084,
+        "wilcoxon_W": 7.0,
+        "wilcoxon_p": 1.0
+      },
+      "lr_cd_no_geom_mean": 0.01742367833209233,
+      "lr_cd_full_mean": 0.010970464135021096,
+      "lr_cd_paired": {
+        "mean_delta": -0.006453214197071233,
+        "std_delta": 0.014640676784780003,
+        "t": -0.9855982636689858,
+        "p": 0.38012859984114195,
+        "wilcoxon_W": 4.0,
+        "wilcoxon_p": 0.4375
+      }
+    },
+    {
+      "class_id": 5,
+      "class_name": "Domestic sounds",
+      "mean_n_ref": 16350.0,
+      "f1_no_geom_mean": 0.1269204413694857,
+      "f1_full_mean": 0.1468542930373001,
+      "f1_paired": {
+        "mean_delta": 0.019933851667814396,
+        "std_delta": 0.03887232206518768,
+        "t": 1.1466628442695614,
+        "p": 0.3154494054109767,
+        "wilcoxon_W": 4.0,
+        "wilcoxon_p": 0.4375
+      },
+      "er_cd_no_geom_mean": 3.737235474006116,
+      "er_cd_full_mean": 3.6197431192660554,
+      "er_cd_paired": {
+        "mean_delta": -0.11749235474006108,
+        "std_delta": 0.777683896870227,
+        "t": -0.337824780855835,
+        "p": 0.752480429893944,
+        "wilcoxon_W": 6.0,
+        "wilcoxon_p": 0.8125
+      },
+      "le_cd_no_geom_mean": 11.830205352742365,
+      "le_cd_full_mean": 13.073342585515807,
+      "le_cd_paired": {
+        "mean_delta": 1.2431372327734393,
+        "std_delta": 1.754778889407252,
+        "t": 1.5840966486560366,
+        "p": 0.18834582141797512,
+        "wilcoxon_W": 3.0,
+        "wilcoxon_p": 0.3125
+      },
+      "lr_cd_no_geom_mean": 0.2647951070336392,
+      "lr_cd_full_mean": 0.3069724770642202,
+      "lr_cd_paired": {
+        "mean_delta": 0.04217737003058104,
+        "std_delta": 0.05618163323532873,
+        "t": 1.6786885868108878,
+        "p": 0.16851398104378232,
+        "wilcoxon_W": 2.0,
+        "wilcoxon_p": 0.1875
+      }
+    },
+    {
+      "class_id": 6,
+      "class_name": "Walk, footsteps",
+      "mean_n_ref": 4629.0,
+      "f1_no_geom_mean": 0.015970101003110748,
+      "f1_full_mean": 0.0049788265735857444,
+      "f1_paired": {
+        "mean_delta": -0.010991274429525005,
+        "std_delta": 0.018641813889787053,
+        "t": -1.3183929916411092,
+        "p": 0.2577954613245449,
+        "wilcoxon_W": 4.0,
+        "wilcoxon_p": 0.4375
+      },
+      "er_cd_no_geom_mean": 1.3674659753726506,
+      "er_cd_full_mean": 1.1746381507885073,
+      "er_cd_paired": {
+        "mean_delta": -0.19282782458414344,
+        "std_delta": 0.36472358008668176,
+        "t": -1.1821997459585,
+        "p": 0.30260168507376095,
+        "wilcoxon_W": 3.0,
+        "wilcoxon_p": 0.3125
+      },
+      "le_cd_no_geom_mean": 13.623640895218418,
+      "le_cd_full_mean": 78.90582783431398,
+      "le_cd_paired": {
+        "mean_delta": 65.28218693909557,
+        "std_delta": 92.73879704703482,
+        "t": 1.5740489672475644,
+        "p": 0.19059015402988963,
+        "wilcoxon_W": 6.0,
+        "wilcoxon_p": 0.8125
+      },
+      "lr_cd_no_geom_mean": 0.010887880751782243,
+      "lr_cd_full_mean": 0.0032404406999351917,
+      "lr_cd_paired": {
+        "mean_delta": -0.007647440051847051,
+        "std_delta": 0.012102080784261903,
+        "t": -1.4129963363013074,
+        "p": 0.23053116576468843,
+        "wilcoxon_W": 4.0,
+        "wilcoxon_p": 0.4375
+      }
+    },
+    {
+      "class_id": 7,
+      "class_name": "Door, open or close",
+      "mean_n_ref": 561.0,
+      "f1_no_geom_mean": 0.0,
+      "f1_full_mean": 0.0,
+      "f1_paired": {
+        "mean_delta": 0.0,
+        "std_delta": 0.0,
+        "t": NaN,
+        "p": NaN,
+        "wilcoxon_W": NaN,
+        "wilcoxon_p": NaN
+      },
+      "er_cd_no_geom_mean": 1.003921568627451,
+      "er_cd_full_mean": 1.1233511586452765,
+      "er_cd_paired": {
+        "mean_delta": 0.11942959001782535,
+        "std_delta": 0.16737768588677215,
+        "t": 1.595509463462435,
+        "p": 0.1858296265992725,
+        "wilcoxon_W": 0.0,
+        "wilcoxon_p": 0.25
+      },
+      "le_cd_no_geom_mean": 180.0,
+      "le_cd_full_mean": 180.0,
+      "le_cd_paired": {
+        "mean_delta": 0.0,
+        "std_delta": 0.0,
+        "t": NaN,
+        "p": NaN,
+        "wilcoxon_W": NaN,
+        "wilcoxon_p": NaN
+      },
+      "lr_cd_no_geom_mean": 0.0,
+      "lr_cd_full_mean": 0.0,
+      "lr_cd_paired": {
+        "mean_delta": 0.0,
+        "std_delta": 0.0,
+        "t": NaN,
+        "p": NaN,
+        "wilcoxon_W": NaN,
+        "wilcoxon_p": NaN
+      }
+    },
+    {
+      "class_id": 8,
+      "class_name": "Music",
+      "mean_n_ref": 31491.0,
+      "f1_no_geom_mean": 0.1333119048971869,
+      "f1_full_mean": 0.1264589497670096,
+      "f1_paired": {
+        "mean_delta": -0.006852955130177288,
+        "std_delta": 0.019845625415821057,
+        "t": -0.7721436435868737,
+        "p": 0.4831159897487437,
+        "wilcoxon_W": 5.0,
+        "wilcoxon_p": 0.625
+      },
+      "er_cd_no_geom_mean": 2.939620844050681,
+      "er_cd_full_mean": 3.228738369692928,
+      "er_cd_paired": {
+        "mean_delta": 0.28911752564224685,
+        "std_delta": 0.33011656079896184,
+        "t": 1.9583581001145445,
+        "p": 0.12178372231729137,
+        "wilcoxon_W": 1.0,
+        "wilcoxon_p": 0.125
+      },
+      "le_cd_no_geom_mean": 11.825686607194159,
+      "le_cd_full_mean": 12.327214932516256,
+      "le_cd_paired": {
+        "mean_delta": 0.5015283253220968,
+        "std_delta": 0.7629458645013785,
+        "t": 1.4698964634859901,
+        "p": 0.2155332344554141,
+        "wilcoxon_W": 3.0,
+        "wilcoxon_p": 0.3125
+      },
+      "lr_cd_no_geom_mean": 0.2259502715061446,
+      "lr_cd_full_mean": 0.23273316185576834,
+      "lr_cd_paired": {
+        "mean_delta": 0.0067828903496236995,
+        "std_delta": 0.0510049834240976,
+        "t": 0.29736317684048436,
+        "p": 0.7809929436420062,
+        "wilcoxon_W": 7.0,
+        "wilcoxon_p": 1.0
+      }
+    },
+    {
+      "class_id": 9,
+      "class_name": "Musical instrument",
+      "mean_n_ref": 25847.0,
+      "f1_no_geom_mean": 0.05199647354924895,
+      "f1_full_mean": 0.048187118404834826,
+      "f1_paired": {
+        "mean_delta": -0.0038093551444141303,
+        "std_delta": 0.03655205869142,
+        "t": -0.23303686189768513,
+        "p": 0.8271719663304073,
+        "wilcoxon_W": 6.0,
+        "wilcoxon_p": 0.8125
+      },
+      "er_cd_no_geom_mean": 2.2861686075753473,
+      "er_cd_full_mean": 2.273122606105157,
+      "er_cd_paired": {
+        "mean_delta": -0.013046001470189816,
+        "std_delta": 0.4067601548059227,
+        "t": -0.07171731492684018,
+        "p": 0.9462695718645665,
+        "wilcoxon_W": 7.0,
+        "wilcoxon_p": 1.0
+      },
+      "le_cd_no_geom_mean": 11.93773042476247,
+      "le_cd_full_mean": 13.00164766467562,
+      "le_cd_paired": {
+        "mean_delta": 1.0639172399131478,
+        "std_delta": 2.3522602268473514,
+        "t": 1.011363982491098,
+        "p": 0.36904980296824863,
+        "wilcoxon_W": 4.0,
+        "wilcoxon_p": 0.4375
+      },
+      "lr_cd_no_geom_mean": 0.06416992300847293,
+      "lr_cd_full_mean": 0.0573838356482377,
+      "lr_cd_paired": {
+        "mean_delta": -0.006786087360235234,
+        "std_delta": 0.03580781552956544,
+        "t": -0.42376649941712424,
+        "p": 0.6935308360995811,
+        "wilcoxon_W": 6.0,
+        "wilcoxon_p": 0.8125
+      }
+    },
+    {
+      "class_id": 10,
+      "class_name": "Water tap, faucet",
+      "mean_n_ref": 2673.0,
+      "f1_no_geom_mean": 0.2112708250795027,
+      "f1_full_mean": 0.19018903407463159,
+      "f1_paired": {
+        "mean_delta": -0.02108179100487111,
+        "std_delta": 0.1021592867821592,
+        "t": -0.46143937824131176,
+        "p": 0.6684606644061022,
+        "wilcoxon_W": 7.0,
+        "wilcoxon_p": 1.0
+      },
+      "er_cd_no_geom_mean": 1.7272727272727273,
+      "er_cd_full_mean": 1.3715675271230827,
+      "er_cd_paired": {
+        "mean_delta": -0.35570520014964463,
+        "std_delta": 0.40092870020341903,
+        "t": -1.9838465220405064,
+        "p": 0.1182799606282608,
+        "wilcoxon_W": 2.0,
+        "wilcoxon_p": 0.1875
+      },
+      "le_cd_no_geom_mean": 12.811521622935043,
+      "le_cd_full_mean": 11.423646936583959,
+      "le_cd_paired": {
+        "mean_delta": -1.3878746863510862,
+        "std_delta": 4.104475440619904,
+        "t": -0.7560971402629518,
+        "p": 0.4916766647160802,
+        "wilcoxon_W": 4.0,
+        "wilcoxon_p": 0.4375
+      },
+      "lr_cd_no_geom_mean": 0.22783389450056113,
+      "lr_cd_full_mean": 0.16213991769547326,
+      "lr_cd_paired": {
+        "mean_delta": -0.0656939768050879,
+        "std_delta": 0.1023229450129775,
+        "t": -1.435613467046324,
+        "p": 0.22444827556117936,
+        "wilcoxon_W": 3.0,
+        "wilcoxon_p": 0.3125
+      }
+    },
+    {
+      "class_id": 11,
+      "class_name": "Bell",
+      "mean_n_ref": 1171.0,
+      "f1_no_geom_mean": 0.01786338986337077,
+      "f1_full_mean": 0.01618769574186911,
+      "f1_paired": {
+        "mean_delta": -0.0016756941215016624,
+        "std_delta": 0.0179741193006718,
+        "t": -0.20846450958153276,
+        "p": 0.8450511772534428,
+        "wilcoxon_W": 6.0,
+        "wilcoxon_p": 0.8125
+      },
+      "er_cd_no_geom_mean": 4.4590947907771135,
+      "er_cd_full_mean": 5.307258753202391,
+      "er_cd_paired": {
+        "mean_delta": 0.8481639624252775,
+        "std_delta": 4.423354592205008,
+        "t": 0.4287588156261922,
+        "p": 0.6901801726520475,
+        "wilcoxon_W": 6.0,
+        "wilcoxon_p": 0.8125
+      },
+      "le_cd_no_geom_mean": 14.09129177989496,
+      "le_cd_full_mean": 47.49625721971218,
+      "le_cd_paired": {
+        "mean_delta": 33.40496543981722,
+        "std_delta": 72.71438518437989,
+        "t": 1.0272489180793924,
+        "p": 0.36236111545608546,
+        "wilcoxon_W": 3.0,
+        "wilcoxon_p": 0.3125
+      },
+      "lr_cd_no_geom_mean": 0.04116140051238258,
+      "lr_cd_full_mean": 0.06746370623398804,
+      "lr_cd_paired": {
+        "mean_delta": 0.026302305721605468,
+        "std_delta": 0.09507577500786886,
+        "t": 0.618598623609682,
+        "p": 0.5696679953653823,
+        "wilcoxon_W": 6.0,
+        "wilcoxon_p": 0.8125
+      }
+    },
+    {
+      "class_id": 12,
+      "class_name": "Knock",
+      "mean_n_ref": 74.0,
+      "f1_no_geom_mean": 0.0,
+      "f1_full_mean": 0.0,
+      "f1_paired": {
+        "mean_delta": 0.0,
+        "std_delta": 0.0,
+        "t": NaN,
+        "p": NaN,
+        "wilcoxon_W": NaN,
+        "wilcoxon_p": NaN
+      },
+      "er_cd_no_geom_mean": 1.0,
+      "er_cd_full_mean": 1.0,
+      "er_cd_paired": {
+        "mean_delta": 0.0,
+        "std_delta": 0.0,
+        "t": NaN,
+        "p": NaN,
+        "wilcoxon_W": NaN,
+        "wilcoxon_p": NaN
+      },
+      "le_cd_no_geom_mean": 180.0,
+      "le_cd_full_mean": 180.0,
+      "le_cd_paired": {
+        "mean_delta": 0.0,
+        "std_delta": 0.0,
+        "t": NaN,
+        "p": NaN,
+        "wilcoxon_W": NaN,
+        "wilcoxon_p": NaN
+      },
+      "lr_cd_no_geom_mean": 0.0,
+      "lr_cd_full_mean": 0.0,
+      "lr_cd_paired": {
+        "mean_delta": 0.0,
+        "std_delta": 0.0,
+        "t": NaN,
+        "p": NaN,
+        "wilcoxon_W": NaN,
+        "wilcoxon_p": NaN
+      }
+    }
+  ]
+}

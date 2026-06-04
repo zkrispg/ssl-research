@@ -1,0 +1,73 @@
+\section{Introduction}
+\label{sec:intro}
+
+\IEEEPARstart{S}{ound} event localization and detection (SELD) jointly answers
+\emph{what} sound events are active and \emph{where} they originate, and
+underpins far-field automatic speech recognition, robot audition, augmented
+reality, and acoustic monitoring~\cite{adavanne2018seld,politis2020overview}.
+SELD systems consume multichannel audio delivered either as a compact microphone
+array (MIC) or as first-order Ambisonics (FOA), and a recurring design question
+is how much \emph{array geometry} the network should be told explicitly. Many
+methods inject geometry through attention biases, positional encodings, or
+geometry-derived features~\cite{kowalk2022geometry}, on the intuition
+that more spatial prior helps; a geometry-invariant line argues instead
+that inter-channel phase already suffices~\cite{baek2025gidoaenet,neuralsrp2024}.
+
+This tension is rarely resolved in a controlled manner, because comparisons that
+motivate geometry priors typically change the architecture, the input format,
+and the parameter count at once, confounding geometry with capacity and
+modality. We instead isolate the prior with a single \emph{one-bit} intervention:
+inside a geometry-aware channel-attention (GCA) block we toggle one additive
+geometry bias on or off, holding the backbone, loss, optimizer, data, training
+recipe, and parameter count (to within $80$ parameters) fixed. We embed this
+toggle in the official DCASE~2024 SELD baseline~\cite{krause2024sde} and cross it
+with two input modalities (MIC, FOA) and \emph{three} temporal backbones chosen
+to span the locality--globality spectrum: a convolutional-recurrent network with
+multi-head self-attention (CRNN+MHSA), a convolution--attention hybrid
+(Conformer), and a Transformer-only temporal stack.
+
+Our central finding is that the prior's effect on \emph{direction} is not binary
+but \emph{graded by the backbone's temporal inductive bias}. As locality is
+stripped away---recurrent, then convolution--attention hybrid, then pure
+self-attention---the prior's effect on class-dependent localization error moves
+monotonically from helpful, through neutral, to harmful. A factorial ANOVA over
+the recurrent and Transformer extremes confirms a significant
+architecture$\times$prior interaction ($F=4.62$, $p=0.039$ at $n=5$), with the
+Conformer between them. The most robust effect is the recurrent \emph{benefit} on
+Ambisonics: the prior improves localization by $5.0\degsym$ in-domain (a trend,
+$p=0.082$) and replicates zero-shot on an independent
+dataset at full significance ($\dz=-1.50$, $p=0.029$); the Transformer harm
+reproduces directionally in- and cross-domain ($+5.6$--$5.7\degsym$).
+Orthogonally, the prior's effect on \emph{distance} follows a different rule: it
+improves relative distance error for Ambisonics across all three backbones but not
+the microphone array, so the architecture that governs direction is inert on
+distance---a dissociation (the modality$\times$prior interaction a non-significant
+trend at $n=5$) that underscores the prior's context-dependent value.
+
+\subsection{Contributions}
+\begin{enumerate}
+  \item We show that the effect of an array-geometry prior on SELD \emph{direction}
+  is \textbf{graded by temporal inductive bias}: it helps a recurrent model, is
+  neutral in a convolution--attention Conformer, and harms a Transformer,
+  established by multi-seed paired ablation ($n=5$) on STARSS23 across six
+  modality$\times$backbone cells, with a significant recurrent-versus-Transformer
+  architecture$\times$prior interaction ($p=0.039$, seed-matched $p=0.029$) and a
+  monotone trend across all three backbones (Sections~\ref{sec:main}--\ref{sec:anova}).
+  \item We establish a \textbf{dissociation}: the temporal architecture that
+  governs the direction effect is inert on \emph{distance}, whose prior benefit is
+  independent of backbone and concentrated in Ambisonics by effect size (the
+  modality$\times$prior interaction being a non-significant trend at $n=5$;
+  Section~\ref{sec:synth}).
+  \item We \textbf{anchor the pattern} with a zero-shot \emph{cross-dataset
+  replication} on STARSS22: the full architecture ordering holds out-of-domain,
+  and the recurrent Ambisonic benefit is significant there ($\dz=-1.50$,
+  $p=0.029$) while the Transformer harm reproduces directionally
+  (Section~\ref{sec:cross}). A controlled linear probe finds \emph{no} significant
+  change in linearly decodable direction in any cell (Section~\ref{sec:probing}),
+  indicating the effect is behavioural rather than a change in linear feature
+  content---a negative result we report in full.
+  \item We provide a \textbf{reproducible, statistically grounded protocol}
+  (one-bit ablation, multi-seed paired tests, factorial interaction test, and
+  probing) and release more than $100$ checkpoints trained on a single 4\,GB GPU,
+  arguing that geometry priors should be ablated rather than assumed.
+\end{enumerate}

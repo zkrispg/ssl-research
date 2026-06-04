@@ -1,0 +1,59 @@
+{
+  "tag": "seldnet_n5_extension",
+  "specs": [
+    {
+      "variant": "seldnet_official",
+      "seed": 3,
+      "suffix": "baseline_mc8_inmem"
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 4,
+      "suffix": "baseline_mc8_inmem"
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 3,
+      "suffix": "baseline_mc8_inmem_specaug"
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 4,
+      "suffix": "baseline_mc8_inmem_specaug"
+    }
+  ],
+  "started_at": "2026-05-18 09:45:59",
+  "completed": [
+    {
+      "variant": "seldnet_official",
+      "seed": 3,
+      "best_eval_loss": 0.02116349210532812,
+      "elapsed_s": 3141.337501525879
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 4,
+      "best_eval_loss": 0.021853481514904745,
+      "elapsed_s": 3066.0096638202667
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 3,
+      "best_eval_loss": 0.023276277316304352,
+      "elapsed_s": 3094.1624393463135
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 4,
+      "best_eval_loss": 0.023026144299178552,
+      "elapsed_s": 3021.854388475418
+    }
+  ],
+  "current": {
+    "variant": "seldnet_official",
+    "seed": 4,
+    "stage": "eval",
+    "since": "13:19:27"
+  },
+  "errors": []
+}

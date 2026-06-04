@@ -1,0 +1,388 @@
+{
+  "dv": "LE",
+  "n_rows_total": 60,
+  "focal_ols_2level": {
+    "n_obs": 40,
+    "rsquared": 0.25173451664922075,
+    "terms": {
+      "C(modality, Treatment('MIC'))": {
+        "raw": "C(modality, Treatment('MIC'))",
+        "F": 4.40587734318252,
+        "p": 0.04379298559279082
+      },
+      "C(arch, Treatment('CRNN'))": {
+        "raw": "C(arch, Treatment('CRNN'))",
+        "F": 0.34919451832959264,
+        "p": 0.5587205546155738
+      },
+      "C(prior, Treatment('nogeom'))": {
+        "raw": "C(prior, Treatment('nogeom'))",
+        "F": 0.12821638692242388,
+        "p": 0.7226398729893835
+      },
+      "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN'))": {
+        "raw": "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN'))",
+        "F": 0.026905326676643335,
+        "p": 0.8707404301039848
+      },
+      "C(modality, Treatment('MIC')):C(prior, Treatment('nogeom'))": {
+        "raw": "C(modality, Treatment('MIC')):C(prior, Treatment('nogeom'))",
+        "F": 1.2146539579849827,
+        "p": 0.27863282268855244
+      },
+      "arch:prior (FOCAL)": {
+        "raw": "C(arch, Treatment('CRNN')):C(prior, Treatment('nogeom'))",
+        "F": 4.617092812534199,
+        "p": 0.039323505070333095
+      },
+      "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN')):C(prior, Treatment('nogeom'))": {
+        "raw": "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN')):C(prior, Treatment('nogeom'))",
+        "F": 0.023629778895467895,
+        "p": 0.8787960039515604
+      }
+    }
+  },
+  "mixed_model_2level": {
+    "converged": false,
+    "note": "Singular matrix",
+    "seed_var": 0.0,
+    "icc_seed": 0.0,
+    "p_lrt": null,
+    "wald_arch_prior": {}
+  },
+  "trend_pooled": {
+    "label": "pooled over modality (n=10/arch)",
+    "n_per_arch": [
+      10,
+      10,
+      10
+    ],
+    "arch_mean_delta": {
+      "CRNN": -2.9529999999999985,
+      "Conformer": -0.4769999999999982,
+      "Xfm": 4.133999999999999
+    },
+    "jonckheere": {
+      "J": 192.0,
+      "EJ": 150.0,
+      "varJ": 691.6666666666666,
+      "z": 1.5969851113216844,
+      "p_one_sided_increasing": 0.0551345130349778,
+      "p_two_sided": 0.1102690260699556,
+      "group_sizes": [
+        10,
+        10,
+        10
+      ]
+    },
+    "linear_trend": {
+      "slope_per_step": 3.543499999999996,
+      "p": 0.07258256822285307
+    },
+    "spearman": {
+      "rho": 0.2829999783819469,
+      "p": 0.12968061868507286
+    }
+  },
+  "trend_MIC": {
+    "label": "MIC only (n=5/arch)",
+    "n_per_arch": [
+      5,
+      5,
+      5
+    ],
+    "arch_mean_delta": {
+      "CRNN": -0.8819999999999979,
+      "Conformer": -1.8319999999999994,
+      "Xfm": 5.697999999999998
+    },
+    "jonckheere": {
+      "J": 43.0,
+      "EJ": 37.5,
+      "varJ": 89.58333333333333,
+      "z": 0.5810975981749117,
+      "p_one_sided_increasing": 0.28058733865721175,
+      "p_two_sided": 0.5611746773144235,
+      "group_sizes": [
+        5,
+        5,
+        5
+      ]
+    },
+    "linear_trend": {
+      "slope_per_step": 3.2899999999999974,
+      "p": 0.35734862298915804
+    },
+    "spearman": {
+      "rho": 0.1322875655532295,
+      "p": 0.6383735915287511
+    }
+  },
+  "trend_FOA": {
+    "label": "FOA only (n=5/arch)",
+    "n_per_arch": [
+      5,
+      5,
+      5
+    ],
+    "arch_mean_delta": {
+      "CRNN": -5.023999999999999,
+      "Conformer": 0.878000000000003,
+      "Xfm": 2.5700000000000003
+    },
+    "jonckheere": {
+      "J": 53.0,
+      "EJ": 37.5,
+      "varJ": 89.58333333333333,
+      "z": 1.6376386857656604,
+      "p_one_sided_increasing": 0.05074854400046392,
+      "p_two_sided": 0.10149708800092784,
+      "group_sizes": [
+        5,
+        5,
+        5
+      ]
+    },
+    "linear_trend": {
+      "slope_per_step": 3.7969999999999993,
+      "p": 0.06367391023226655
+    },
+    "spearman": {
+      "rho": 0.4157609203101499,
+      "p": 0.12324352609370373
+    }
+  },
+  "paired_second_difference": {
+    "n_pairs": 10,
+    "mean_2nd_diff_CRNN_minus_Xfm": -7.086999999999998,
+    "t": -2.5853957279078683,
+    "p": 0.029434938708802514,
+    "cohens_dz": -0.8175739153057818,
+    "per_modality": {
+      "MIC": {
+        "n": 5,
+        "mean_2nd_diff": -6.579999999999996,
+        "t": -1.3029186973109705,
+        "p": 0.26254608156146375
+      },
+      "FOA": {
+        "n": 5,
+        "mean_2nd_diff": -7.593999999999999,
+        "t": -2.6551918441050435,
+        "p": 0.05667384218923531
+      }
+    }
+  },
+  "per_seed_deltas": [
+    {
+      "modality": "MIC",
+      "arch": "CRNN",
+      "arch_rank": 0,
+      "seed": 0,
+      "delta": 11.82
+    },
+    {
+      "modality": "MIC",
+      "arch": "CRNN",
+      "arch_rank": 0,
+      "seed": 1,
+      "delta": -2.049999999999997
+    },
+    {
+      "modality": "MIC",
+      "arch": "CRNN",
+      "arch_rank": 0,
+      "seed": 2,
+      "delta": -13.04
+    },
+    {
+      "modality": "MIC",
+      "arch": "CRNN",
+      "arch_rank": 0,
+      "seed": 3,
+      "delta": 12.940000000000005
+    },
+    {
+      "modality": "MIC",
+      "arch": "CRNN",
+      "arch_rank": 0,
+      "seed": 4,
+      "delta": -14.079999999999998
+    },
+    {
+      "modality": "MIC",
+      "arch": "Conformer",
+      "arch_rank": 1,
+      "seed": 0,
+      "delta": -11.5
+    },
+    {
+      "modality": "MIC",
+      "arch": "Conformer",
+      "arch_rank": 1,
+      "seed": 1,
+      "delta": -15.149999999999999
+    },
+    {
+      "modality": "MIC",
+      "arch": "Conformer",
+      "arch_rank": 1,
+      "seed": 2,
+      "delta": 12.71
+    },
+    {
+      "modality": "MIC",
+      "arch": "Conformer",
+      "arch_rank": 1,
+      "seed": 3,
+      "delta": 6.68
+    },
+    {
+      "modality": "MIC",
+      "arch": "Conformer",
+      "arch_rank": 1,
+      "seed": 4,
+      "delta": -1.8999999999999986
+    },
+    {
+      "modality": "MIC",
+      "arch": "Xfm",
+      "arch_rank": 2,
+      "seed": 0,
+      "delta": 4.75
+    },
+    {
+      "modality": "MIC",
+      "arch": "Xfm",
+      "arch_rank": 2,
+      "seed": 1,
+      "delta": 11.589999999999996
+    },
+    {
+      "modality": "MIC",
+      "arch": "Xfm",
+      "arch_rank": 2,
+      "seed": 2,
+      "delta": 8.11
+    },
+    {
+      "modality": "MIC",
+      "arch": "Xfm",
+      "arch_rank": 2,
+      "seed": 3,
+      "delta": 11.669999999999995
+    },
+    {
+      "modality": "MIC",
+      "arch": "Xfm",
+      "arch_rank": 2,
+      "seed": 4,
+      "delta": -7.630000000000003
+    },
+    {
+      "modality": "FOA",
+      "arch": "CRNN",
+      "arch_rank": 0,
+      "seed": 0,
+      "delta": -1.5
+    },
+    {
+      "modality": "FOA",
+      "arch": "CRNN",
+      "arch_rank": 0,
+      "seed": 1,
+      "delta": -10.189999999999998
+    },
+    {
+      "modality": "FOA",
+      "arch": "CRNN",
+      "arch_rank": 0,
+      "seed": 2,
+      "delta": -10.400000000000006
+    },
+    {
+      "modality": "FOA",
+      "arch": "CRNN",
+      "arch_rank": 0,
+      "seed": 3,
+      "delta": -2.5799999999999983
+    },
+    {
+      "modality": "FOA",
+      "arch": "CRNN",
+      "arch_rank": 0,
+      "seed": 4,
+      "delta": -0.44999999999999574
+    },
+    {
+      "modality": "FOA",
+      "arch": "Conformer",
+      "arch_rank": 1,
+      "seed": 0,
+      "delta": 6.260000000000005
+    },
+    {
+      "modality": "FOA",
+      "arch": "Conformer",
+      "arch_rank": 1,
+      "seed": 1,
+      "delta": 5.600000000000001
+    },
+    {
+      "modality": "FOA",
+      "arch": "Conformer",
+      "arch_rank": 1,
+      "seed": 2,
+      "delta": -9.36
+    },
+    {
+      "modality": "FOA",
+      "arch": "Conformer",
+      "arch_rank": 1,
+      "seed": 3,
+      "delta": -1.5899999999999963
+    },
+    {
+      "modality": "FOA",
+      "arch": "Conformer",
+      "arch_rank": 1,
+      "seed": 4,
+      "delta": 3.480000000000004
+    },
+    {
+      "modality": "FOA",
+      "arch": "Xfm",
+      "arch_rank": 2,
+      "seed": 0,
+      "delta": 10.240000000000002
+    },
+    {
+      "modality": "FOA",
+      "arch": "Xfm",
+      "arch_rank": 2,
+      "seed": 1,
+      "delta": -4.079999999999998
+    },
+    {
+      "modality": "FOA",
+      "arch": "Xfm",
+      "arch_rank": 2,
+      "seed": 2,
+      "delta": 1.5
+    },
+    {
+      "modality": "FOA",
+      "arch": "Xfm",
+      "arch_rank": 2,
+      "seed": 3,
+      "delta": 8.649999999999999
+    },
+    {
+      "modality": "FOA",
+      "arch": "Xfm",
+      "arch_rank": 2,
+      "seed": 4,
+      "delta": -3.460000000000001
+    }
+  ]
+}

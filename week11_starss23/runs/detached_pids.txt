@@ -1,0 +1,28 @@
+Detached process PIDs (launched 2026-05-17 18:35:54)
+=====================================================
+
+Queue runner (run_specaug_queue):
+  - launcher: 8060   (D:\ssl-research\venv\Scripts\python.exe)
+  - actual:   4236   (system Python.exe inside venv)
+  - subproc:  16112  (train_seld for current cell)
+
+Supervisor chain (_supervisor_chain):
+  - launcher: 3684
+  - actual:   18872
+
+Both launchers have parent process 7036 which has already exited;
+they are now orphan processes owned by Windows directly.
+
+Survives:
+  ✓ Cursor IDE close
+  ✓ PowerShell session close
+  ✗ System reboot (Windows Update etc.)
+  ✗ Power loss / battery dying
+
+To stop all queue + supervisor processes:
+  Get-Process python | Stop-Process -Force
+
+To check status:
+  D:\ssl-research\venv\Scripts\python.exe -m week11_starss23._check_queues_status
+2026-05-19 14:31:53  G5 (capacity N=5 ext)  PID=1956
+2026-05-19 14:52:20  Path B orchestrator  PID=25044

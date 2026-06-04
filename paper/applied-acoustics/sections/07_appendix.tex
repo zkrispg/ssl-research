@@ -1,0 +1,94 @@
+\appendix
+
+\section{Complete per-cell results}
+\label{sec:appendix_cells}
+Table~\ref{tab:allcells} reports every trained configuration in the grid---the
+six modality$\times$backbone cells in their \texttt{full}, \texttt{no\_geom}, and
+\texttt{no-GCA} variants, plus the FOA baseline and the squeeze-and-excitation
+control---with all four primary metrics averaged over five seeds
+(mean\,$\pm$\,std). These are the raw numbers underlying the paired contrasts in
+the main text. The FOA no-GCA baseline (row~100) matches the published DCASE~2024
+figure ($13.1\%$), confirming pipeline parity.
+
+\begin{table*}[t]
+\centering
+\renewcommand{\arraystretch}{0.92}
+\caption{Complete in-domain (STARSS23 dev-test) results for all configurations,
+mean\,$\pm$\,std over five seeds. $F_{20\degsym}$ and SELD score: higher/lower is
+better respectively; DOAE$_\mathrm{CD}$ and RDE: lower is better. ``full'' $=$
+geometry-aware GCA, ``no\_geom'' $=$ GCA with the geometry bias disabled,
+``no-GCA'' $=$ channel attention removed, ``SE'' $=$ vanilla squeeze-and-excitation.}
+\label{tab:allcells}
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llccccc}
+\toprule
+ID & Configuration & $n$ & $F_{20\degsym}$ (\%) & DOAE$_\mathrm{CD}$ (\degsym) & RDE & SELD \\
+\midrule
+100 & FOA no-GCA (baseline) & 5 & 13.21\,$\pm$\,0.63 & 41.5\,$\pm$\,5.5 & 0.27\,$\pm$\,0.01 & 0.526\,$\pm$\,0.009 \\
+\midrule
+110 & MIC CRNN full        & 5 & 9.59\,$\pm$\,0.41 & 45.4\,$\pm$\,6.4 & 0.28\,$\pm$\,0.05 & 0.547\,$\pm$\,0.026 \\
+111 & MIC CRNN no\_geom     & 5 & 9.99\,$\pm$\,0.54 & 46.3\,$\pm$\,7.5 & 0.30\,$\pm$\,0.03 & 0.545\,$\pm$\,0.024 \\
+112 & MIC CRNN no-GCA       & 5 & 9.72\,$\pm$\,0.46 & 46.3\,$\pm$\,4.2 & 0.29\,$\pm$\,0.03 & 0.579\,$\pm$\,0.031 \\
+113 & MIC CRNN SE          & 5 & 10.06\,$\pm$\,0.59 & 44.8\,$\pm$\,7.3 & 0.30\,$\pm$\,0.04 & 0.558\,$\pm$\,0.037 \\
+\midrule
+130 & FOA CRNN full        & 5 & 12.79\,$\pm$\,0.65 & 40.1\,$\pm$\,2.2 & 0.26\,$\pm$\,0.01 & 0.531\,$\pm$\,0.002 \\
+131 & FOA CRNN no\_geom     & 5 & 12.64\,$\pm$\,0.60 & 45.1\,$\pm$\,5.9 & 0.29\,$\pm$\,0.01 & 0.538\,$\pm$\,0.011 \\
+\midrule
+160 & MIC Conformer no-GCA  & 5 & 5.50\,$\pm$\,3.46 & 52.2\,$\pm$\,4.3 & 0.31\,$\pm$\,0.04 & 0.718\,$\pm$\,0.121 \\
+161 & MIC Conformer full    & 5 & 4.29\,$\pm$\,2.78 & 45.9\,$\pm$\,9.1 & 0.30\,$\pm$\,0.03 & 0.740\,$\pm$\,0.080 \\
+162 & MIC Conformer no\_geom & 5 & 4.76\,$\pm$\,2.87 & 47.8\,$\pm$\,5.3 & 0.31\,$\pm$\,0.03 & 0.698\,$\pm$\,0.111 \\
+170 & FOA Conformer no-GCA  & 5 & 7.28\,$\pm$\,3.11 & 48.6\,$\pm$\,7.9 & 0.28\,$\pm$\,0.05 & 0.655\,$\pm$\,0.111 \\
+171 & FOA Conformer full    & 5 & 7.22\,$\pm$\,1.15 & 48.7\,$\pm$\,6.8 & 0.29\,$\pm$\,0.04 & 0.651\,$\pm$\,0.022 \\
+172 & FOA Conformer no\_geom & 5 & 6.67\,$\pm$\,2.24 & 47.8\,$\pm$\,4.9 & 0.30\,$\pm$\,0.01 & 0.684\,$\pm$\,0.065 \\
+\midrule
+140 & MIC Transformer no-GCA  & 5 & 9.61\,$\pm$\,0.44 & 41.1\,$\pm$\,5.1 & 0.29\,$\pm$\,0.03 & 0.603\,$\pm$\,0.032 \\
+141 & MIC Transformer full    & 5 & 9.13\,$\pm$\,0.75 & 48.0\,$\pm$\,5.2 & 0.29\,$\pm$\,0.04 & 0.630\,$\pm$\,0.055 \\
+142 & MIC Transformer no\_geom & 5 & 9.63\,$\pm$\,0.59 & 42.3\,$\pm$\,3.1 & 0.30\,$\pm$\,0.02 & 0.599\,$\pm$\,0.030 \\
+150 & FOA Transformer no-GCA  & 5 & 10.95\,$\pm$\,0.64 & 36.0\,$\pm$\,3.1 & 0.31\,$\pm$\,0.04 & 0.643\,$\pm$\,0.065 \\
+151 & FOA Transformer full    & 5 & 11.13\,$\pm$\,0.50 & 42.7\,$\pm$\,5.1 & 0.28\,$\pm$\,0.03 & 0.598\,$\pm$\,0.034 \\
+152 & FOA Transformer no\_geom & 5 & 10.75\,$\pm$\,1.09 & 40.1\,$\pm$\,4.2 & 0.30\,$\pm$\,0.02 & 0.631\,$\pm$\,0.071 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\section{Per-class detection}
+\label{sec:appendix_perclass}
+Table~\ref{tab:perclass} breaks the location-aware $F_{20\degsym}$ down by class
+for the six geometry-aware (\texttt{full}) cells. Detectable performance
+concentrates in a handful of well-represented classes---speech (male/female),
+music, domestic sounds, and water tap---while sparse or transient classes
+(clapping, door, knock) sit at the floor across \emph{all} cells. The
+architecture ordering of the geometry effect is therefore a property of the
+shared localization representation rather than of any single class's
+detectability.
+
+\begin{table*}[t]
+\centering
+\renewcommand{\arraystretch}{0.92}
+\caption{Per-class location-aware $F_{20\degsym}$ (\%, mean over five seeds) for
+the geometry-aware (\texttt{full}) cells on STARSS23 dev-test. Classes are sorted
+by overall detectability.}
+\label{tab:perclass}
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{2}{c}{CRNN} & \multicolumn{2}{c}{Conformer} & \multicolumn{2}{c}{Transformer} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Class & MIC & FOA & MIC & FOA & MIC & FOA \\
+\midrule
+Male speech    & 36.9 & 40.1 & 16.5 & 29.9 & 32.5 & 31.9 \\
+Female speech  & 34.4 & 37.9 & 14.1 & 27.8 & 32.5 & 29.9 \\
+Domestic sounds& 24.6 & 42.0 &  3.5 &  3.5 & 21.7 & 22.7 \\
+Music          & 18.4 & 17.1 & 10.4 &  7.8 & 15.5 & 12.6 \\
+Water tap      &  3.5 & 14.4 &  7.2 & 18.3 &  9.4 & 40.9 \\
+Laughter       &  2.7 &  3.8 &  1.4 &  3.1 &  0.3 &  1.1 \\
+Footsteps      &  3.1 &  3.9 &  0.8 &  0.0 &  1.2 &  2.3 \\
+Instrument     &  2.3 &  2.7 &  1.2 &  0.2 &  1.1 &  0.8 \\
+Telephone      &  0.0 &  2.9 &  0.2 &  2.4 &  4.7 &  2.4 \\
+Bell           &  0.5 &  2.2 &  0.0 &  1.2 &  0.6 &  0.3 \\
+Clapping       &  0.0 &  0.0 &  0.0 &  0.0 &  0.0 &  0.0 \\
+Door open      &  0.0 &  0.0 &  0.0 &  0.0 &  0.0 &  0.0 \\
+Knock          &  0.0 &  0.0 &  0.0 &  0.0 &  0.0 &  0.0 \\
+\bottomrule
+\end{tabular}
+\end{table*}

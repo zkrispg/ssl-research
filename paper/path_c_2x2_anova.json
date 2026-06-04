@@ -1,0 +1,977 @@
+{
+  "n_rows_total": 60,
+  "anovas": {
+    "F1": {
+      "n_obs": 60,
+      "rsquared": 0.805479267187527,
+      "aov": [
+        {
+          "index": "C(modality, Treatment('MIC'))",
+          "sum_sq": 79.55713500000083,
+          "df": 1.0,
+          "F": 36.914280787078695,
+          "PR(>F)": 1.9210459762896366e-07
+        },
+        {
+          "index": "C(arch, Treatment('CRNN'))",
+          "sum_sq": 341.29218999999915,
+          "df": 2.0,
+          "F": 79.1792950569226,
+          "PR(>F)": 6.292865486692138e-16
+        },
+        {
+          "index": "C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.036014999999977725,
+          "df": 1.0,
+          "F": 0.016710855947059972,
+          "PR(>F)": 0.8976838045517803
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN'))",
+          "sum_sq": 4.774389999999976,
+          "df": 2.0,
+          "F": 1.1076515830228046,
+          "PR(>F)": 0.33862854199203246
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 2.4928816666666695,
+          "df": 1.0,
+          "F": 1.1566898910109469,
+          "PR(>F)": 0.2875294653746798
+        },
+        {
+          "index": "C(arch, Treatment('CRNN')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.06799000000000091,
+          "df": 2.0,
+          "F": 0.015773581783164313,
+          "PR(>F)": 0.9843552697502549
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.14484333333333335,
+          "df": 2.0,
+          "F": 0.03360344409588811,
+          "PR(>F)": 0.9669776067819725
+        },
+        {
+          "index": "Residual",
+          "sum_sq": 103.44891999999997,
+          "df": 48.0,
+          "F": NaN,
+          "PR(>F)": NaN
+        }
+      ],
+      "coef": {
+        "Intercept": 9.988000000000023,
+        "C(modality, Treatment('MIC'))[T.FOA]": 2.6520000000000072,
+        "C(arch, Treatment('CRNN'))[T.Conformer]": -5.225999999999992,
+        "C(arch, Treatment('CRNN'))[T.Xfm]": -0.36199999999999716,
+        "C(prior, Treatment('nogeom'))[T.full]": -0.4019999999999837,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]": -0.7439999999999916,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]": -1.5259999999999931,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(prior, Treatment('nogeom'))[T.full]": 0.5520000000000009,
+        "C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": -0.07200000000000006,
+        "C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": -0.09199999999999924,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.4720000000000013,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.3179999999999955
+      },
+      "p_values": {
+        "Intercept": 5.45738208143115e-20,
+        "C(modality, Treatment('MIC'))[T.FOA]": 0.006316490995003865,
+        "C(arch, Treatment('CRNN'))[T.Conformer]": 9.211670486739221e-07,
+        "C(arch, Treatment('CRNN'))[T.Xfm]": 0.6983465002270136,
+        "C(prior, Treatment('nogeom'))[T.full]": 0.6669788905606606,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]": 0.5736180350531552,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]": 0.2509151287191581,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(prior, Treatment('nogeom'))[T.full]": 0.6760771270858077,
+        "C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.9564987938186886,
+        "C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.9444331031157994,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.8004430142129692,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.864748881944423
+      }
+    },
+    "LE": {
+      "n_obs": 60,
+      "rsquared": 0.24134144669001456,
+      "aov": [
+        {
+          "index": "C(modality, Treatment('MIC'))",
+          "sum_sq": 50.6001666666651,
+          "df": 1.0,
+          "F": 1.518899137949986,
+          "PR(>F)": 0.22378887748257678
+        },
+        {
+          "index": "C(arch, Treatment('CRNN'))",
+          "sum_sq": 205.10737000000168,
+          "df": 2.0,
+          "F": 3.078422740506794,
+          "PR(>F)": 0.05522160996781572
+        },
+        {
+          "index": "C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.8260266666668802,
+          "df": 1.0,
+          "F": 0.024795396429999842,
+          "PR(>F)": 0.8755384993300629
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN'))",
+          "sum_sq": 79.93420333333299,
+          "df": 2.0,
+          "F": 1.1997192947558355,
+          "PR(>F)": 0.31015081486231716
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 8.66400000000038,
+          "df": 1.0,
+          "F": 0.26007309853128935,
+          "PR(>F)": 0.6124069993270117
+        },
+        {
+          "index": "C(arch, Treatment('CRNN')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 129.36244333333246,
+          "df": 2.0,
+          "F": 1.9415796093765372,
+          "PR(>F)": 0.15458088470048348
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 34.19180999999991,
+          "df": 2.0,
+          "F": 0.5131792457925156,
+          "PR(>F)": 0.6018363567308427
+        },
+        {
+          "index": "Residual",
+          "sum_sq": 1599.0581199999997,
+          "df": 48.0,
+          "F": NaN,
+          "PR(>F)": NaN
+        }
+      ],
+      "coef": {
+        "Intercept": 46.25800000000006,
+        "C(modality, Treatment('MIC'))[T.FOA]": -1.1199999999999775,
+        "C(arch, Treatment('CRNN'))[T.Conformer]": 1.5160000000000236,
+        "C(arch, Treatment('CRNN'))[T.Xfm]": -3.9939999999999936,
+        "C(prior, Treatment('nogeom'))[T.full]": -0.8819999999999473,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]": 1.1780000000000197,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]": -1.0479999999999756,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(prior, Treatment('nogeom'))[T.full]": -4.142000000000026,
+        "C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": -0.9500000000000282,
+        "C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 6.579999999999968,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 6.85199999999999,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 1.0140000000000002
+      },
+      "p_values": {
+        "Intercept": 6.67835304428947e-23,
+        "C(modality, Treatment('MIC'))[T.FOA]": 0.7603113148515462,
+        "C(arch, Treatment('CRNN'))[T.Conformer]": 0.679775876140807,
+        "C(arch, Treatment('CRNN'))[T.Xfm]": 0.27936087721019975,
+        "C(prior, Treatment('nogeom'))[T.full]": 0.8101063697778051,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]": 0.8204710332686665,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]": 0.8399899381372625,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(prior, Treatment('nogeom'))[T.full]": 0.4263161755106327,
+        "C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.8547722977337942,
+        "C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.20859145277267502,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.3526734673378308,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.8901192978612658
+      }
+    },
+    "DE": {
+      "n_obs": 60,
+      "rsquared": 0.3007464847241281,
+      "aov": [
+        {
+          "index": "C(modality, Treatment('MIC'))",
+          "sum_sq": 0.023206666666666164,
+          "df": 1.0,
+          "F": 3.0079930870597753,
+          "PR(>F)": 0.08927337870882265
+        },
+        {
+          "index": "C(arch, Treatment('CRNN'))",
+          "sum_sq": 0.06372333333333295,
+          "df": 2.0,
+          "F": 4.12983365737738,
+          "PR(>F)": 0.02213389597801009
+        },
+        {
+          "index": "C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.020166666666665972,
+          "df": 1.0,
+          "F": 2.6139554979476314,
+          "PR(>F)": 0.11248138107407579
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN'))",
+          "sum_sq": 0.02004333333333352,
+          "df": 2.0,
+          "F": 1.2989846619140328,
+          "PR(>F)": 0.2822250763342484
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.004166666666666786,
+          "df": 1.0,
+          "F": 0.5400734499892141,
+          "PR(>F)": 0.46597773919058183
+        },
+        {
+          "index": "C(arch, Treatment('CRNN')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.02730333333333315,
+          "df": 2.0,
+          "F": 1.7694966515445985,
+          "PR(>F)": 0.1813540859430418
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.0006633333333333429,
+          "df": 2.0,
+          "F": 0.04298984661914083,
+          "PR(>F)": 0.9579579553750517
+        },
+        {
+          "index": "Residual",
+          "sum_sq": 0.3703199999999999,
+          "df": 48.0,
+          "F": NaN,
+          "PR(>F)": NaN
+        }
+      ],
+      "coef": {
+        "Intercept": 0.7060000000000008,
+        "C(modality, Treatment('MIC'))[T.FOA]": -0.07799999999999965,
+        "C(arch, Treatment('CRNN'))[T.Conformer]": -0.16799999999999965,
+        "C(arch, Treatment('CRNN'))[T.Xfm]": -0.13999999999999985,
+        "C(prior, Treatment('nogeom'))[T.full]": -0.08399999999999917,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]": 0.09200000000000043,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]": 0.07400000000000047,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(prior, Treatment('nogeom'))[T.full]": -0.026000000000000315,
+        "C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.10399999999999979,
+        "C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.0879999999999997,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": -0.026000000000000266,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.003999999999999886
+      },
+      "p_values": {
+        "Intercept": 5.913154189245321e-23,
+        "C(modality, Treatment('MIC'))[T.FOA]": 0.16672792057690797,
+        "C(arch, Treatment('CRNN'))[T.Conformer]": 0.0039952469924168345,
+        "C(arch, Treatment('CRNN'))[T.Xfm]": 0.015109578666899985,
+        "C(prior, Treatment('nogeom'))[T.full]": 0.13706419687447657,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]": 0.24736003037159018,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]": 0.35094505291620604,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(prior, Treatment('nogeom'))[T.full]": 0.7421238331731816,
+        "C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.19184167904302596,
+        "C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.26823046474179707,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.8159678932364456,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.9714297169078794
+      }
+    },
+    "RDE": {
+      "n_obs": 60,
+      "rsquared": 0.16261733848702398,
+      "aov": [
+        {
+          "index": "C(modality, Treatment('MIC'))",
+          "sum_sq": 0.0011266666666666385,
+          "df": 1.0,
+          "F": 1.3372898120672267,
+          "PR(>F)": 0.25323568887039394
+        },
+        {
+          "index": "C(arch, Treatment('CRNN'))",
+          "sum_sq": 0.0031033333333333906,
+          "df": 2.0,
+          "F": 1.841740850642962,
+          "PR(>F)": 0.16956936543444592
+        },
+        {
+          "index": "C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.0026666666666666015,
+          "df": 1.0,
+          "F": 3.1651829871413666,
+          "PR(>F)": 0.08155659000520031
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN'))",
+          "sum_sq": 0.00012333333333333838,
+          "df": 2.0,
+          "F": 0.0731948565776489,
+          "PR(>F)": 0.9295232407098748
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.0003266666666666787,
+          "df": 1.0,
+          "F": 0.3877349159248412,
+          "PR(>F)": 0.5364396627768975
+        },
+        {
+          "index": "C(arch, Treatment('CRNN')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.00034333333333332164,
+          "df": 2.0,
+          "F": 0.20375865479722355,
+          "PR(>F)": 0.8163610410212757
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.00016333333333333355,
+          "df": 2.0,
+          "F": 0.09693372898120685,
+          "PR(>F)": 0.9077933617949417
+        },
+        {
+          "index": "Residual",
+          "sum_sq": 0.04044,
+          "df": 48.0,
+          "F": NaN,
+          "PR(>F)": NaN
+        }
+      ],
+      "coef": {
+        "Intercept": 0.29600000000000043,
+        "C(modality, Treatment('MIC'))[T.FOA]": -0.007999999999999905,
+        "C(arch, Treatment('CRNN'))[T.Conformer]": 0.012000000000000167,
+        "C(arch, Treatment('CRNN'))[T.Xfm]": 9.221124316850992e-18,
+        "C(prior, Treatment('nogeom'))[T.full]": -0.015999999999999695,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]": 1.196959198423997e-16,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]": 0.012000000000000179,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(prior, Treatment('nogeom'))[T.full]": -0.008000000000000118,
+        "C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.007999999999999851,
+        "C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.013999999999999867,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.005999999999999936,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": -0.010000000000000068
+      },
+      "p_values": {
+        "Intercept": 2.1052222338127236e-27,
+        "C(modality, Treatment('MIC'))[T.FOA]": 0.6649443286366366,
+        "C(arch, Treatment('CRNN'))[T.Conformer]": 0.5164363759675246,
+        "C(arch, Treatment('CRNN'))[T.Xfm]": 0.9999999999999996,
+        "C(prior, Treatment('nogeom'))[T.full]": 0.3877786526439918,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]": 0.9999999999999963,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]": 0.6460099849631306,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(prior, Treatment('nogeom'))[T.full]": 0.7593026545173183,
+        "C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.7593026545173261,
+        "C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.5922002798235079,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.8708735663767784,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.7865078274910219
+      }
+    },
+    "SELD": {
+      "n_obs": 60,
+      "rsquared": 0.6507472421386322,
+      "aov": [
+        {
+          "index": "C(modality, Treatment('MIC'))",
+          "sum_sq": 0.00665706666666661,
+          "df": 1.0,
+          "F": 2.2811258741458222,
+          "PR(>F)": 0.1375123197770725
+        },
+        {
+          "index": "C(arch, Treatment('CRNN'))",
+          "sum_sq": 0.23492463333333435,
+          "df": 2.0,
+          "F": 40.249909337262686,
+          "PR(>F)": 5.446648399524746e-11
+        },
+        {
+          "index": "C(prior, Treatment('nogeom'))",
+          "sum_sq": 2.4000000000018723e-06,
+          "df": 1.0,
+          "F": 0.0008223895556532844,
+          "PR(>F)": 0.9772408360317939
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN'))",
+          "sum_sq": 0.007152433333333336,
+          "df": 2.0,
+          "F": 1.2254346814239905,
+          "PR(>F)": 0.30265091605861166
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.00912666666666683,
+          "df": 1.0,
+          "F": 3.127364726912467,
+          "PR(>F)": 0.08334279364326198
+        },
+        {
+          "index": "C(arch, Treatment('CRNN')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.00011829999999998835,
+          "df": 2.0,
+          "F": 0.020268475923687097,
+          "PR(>F)": 0.97994393104436
+        },
+        {
+          "index": "C(modality, Treatment('MIC')):C(arch, Treatment('CRNN')):C(prior, Treatment('nogeom'))",
+          "sum_sq": 0.003022633333333353,
+          "df": 2.0,
+          "F": 0.5178712674793506,
+          "PR(>F)": 0.5990782477760884
+        },
+        {
+          "index": "Residual",
+          "sum_sq": 0.14007960000000005,
+          "df": 48.0,
+          "F": NaN,
+          "PR(>F)": NaN
+        }
+      ],
+      "coef": {
+        "Intercept": 0.5446000000000006,
+        "C(modality, Treatment('MIC'))[T.FOA]": -0.006599999999999936,
+        "C(arch, Treatment('CRNN'))[T.Conformer]": 0.1538000000000001,
+        "C(arch, Treatment('CRNN'))[T.Xfm]": 0.054599999999999774,
+        "C(prior, Treatment('nogeom'))[T.full]": 0.002600000000000463,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]": -0.007599999999999746,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]": 0.038200000000000414,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(prior, Treatment('nogeom'))[T.full]": -0.009600000000000303,
+        "C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.03879999999999971,
+        "C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.02859999999999972,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": -0.06460000000000024,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": -0.05460000000000012
+      },
+      "p_values": {
+        "Intercept": 3.491649987716971e-27,
+        "C(modality, Treatment('MIC'))[T.FOA]": 0.8476383277265802,
+        "C(arch, Treatment('CRNN'))[T.Conformer]": 4.299185157369145e-05,
+        "C(arch, Treatment('CRNN'))[T.Xfm]": 0.11659032805916271,
+        "C(prior, Treatment('nogeom'))[T.full]": 0.9396569740390952,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]": 0.8756758959649593,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]": 0.4330719162090778,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(prior, Treatment('nogeom'))[T.full]": 0.843350351202478,
+        "C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.42592855165534227,
+        "C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.5566900374442483,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Conformer]:C(prior, Treatment('nogeom'))[T.full]": 0.349200514652102,
+        "C(modality, Treatment('MIC'))[T.FOA]:C(arch, Treatment('CRNN'))[T.Xfm]:C(prior, Treatment('nogeom'))[T.full]": 0.42820631879255755
+      }
+    }
+  },
+  "within_cell_pairs": {
+    "F1": [
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.4020000000000003,
+        "delta_std": 0.36162134892729986,
+        "t": -2.4857473974403828,
+        "p_t": 0.06779237878710967,
+        "cohens_dz": -1.1116600311139764,
+        "modality": "MIC",
+        "arch": "CRNN"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.4939999999999998,
+        "delta_std": 0.8058101513383911,
+        "t": -1.3708161643908403,
+        "p_t": 0.24231707460561433,
+        "cohens_dz": -0.613047625646689,
+        "modality": "MIC",
+        "arch": "Xfm"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.47399999999999987,
+        "delta_std": 3.727241607408889,
+        "t": -0.28436477507336066,
+        "p_t": 0.7902446890501583,
+        "cohens_dz": -0.12717179349409444,
+        "modality": "MIC",
+        "arch": "Conformer"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": 0.14999999999999963,
+        "delta_std": 1.1092114316035513,
+        "t": 0.302386170092095,
+        "p_t": 0.7774293756311483,
+        "cohens_dz": 0.13523120635634764,
+        "modality": "FOA",
+        "arch": "CRNN"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": 0.3759999999999991,
+        "delta_std": 1.307107493666837,
+        "t": 0.643222966445801,
+        "p_t": 0.5550992785864395,
+        "cohens_dz": 0.28765805553237545,
+        "modality": "FOA",
+        "arch": "Xfm"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": 0.5500000000000004,
+        "delta_std": 2.8447934898688163,
+        "t": 0.43231165706920865,
+        "p_t": 0.6878008426649902,
+        "cohens_dz": 0.19333565053446564,
+        "modality": "FOA",
+        "arch": "Conformer"
+      }
+    ],
+    "LE": [
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.8819999999999979,
+        "delta_std": 12.997662097469684,
+        "t": -0.15173589999225703,
+        "p_t": 0.8867406609241775,
+        "cohens_dz": -0.06785835740195931,
+        "modality": "MIC",
+        "arch": "CRNN"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": 5.697999999999998,
+        "delta_std": 7.980170424245336,
+        "t": 1.5965968968637272,
+        "p_t": 0.18559169938726294,
+        "cohens_dz": 0.7140198388105029,
+        "modality": "MIC",
+        "arch": "Xfm"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -1.8319999999999994,
+        "delta_std": 11.776755495466482,
+        "t": -0.3478442374350534,
+        "p_t": 0.7454907020937054,
+        "cohens_dz": -0.1555606720972713,
+        "modality": "MIC",
+        "arch": "Conformer"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -5.023999999999999,
+        "delta_std": 4.870885956373853,
+        "t": -2.3063577385256897,
+        "p_t": 0.0823612511701586,
+        "cohens_dz": -1.0314345367552256,
+        "modality": "FOA",
+        "arch": "CRNN"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": 2.5700000000000003,
+        "delta_std": 6.661899128626911,
+        "t": 0.862621092156782,
+        "p_t": 0.43699504468600686,
+        "cohens_dz": 0.38577588017753506,
+        "modality": "FOA",
+        "arch": "Xfm"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": 0.878000000000003,
+        "delta_std": 6.498870671124331,
+        "t": 0.302093668822797,
+        "p_t": 0.7776367106618083,
+        "cohens_dz": 0.13510039581201658,
+        "modality": "FOA",
+        "arch": "Conformer"
+      }
+    ],
+    "DE": [
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.084,
+        "delta_std": 0.30121420949218186,
+        "t": -0.6235751972878211,
+        "p_t": 0.5667029450790061,
+        "cohens_dz": -0.27887130604368204,
+        "modality": "MIC",
+        "arch": "CRNN"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": 0.003999999999999971,
+        "delta_std": 0.15915401345866212,
+        "t": 0.05619884610903786,
+        "p_t": 0.9578785757880772,
+        "cohens_dz": 0.025132888031371644,
+        "modality": "MIC",
+        "arch": "Xfm"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": 0.020000000000000007,
+        "delta_std": 0.09772410142846029,
+        "t": 0.45762876195627583,
+        "p_t": 0.6709737016292734,
+        "cohens_dz": 0.2046578040386605,
+        "modality": "MIC",
+        "arch": "Conformer"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.11000000000000001,
+        "delta_std": 0.0874642784226795,
+        "t": -2.8122049591070257,
+        "p_t": 0.04820865817854968,
+        "cohens_dz": -1.257656291045065,
+        "modality": "FOA",
+        "arch": "CRNN"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.017999999999999995,
+        "delta_std": 0.04711687595755899,
+        "t": -0.8542421961772487,
+        "p_t": 0.44111280912130457,
+        "cohens_dz": -0.3820287239802078,
+        "modality": "FOA",
+        "arch": "Xfm"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.03200000000000001,
+        "delta_std": 0.03563705936241093,
+        "t": -2.007858576442107,
+        "p_t": 0.11507971437013219,
+        "cohens_dz": -0.897941653226102,
+        "modality": "FOA",
+        "arch": "Conformer"
+      }
+    ],
+    "RDE": [
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.016000000000000004,
+        "delta_std": 0.06188699378706322,
+        "t": -0.5781034988239393,
+        "p_t": 0.5941798105304791,
+        "cohens_dz": -0.25853574428015963,
+        "modality": "MIC",
+        "arch": "CRNN"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.0020000000000000074,
+        "delta_std": 0.055856960175075764,
+        "t": -0.08006407690254387,
+        "p_t": 0.9400319999999998,
+        "cohens_dz": -0.03580574370197178,
+        "modality": "MIC",
+        "arch": "Xfm"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.008000000000000007,
+        "delta_std": 0.04764451699828638,
+        "t": -0.3754586035711459,
+        "p_t": 0.7263811693633475,
+        "cohens_dz": -0.16791019206444555,
+        "modality": "MIC",
+        "arch": "Conformer"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.023999999999999987,
+        "delta_std": 0.016733200530681502,
+        "t": -3.2071349029490923,
+        "p_t": 0.032677923336803014,
+        "cohens_dz": -1.4342743312012722,
+        "modality": "FOA",
+        "arch": "CRNN"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.020000000000000007,
+        "delta_std": 0.020000000000000004,
+        "t": -2.23606797749979,
+        "p_t": 0.08900934250008564,
+        "cohens_dz": -1.0000000000000002,
+        "modality": "FOA",
+        "arch": "Xfm"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.009999999999999986,
+        "delta_std": 0.028284271247461884,
+        "t": -0.7905694150420943,
+        "p_t": 0.47342736525713786,
+        "cohens_dz": -0.3535533905932735,
+        "modality": "FOA",
+        "arch": "Conformer"
+      }
+    ],
+    "SELD": [
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": 0.00259999999999998,
+        "delta_std": 0.02439877046082443,
+        "t": 0.23828154581945937,
+        "p_t": 0.8233717392130525,
+        "cohens_dz": 0.1065627468472084,
+        "modality": "MIC",
+        "arch": "CRNN"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": 0.031200000000000006,
+        "delta_std": 0.050395436301316036,
+        "t": 1.3843579105231714,
+        "p_t": 0.23846961328393157,
+        "cohens_dz": 0.6191036786238766,
+        "modality": "MIC",
+        "arch": "Xfm"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": 0.04139999999999999,
+        "delta_std": 0.168351715167978,
+        "t": 0.5498798404050922,
+        "p_t": 0.6116616888845294,
+        "cohens_dz": 0.2459137405205043,
+        "modality": "MIC",
+        "arch": "Conformer"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.007000000000000006,
+        "delta_std": 0.013341664064126346,
+        "t": -1.173202665519484,
+        "p_t": 0.30580758898750376,
+        "cohens_dz": -0.524672182297103,
+        "modality": "FOA",
+        "arch": "CRNN"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.03299999999999999,
+        "delta_std": 0.053805204209258425,
+        "t": -1.3714331976235807,
+        "p_t": 0.24214043843199162,
+        "cohens_dz": -0.6133235712972459,
+        "modality": "FOA",
+        "arch": "Xfm"
+      },
+      {
+        "n": 5,
+        "shared_seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "delta_mean": -0.03279999999999998,
+        "delta_std": 0.07761894098736469,
+        "t": -0.9449114962020972,
+        "p_t": 0.39820778506448,
+        "cohens_dz": -0.4225772676457848,
+        "modality": "FOA",
+        "arch": "Conformer"
+      }
+    ]
+  }
+}

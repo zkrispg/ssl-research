@@ -1,0 +1,72 @@
+%% Applied Acoustics submission -- main file
+%% Compile: tectonic -X compile main.tex   (or Overleaf, pdfLaTeX)
+%% Elsevier elsarticle class; review mode gives single column + line numbers.
+\documentclass[preprint,review,12pt]{elsarticle}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+% \degsym and \dz are notation shorthands reused throughout.
+\newcommand{\degsym}{\ensuremath{^\circ}}
+\newcommand{\dz}{\ensuremath{d_z}}
+
+\graphicspath{{figs/}{../figs/}}
+
+\journal{Applied Acoustics}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{When Do Microphone-Array Geometry Priors Help Sound Event
+Localization and Detection? The Role of Temporal Inductive Bias}
+
+\author{Anonymous Author(s)}
+\affiliation{organization={Affiliation withheld for review},
+  note={Code and checkpoints to be released upon publication}}
+
+\begin{abstract}
+\input{sections/00_abstract}
+\end{abstract}
+
+\begin{keyword}
+sound source localization \sep direction of arrival \sep
+microphone array processing \sep ambisonics \sep deep learning \sep
+inductive bias
+\end{keyword}
+
+\end{frontmatter}
+
+\input{sections/01_introduction}
+\input{sections/02_related}
+\input{sections/03_method}
+\input{sections/04_experiments}
+\input{sections/05_discussion}
+\input{sections/06_conclusion}
+
+\input{sections/07_appendix}
+
+\section*{CRediT authorship contribution statement}
+Author contributions withheld for double-blind review; the CRediT taxonomy
+statement will be completed in the camera-ready version.
+
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial interests or
+personal relationships that could have appeared to influence the work reported
+in this paper.
+
+\section*{Data availability}
+This study uses the publicly available STARSS23 and STARSS22 datasets and the
+NIGENS sound-event corpus. The complete training and evaluation pipeline,
+together with the trained checkpoints, will be released publicly upon
+publication.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{refs}
+
+\end{document}

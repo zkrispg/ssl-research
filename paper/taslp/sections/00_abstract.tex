@@ -1,0 +1,35 @@
+Hand-crafted microphone-array geometry priors are widely injected into deep
+sound event localization and detection (SELD) systems, on the assumption that
+telling the network the spatial layout of its channels can only help. We test
+this assumption with a single one-bit intervention---a geometry bias toggled on
+or off inside an otherwise identical channel-attention block of the official
+DCASE~2024 SELD baseline---and find that its effect is not universal but
+\emph{graded by the temporal backbone's inductive bias}. Across a grid of two
+input modalities (four-channel microphone array, first-order Ambisonics), three
+temporal backbones spanning the locality spectrum (convolutional-recurrent with
+self-attention, a convolution--attention Conformer, and a Transformer-only
+stack), and the prior on/off, multi-seed paired experiments ($n=5$) on the
+real-world STARSS23 dataset reveal a consistent ordering on directional
+accuracy: the prior helps the recurrent model (up to $-5.0\degsym$
+class-dependent localization error, $\dz=-1.0$), is neutral in the Conformer,
+and is detrimental in the pure-attention Transformer (up to $+5.7\degsym$,
+$\dz=+0.7$). Both recurrent cells shift non-positively (one a clear benefit, one
+negligible) and both Transformer cells positively, with the Conformer between them. A factorial ANOVA over the
+recurrent-versus-Transformer extremes confirms a significant
+architecture$\times$prior interaction ($F=4.62$, $p=0.039$; seed-matched paired
+contrast $p=0.029$), and an ordered trend test across all three backbones
+supports the graded pattern. The single most
+robust effect is the recurrent \emph{benefit} on Ambisonics, which replicates
+zero-shot on the independent STARSS22 dataset ($\dz=-1.50$, $p=0.029$) and is a
+trend in-domain; the same architecture ordering holds on STARSS22, with the
+microphone-array Transformer harm reproducing directionally ($+5.6\degsym$).
+Orthogonally, the temporal architecture that governs the direction effect is
+inert on \emph{distance}: the prior's relative-distance benefit is independent of
+backbone and concentrated in Ambisonics by effect size (the modality interaction
+being a non-significant trend at $n=5$)---a dissociation in which architecture
+selectively governs direction rather than distance. A controlled linear probe of
+the post-convolutional representation finds no significant change in linearly
+decodable direction in any cell, indicating the effect is behavioural rather than
+a simple change in linear feature content. We conclude that array-geometry priors
+are a conditional design choice rather than a universal benefit, and release a
+reproducible multi-seed pipeline that runs on a commodity 4\,GB GPU.

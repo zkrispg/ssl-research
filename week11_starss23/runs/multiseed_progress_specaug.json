@@ -1,0 +1,116 @@
+{
+  "queue": [
+    [
+      "no_geom",
+      0
+    ],
+    [
+      "no_geom",
+      1
+    ],
+    [
+      "no_geom",
+      2
+    ],
+    [
+      "no_geom",
+      3
+    ],
+    [
+      "no_geom",
+      4
+    ],
+    [
+      "full",
+      0
+    ],
+    [
+      "full",
+      1
+    ],
+    [
+      "full",
+      2
+    ],
+    [
+      "full",
+      3
+    ],
+    [
+      "full",
+      4
+    ]
+  ],
+  "started_at": "2026-05-17 18:35:56",
+  "completed": [
+    {
+      "variant": "no_geom",
+      "seed": 0,
+      "best_eval_loss": 0.022980503117044766,
+      "elapsed_s": null,
+      "resumed": true
+    },
+    {
+      "variant": "no_geom",
+      "seed": 1,
+      "best_eval_loss": 0.024398644430897176,
+      "elapsed_s": null,
+      "resumed": true
+    },
+    {
+      "variant": "no_geom",
+      "seed": 2,
+      "best_eval_loss": 0.025152514855831098,
+      "elapsed_s": 2781.2973306179047
+    },
+    {
+      "variant": "no_geom",
+      "seed": 3,
+      "best_eval_loss": 0.02323171090430174,
+      "elapsed_s": 2792.355633497238
+    },
+    {
+      "variant": "no_geom",
+      "seed": 4,
+      "best_eval_loss": 0.024593841427793868,
+      "elapsed_s": 2718.288697719574
+    },
+    {
+      "variant": "full",
+      "seed": 0,
+      "best_eval_loss": 0.023513246972400408,
+      "elapsed_s": 2721.724584579468
+    },
+    {
+      "variant": "full",
+      "seed": 1,
+      "best_eval_loss": 0.024539931557881527,
+      "elapsed_s": 2739.1602115631104
+    },
+    {
+      "variant": "full",
+      "seed": 2,
+      "best_eval_loss": 0.024571320567375574,
+      "elapsed_s": 2702.8521308898926
+    },
+    {
+      "variant": "full",
+      "seed": 3,
+      "best_eval_loss": 0.02406300487331091,
+      "elapsed_s": 2713.902768611908
+    },
+    {
+      "variant": "full",
+      "seed": 4,
+      "best_eval_loss": 0.0223586166707369,
+      "elapsed_s": 2702.9496290683746
+    }
+  ],
+  "current": {
+    "variant": "full",
+    "seed": 4,
+    "stage": "eval",
+    "since": "00:58:30"
+  },
+  "errors": []
+}

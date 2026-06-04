@@ -1,0 +1,98 @@
+{
+  "queue": [
+    [
+      "no_geom",
+      1
+    ],
+    [
+      "full",
+      1
+    ],
+    [
+      "no_geom",
+      2
+    ],
+    [
+      "full",
+      2
+    ],
+    [
+      "no_geom",
+      3
+    ],
+    [
+      "full",
+      3
+    ],
+    [
+      "no_geom",
+      4
+    ],
+    [
+      "full",
+      4
+    ]
+  ],
+  "started_at": "2026-05-15 16:12:16",
+  "completed": [
+    {
+      "variant": "no_geom",
+      "seed": 1,
+      "best_eval_loss": 0.02177293101946513,
+      "elapsed_s": null,
+      "resumed": true
+    },
+    {
+      "variant": "full",
+      "seed": 1,
+      "best_eval_loss": 0.021382113894782007,
+      "elapsed_s": null,
+      "resumed": true
+    },
+    {
+      "variant": "no_geom",
+      "seed": 2,
+      "best_eval_loss": 0.021352362413054857,
+      "elapsed_s": null,
+      "resumed": true
+    },
+    {
+      "variant": "full",
+      "seed": 2,
+      "best_eval_loss": 0.02039,
+      "elapsed_s": null,
+      "resumed": true
+    },
+    {
+      "variant": "no_geom",
+      "seed": 3,
+      "best_eval_loss": 0.022103519417727605,
+      "elapsed_s": 3316.103499650955
+    },
+    {
+      "variant": "full",
+      "seed": 3,
+      "best_eval_loss": 0.02114766972282758,
+      "elapsed_s": 3173.7223451137543
+    },
+    {
+      "variant": "no_geom",
+      "seed": 4,
+      "best_eval_loss": 0.021646688548991315,
+      "elapsed_s": 3244.2918136119843
+    },
+    {
+      "variant": "full",
+      "seed": 4,
+      "best_eval_loss": 0.022143630764614314,
+      "elapsed_s": 2786.470512866974
+    }
+  ],
+  "current": {
+    "variant": "full",
+    "seed": 4,
+    "stage": "eval",
+    "since": "19:51:00"
+  },
+  "errors": []
+}

@@ -1,0 +1,90 @@
+# ============================================================
+#  SELD 研究项目 .gitignore
+#  原则：只版本管理「代码 / 论文 / 脚本 / 配置 / 结果图表」，
+#        排除可重新生成或可重新下载的大文件（数据集 / 特征 / checkpoint）。
+# ============================================================
+
+# ---- 公开数据集与本地数据目录（整目录排除，可重新下载/重新提取）----
+/data/
+/DCASE2024_SELD_dataset/
+/STARSS22_DCASE/
+/TAU_NIGENS_SSE_2021/
+
+# ---- 任何数据集的标注目录（保险）----
+**/metadata_dev/
+**/foa_dev/
+**/mic_dev/
+
+# ---- 第三方二进制工具（tectonic LaTeX 编译器等，可重新下载）----
+/tools/
+*.exe
+*.dll
+*.zip
+*.chm
+*.sfx
+*.msi
+
+# ---- 原 baseline 的上游 git 历史（已重命名移出，仅含上游历史，无需备份）----
+**/.git_upstream_backup/
+
+# ---- 音频与提取特征（最大头：~91GB，可从公开数据集重新提取）----
+*.wav
+*.flac
+*.mp3
+*.npy
+*.npz
+
+# ---- 模型权重 / checkpoint（~504MB，已单独备份到 C:\backup）----
+*.h5
+*.pth
+*.pt
+*.ckpt
+*.pkl
+*.onnx
+*.tar
+*.tar.gz
+
+# ---- Python 环境与缓存 ----
+venv/
+.venv/
+env/
+.wheels/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.ipynb_checkpoints/
+
+# ---- 训练运行时输出（大、可重生成）----
+results_audio/
+models_audio/
+*.log
+
+# ---- IDE / 系统 ----
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# ---- LaTeX 中间产物（保留 .tex/.bib，排除编译垃圾）----
+*.aux
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+*.lof
+*.lot
+
+# ============================================================
+#  例外：以下小文件/图表「强制保留」（推翻上面的扩展名规则）
+# ============================================================
+!*.json
+!*.yaml
+!*.yml
+!*.cfg
+!*.toml
+!**/figures/**/*.png
+!**/figures/**/*.pdf

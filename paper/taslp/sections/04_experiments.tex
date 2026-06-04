@@ -1,0 +1,305 @@
+\section{Experiments}
+\label{sec:experiments}
+
+\subsection{Datasets and reproduction}
+\label{sec:datasets}
+We train and evaluate in-domain on \textbf{STARSS23} (DCASE~2024 Task~3
+development set), which provides both MIC and FOA formats with $13$ sound
+classes. For external validity we evaluate zero-shot on \textbf{STARSS22}
+(DCASE~2022 Task~3 development-test, $54$ clips; distance-blind matching, as
+STARSS22 lacks distance labels) and stress-test on the synthetic
+\textbf{TAU-NIGENS-SSE-2021} corpus, remapping the seven classes that overlap
+with the STARSS taxonomy. Before ablating we confirm pipeline parity: the FOA
+reproduction (five seeds) gives $F_{20\degsym}=13.21\pm0.63\%$ against the
+published $13.10\%$, with DOAE$_\mathrm{CD}=41.5\pm5.5\degsym$ and
+RDE$=0.27\pm0.01$, inside challenge variance. Subsequent differences are thus
+attributable to the toggled factors, not a mis-implemented baseline.
+\label{sec:repro}
+
+\subsection{Main result: the effect is graded by inductive bias}
+\label{sec:main}
+Table~\ref{tab:dissociation} reports the headline contrast,
+$\Delta\text{DOAE}_\mathrm{CD}=\text{full}-\text{no\_geom}$, seed-matched within
+each cell ($n=5$) and grouped by temporal backbone; Fig.~\ref{fig:dissociation}
+visualizes it. The effect on direction follows a \textbf{consistent ordering set
+by the backbone's inductive bias}: \emph{both recurrent cells shift
+non-positively} ($\Delta\le0$; FOA a clear benefit, MIC negligible at
+$-0.9\degsym$, $\dz=-0.07$), \emph{both Transformer cells shift positively}
+($\Delta\ge0$), and the convolution--attention Conformer sits between them
+(helpful on MIC, neutral on FOA). Averaged over modality the per-backbone mean $\Delta$ moves monotonically
+from $-2.9\degsym$ (CRNN) through $-0.5\degsym$ (Conformer) to $+4.1\degsym$
+(Transformer) as temporal locality is removed. The two extreme effects sit on
+opposite ends of this ordering: the prior improves localization by $5.0\degsym$
+in FOA+CRNN ($\dz=-1.03$) and degrades it by $5.7\degsym$ in MIC+Transformer
+($\dz=+0.71$).
+
+At $n=5$ the individual per-cell contrasts are trends rather than significant in
+isolation (e.g.\ FOA+CRNN $p=0.082$, MIC+Transformer $p=0.186$). \emph{These
+single-cell $p$-values are not our primary evidence}; the claim is about the
+\emph{ordering} across the grid, which we test jointly with a factorial
+interaction (Section~\ref{sec:anova}) and corroborate on an independent dataset
+where the recurrent benefit reaches full significance
+(Section~\ref{sec:cross}).
+
+One honest caveat about the middle of the ordering: the Conformer is the weakest
+detector in our grid (location-aware $F_{20\degsym}$ of $4$--$7\%$ and the worst
+SELD scores, vs.\ $9$--$13\%$ for the extremes), so its near-zero geometry effect
+may partly reflect a weaker operating point rather than intermediate locality. We
+therefore treat it as \emph{corroborating} the ordering, not proving it: the
+load-bearing comparison is the recurrent-versus-Transformer contrast between two
+healthy detectors, with the trend test (Section~\ref{sec:anova}) confirming only
+that the hybrid does not violate the ordering.
+
+\begin{table}[t]
+\centering
+\caption{Main result, grouped by backbone: paired geometry-prior contrast on
+class-dependent localization error,
+$\Delta\text{DOAE}_\mathrm{CD}=\text{full}-\text{no\_geom}$ (degrees; negative
+$=$ prior helps), $n=5$ each. The per-backbone mean sign ordering CRNN $\le$
+Conformer $\le$ Transformer holds after averaging over modality; the recurrent
+and Transformer extremes also order as predicted within each modality.
+Source: \texttt{path\_c\_2x2}.}
+\label{tab:dissociation}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llccc}
+\toprule
+Backbone & Modality & $\Delta$DOAE & $t$ ($p$) & \dz \\
+\midrule
+\multicolumn{5}{l}{\emph{CRNN+MHSA (recurrent): prior helps}}\\
+CRNN        & MIC & $-0.88$ & $-0.15$ ($0.887$) & $-0.07$ \\
+\textbf{CRNN} & \textbf{FOA} & $\mathbf{-5.02}$ & $-2.31$ ($0.082$) & $\mathbf{-1.03}$ \\
+\midrule
+\multicolumn{5}{l}{\emph{Conformer (conv--attention hybrid): intermediate}}\\
+Conformer   & MIC & $-1.83$ & $-0.35$ ($0.745$) & $-0.16$ \\
+Conformer   & FOA & $+0.88$ & $+0.30$ ($0.778$) & $+0.14$ \\
+\midrule
+\multicolumn{5}{l}{\emph{Transformer-only: prior hurts}}\\
+\textbf{Transformer} & \textbf{MIC} & $\mathbf{+5.70}$ & $+1.60$ ($0.186$) & $\mathbf{+0.71}$ \\
+Transformer & FOA & $+2.57$ & $+0.86$ ($0.437$) & $+0.39$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{path_c_2x2_dissociation.png}
+\caption{The geometry-prior effect on DOAE$_\mathrm{CD}$ across the
+modality$\times$backbone grid. The sign of the effect tracks temporal inductive
+bias: it helps (negative) under recurrence, is neutral for the Conformer, and
+hurts (positive) under the Transformer, the extremes being FOA+CRNN and
+MIC+Transformer.}
+\label{fig:dissociation}
+\end{figure}
+
+\subsection{Primary test: architecture$\times$prior interaction}
+\label{sec:anova}
+Our primary hypothesis test asks whether the sign ordering of
+Table~\ref{tab:dissociation} is a genuine interaction rather than a collection of
+independent per-cell coincidences. We report it three complementary ways on the
+per-seed DOAE$_\mathrm{CD}$, all pointing the same direction
+(Source: \texttt{path\_c\_trend\_mixed}).
+
+\emph{(i) Factorial interaction, seed-matched.} A Type-II factorial ANOVA
+restricted to the recurrent and Transformer extremes
+(modality$\times$architecture$\times$prior, $n_{\text{obs}}=40$) gives a
+significant \textbf{architecture$\times$prior interaction} ($F=4.62$, $p=0.039$):
+the prior's effect on direction depends on whether the backbone is recurrent or
+pure-attention. Because the same five seeds are matched across cells, we re-express
+this interaction as a within-seed paired \emph{second difference},
+$D=\Delta_{\text{CRNN}}-\Delta_{\text{Xfm}}$ per matched (modality, seed), where
+$\Delta=\text{full}-\text{no\_geom}$; $D$ is reliably negative
+($\bar D=-7.1\degsym$, $t=-2.59$, $p=0.029$, $\dz=-0.82$), i.e.\ the prior helps the
+recurrent backbone about $7\degsym$ more than it helps the Transformer. A linear
+mixed model with a per-seed random intercept estimates that variance at the zero
+boundary (ICC$\approx0$ for DOAE$_\mathrm{CD}$), so the design carries no extra
+between-seed structure and the fixed-effects estimate is the appropriate one.
+
+\emph{(ii) Monotone trend across all three backbones.} Rather than discard the
+intermediate Conformer, we test the \emph{ordered} hypothesis that the geometry
+effect $\Delta$ increases monotonically along the locality axis
+CRNN$<$Conformer$<$Transformer. A Jonckheere--Terpstra trend test on the per-seed
+$\Delta$ (pooled over modality) is a one-sided trend at $z=+1.60$, $p=0.055$, with a
+parametric slope of $+3.5\degsym$ per locality step ($p=0.073$); the trend is
+clearest in Ambisonics (one-sided $p=0.051$) and is the weakest in the microphone
+array, where the Conformer is itself mildly helpful. The monotone ordering of the
+per-backbone means ($-2.9\degsym\!\to\!-0.5\degsym\!\to\!+4.1\degsym$) is therefore
+a genuine---if, at $n=5$, marginal---trend, not an artifact of selecting the two
+extremes.
+
+\emph{(iii) Unordered omnibus.} When the Conformer is added as a third level in the
+\emph{unordered} factorial ($n_{\text{obs}}=60$), the three-level
+architecture$\times$prior term is not significant ($F=1.94$, $p=0.15$), exactly as
+expected when a near-zero middle category is inserted between two opposing extremes:
+an unordered omnibus spends power on a quadratic contrast the data do not exhibit,
+whereas the ordered trend test in (ii) retains it. The prior main effect is null
+throughout ($p>0.6$), confirming the effect is conditional rather than a universal
+benefit or harm. (On the detection metric $F_{20\degsym}$ the design shows strong
+modality $F=36.9$ and architecture $F=79.2$ main effects, consistent with FOA and
+recurrence detecting events more readily overall; these concern detectability, not
+the prior.)
+
+\subsection{Anchor: the ordering replicates zero-shot on STARSS22}
+\label{sec:cross}
+The grid ordering is not a STARSS23 artifact. Evaluating the STARSS23-trained
+checkpoints zero-shot on STARSS22 (Table~\ref{tab:cross} and
+Fig.~\ref{fig:forest}, $n=5$) reproduces the same architecture ordering
+out-of-domain: both recurrent cells help, the Conformer is helpful-to-neutral,
+and both Transformer cells hurt. Fig.~\ref{fig:forest} makes the agreement
+visible---in-domain and zero-shot estimates share the same sign in every cell,
+and the effect marches monotonically from the ``helps'' to the ``hurts'' region
+as locality is removed. The single
+\emph{significant} cross-dataset effect is the recurrent benefit on Ambisonics,
+FOA+CRNN $\Delta\text{DOAE}_\mathrm{CD}=-4.76\degsym$ ($\dz=-1.50$, $p=0.029$),
+which matches its in-domain sign and magnitude ($-5.02\degsym$)---a benefit
+reproducing on an independent recording campaign is strong evidence that it is a
+property of the learned model, not of one test set. The MIC+Transformer harm
+reproduces directionally ($+5.58\degsym$, $\dz=+0.77$) but, like in-domain, does
+not reach significance on its own at $n=5$. The cross-dataset per-backbone means
+trace the same monotonic path as in-domain (helpful $\to$ neutral $\to$ harmful).
+
+\begin{table}[t]
+\centering
+\caption{Anchor. STARSS22 zero-shot, geometry-prior contrast on
+DOAE$_\mathrm{CD}$ (degrees; negative $=$ helps), $n=5$. The in-domain ordering
+holds out-of-domain; the FOA+CRNN benefit is significant.
+Source: \texttt{path\_c\_cross\_starss22}.}
+\label{tab:cross}
+\setlength{\tabcolsep}{4pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llcc}
+\toprule
+Backbone & Modality & $\Delta$DOAE (cross) & in-domain \\
+\midrule
+CRNN        & MIC & $-4.77$ ($\dz=-0.42$) & $-0.88$ \\
+\textbf{CRNN} & \textbf{FOA} & $\mathbf{-4.76}$ ($\dz=-1.50$, $p\!=\!.029$) & $-5.02$ \\
+Conformer   & MIC & $-3.20$ ($\dz=-0.48$) & $-1.83$ \\
+Conformer   & FOA & $-0.42$ ($\dz=-0.06$) & $+0.88$ \\
+Transformer & MIC & $+5.58$ ($\dz=+0.77$) & $+5.70$ \\
+Transformer & FOA & $+1.72$ ($\dz=+0.39$) & $+2.57$ \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{forest_gradient.png}
+\caption{Geometry-prior effect on directional error
+($\Delta\text{DOAE}_\mathrm{CD}=\text{full}-\text{no\_geom}$; negative $=$ helps)
+per cell, ordered by temporal locality, with bootstrap $95\%$ CIs. Filled circles
+are in-domain (STARSS23); open squares are zero-shot on STARSS22; ``$*$'' marks
+$p<0.05$. The effect shifts monotonically from the helps region (recurrent) to
+the hurts region (Transformer), and the in-domain and zero-shot estimates agree
+in sign for every cell---the recurrent Ambisonic benefit being significant
+out-of-domain.}
+\label{fig:forest}
+\end{figure}
+
+\subsection{Mechanism probe: the effect is behavioural, not a linear feature shift}
+\label{sec:probing}
+A natural hypothesis is that the prior changes how linearly direction is encoded
+in the shared post-convolutional representation. We test this by linearly probing
+those features (frequency-pooled, ridge regression to $(\sin,\cos)$ of azimuth
+and elevation on single-source frames, file-wise five-fold CV) and comparing
+\texttt{full} against \texttt{no\_geom} (Table~\ref{tab:probe}). At $n=5$,
+\textbf{no cell shows a significant change} in linearly decodable direction
+($|\dz|\le0.53$, all $p>0.2$); the largest movement is a non-significant increase
+in MIC+Conformer. We report this as an informative negative result: the prior's
+behavioural effect on SELD output is \emph{not} mirrored by a measurable shift in
+the linear direction content of the post-conv features, so the mechanism does not
+reduce to ``the prior adds/removes decodable direction information.'' This null is
+non-trivial. The geometry bias gates the input channels \emph{upstream} of the
+shared convolutional front-end, and the \texttt{full} and \texttt{no\_geom}
+variants train their own convolutional weights, so the probed post-convolutional
+features could in principle diverge; that they do not differ in linearly decodable
+direction means the prior leaves the linearly accessible spatial content of the
+shared representation essentially unchanged. Its behavioural effect must therefore
+reside in nonlinear or distributed feature changes the linear probe cannot
+capture, or in how each temporal stack \emph{uses} that representation---the
+latter consistent with the architecture-dependence we observe. (We caution that an earlier three-seed probe suggested a
+Transformer-specific loss; it did not survive the move to five seeds, a useful
+reminder of the fragility of small-$n$ representational claims.)
+
+\begin{table}[t]
+\centering
+\caption{Mechanism probe. Linear-probe angular MAE (degrees; lower $=$ direction
+more linearly decodable), $\Delta=\text{full}-\text{no\_geom}$, $n=5$. No cell
+shows a significant geometry effect. Source: \texttt{path\_c\_probe}.}
+\label{tab:probe}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llccc}
+\toprule
+Backbone & Modality & full & no\_geom & $\Delta$ \\
+\midrule
+CRNN        & MIC & $28.50$ & $28.37$ & $+0.12$ \\
+CRNN        & FOA & $20.62$ & $20.89$ & $-0.27$ \\
+Conformer   & MIC & $29.88$ & $28.35$ & $+1.53$ \\
+Conformer   & FOA & $18.69$ & $19.28$ & $-0.59$ \\
+Transformer & MIC & $26.11$ & $26.27$ & $-0.16$ \\
+Transformer & FOA & $17.93$ & $17.89$ & $+0.05$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Boundary conditions and supporting ablations}
+\label{sec:synth}
+\textbf{Distance follows a different rule.} Beyond direction, the prior's effect
+on the third (distance) dimension does \emph{not} track the temporal architecture
+(Table~\ref{tab:rde}): relative distance error improves by effect size in
+\emph{all three} Ambisonic cells---FOA+CRNN $\Delta\text{RDE}=-0.024$
+($\dz=-1.43$, $p=0.033$), FOA+Transformer $-0.020$ ($\dz=-1.00$), FOA+Conformer
+$-0.010$ ($\dz=-0.35$)---and is null in all three microphone-array cells
+($|\dz|\le0.26$, all $p>0.5$), with no architecture$\times$prior interaction
+($F=0.20$, $p=0.82$; paired CRNN$-$Xfm second difference $p=0.52$). The
+architecture that governs the \emph{direction} effect is thus inert on distance,
+where the benefit is instead concentrated in Ambisonics. We are careful not to
+overclaim the second half of this contrast: at $n=5$ the modality$\times$prior
+interaction on distance is itself only a non-significant trend ($F=0.39$,
+$p=0.54$; paired FOA$-$MIC second difference $p=0.54$), so the distance pattern is
+an effect-size dissociation---architecture selectively modulates direction and not
+distance---rather than a second statistically confirmed interaction.
+Source: \texttt{path\_c\_dissociation\_test}.
+
+\begin{table}[t]
+\centering
+\caption{Distance is modality-patterned, not architecture-conditional.
+Geometry-prior contrast on relative distance error,
+$\Delta\text{RDE}=\text{full}-\text{no\_geom}$ ($n=5$; negative $=$ helps). All
+Ambisonic cells improve by effect size; all microphone-array cells are
+null---orthogonal to the architecture-conditional direction effect of
+Table~\ref{tab:dissociation}, though the modality$\times$prior interaction is
+itself only a non-significant trend at $n=5$ (see text).
+Source: \texttt{path\_c\_2x2}.}
+\label{tab:rde}
+\begin{tabular}{llcc}
+\toprule
+Backbone & Modality & $\Delta$RDE & \dz \\
+\midrule
+CRNN        & MIC & $-0.016$ & $-0.26$ \\
+\textbf{CRNN} & \textbf{FOA} & $\mathbf{-0.024}$ ($p\!=\!.033$) & $\mathbf{-1.43}$ \\
+Conformer   & MIC & $-0.008$ & $-0.17$ \\
+Conformer   & FOA & $-0.010$ & $-0.35$ \\
+Transformer & MIC & $-0.002$ & $-0.04$ \\
+Transformer & FOA & $-0.020$ & $-1.00$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Boundary condition (synthetic transfer).} On the synthetic TAU-NIGENS
+corpus (seven mapped classes, zero-shot; CRNN and Transformer cells, $n=3$--$5$)
+detection collapses to near-floor for every cell (kept-class
+$F\!\approx\!1$--$2\%$, DOAE$_\mathrm{CD}\!\approx\!60\degsym$) under the heavy
+synthetic domain shift, and at that floor the geometry-prior contrasts are
+uniformly null. Notably the in-domain MIC+Transformer harm does \emph{not}
+transfer: the synthetic $\Delta\text{DOAE}_\mathrm{CD}$ is $+1.1\degsym$
+($\dz=+0.17$) versus $+5.7\degsym$ in-domain, and the MIC+CRNN and FOA contrasts
+are likewise null ($|\dz|\le0.6$). We read this as a boundary condition: a domain
+shift severe enough to erase detection also erases the subtle prior effect,
+whereas the real-data architecture ordering (Sections~\ref{sec:main}--\ref{sec:cross})
+does not depend on it.
+
+\textbf{Supporting controls.} A per-class breakdown ($13$ classes, all cells)
+shows detectable $F$-score concentrating in speech, music, and domestic-sound
+classes, so the architecture ordering is a property of the localization
+representation, not of a few classes' detectability. A vanilla
+squeeze-and-excitation control in MIC+CRNN confirms that the \emph{geometric}
+bias, not channel attention itself, drives the contrast.

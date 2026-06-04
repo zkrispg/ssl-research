@@ -1,0 +1,27 @@
+﻿TASLP rush plan kicked off at 2026-05-26 09:33:51 (Asia/Shanghai)
+========================================================================
+chain order: #3 -> #2c -> #1, gated by sentinel test_logs.
+
+#3  D supplemental seeds 3, 4 -- 8 ckpts (4 cells x 2 seeds), ~14 GPU-h
+    sentinel: dcase2024_121_frac_seed4_test.log
+    orchestrator: _run_task_D_seeds34.ps1
+
+#2c FOA-modality GCA ablation -- 6 ckpts (130/131 x seeds 1,2,3), ~11 GPU-h
+    parameters.py tasks: 130, 131
+    seldnet_model.py changes: foa_ambisonic_pair_geometry(), gca_modality flag
+    geometry_attn.py changes: pair_geom override
+    sentinel: dcase2024_131_ablate_seed3_test.log
+    orchestrator: _run_task_2c_foa_gca.ps1
+    analyzer: _path_c_foa_gca_analyze.py
+
+#1  Transformer-only architecture -- 9 ckpts (140/141/142 x seeds 0,1,2), ~18 GPU-h
+    parameters.py tasks: 140, 141, 142
+    seldnet_model.py changes: temporal_arch flag, replace GRU with TransformerEncoder
+    orchestrator: _run_task_1_xfm_only.ps1
+    analyzer: _path_c_xfm_arch_analyze.py
+
+Total expected wall time: ~43 h (~2 days). Total GPU hours added: ~43.
+After #1 finishes, the doc rebuild auto-fires inside the orchestrator and produces
+path_c_progress_v2.md / .docx with all Tier VI / Tier VII sections filled in.
+
+Status helper: powershell.exe -File _taslp_status.ps1

@@ -1,0 +1,53 @@
+%% Journal submission (IEEE/ACM TASLP) -- main file
+%% Compile: tectonic -X compile main.tex   (or Overleaf, pdfLaTeX)
+%% IEEEtran.cls/.bst are vendored in this folder.
+\documentclass[journal]{IEEEtran}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cite}
+
+% Editorial macros. \todo and \prov mark text that still needs work.
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\newcommand{\prov}[1]{\textcolor{blue}{#1}} % provisional (n=3); update after n=5 boost
+\newcommand{\degsym}{\ensuremath{^\circ}}
+\newcommand{\dz}{\ensuremath{d_z}}
+
+\graphicspath{{figs/}{../figs/}}
+
+\begin{document}
+
+\title{When Do Geometry Priors Help Sound Event Localization and Detection? The Role of Temporal Inductive Bias}
+
+\author{\IEEEauthorblockN{Anonymous Author(s)}
+\IEEEauthorblockA{Affiliation withheld for review\\
+Code and checkpoints to be released upon publication}}
+
+\maketitle
+
+\begin{abstract}
+\input{sections/00_abstract}
+\end{abstract}
+
+\begin{IEEEkeywords}
+Sound event localization and detection, microphone array, geometry prior, inductive bias, channel attention, ablation study.
+\end{IEEEkeywords}
+
+\input{sections/01_introduction}
+\input{sections/02_related}
+\input{sections/03_method}
+\input{sections/04_experiments}
+\input{sections/05_discussion}
+\input{sections/06_conclusion}
+
+\input{sections/07_appendix}
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\end{document}

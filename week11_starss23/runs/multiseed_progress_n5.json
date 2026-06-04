@@ -1,0 +1,29 @@
+{
+  "queue": [
+    [
+      "no_geom",
+      3
+    ],
+    [
+      "full",
+      3
+    ],
+    [
+      "no_geom",
+      4
+    ],
+    [
+      "full",
+      4
+    ]
+  ],
+  "started_at": "2026-05-15 16:02:59",
+  "completed": [],
+  "current": {
+    "variant": "no_geom",
+    "seed": 3,
+    "stage": "training",
+    "since": "16:02:59"
+  },
+  "errors": []
+}

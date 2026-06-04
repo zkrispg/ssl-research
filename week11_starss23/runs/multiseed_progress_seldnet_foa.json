@@ -1,0 +1,70 @@
+{
+  "tag": "seldnet_foa",
+  "specs": [
+    {
+      "variant": "seldnet_official",
+      "seed": 0,
+      "suffix": "foa_baseline_mc8_inmem"
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 1,
+      "suffix": "foa_baseline_mc8_inmem"
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 2,
+      "suffix": "foa_baseline_mc8_inmem"
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 3,
+      "suffix": "foa_baseline_mc8_inmem"
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 4,
+      "suffix": "foa_baseline_mc8_inmem"
+    }
+  ],
+  "started_at": "2026-05-20 01:00:35",
+  "completed": [
+    {
+      "variant": "seldnet_official",
+      "seed": 0,
+      "best_eval_loss": 0.022840326460890282,
+      "elapsed_s": 3175.3770174980164
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 1,
+      "best_eval_loss": 0.02358873680424996,
+      "elapsed_s": 3081.5549194812775
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 2,
+      "best_eval_loss": 0.02290036961531792,
+      "elapsed_s": 3074.65784239769
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 3,
+      "best_eval_loss": 0.022091239069898922,
+      "elapsed_s": 3074.7562515735626
+    },
+    {
+      "variant": "seldnet_official",
+      "seed": 4,
+      "best_eval_loss": 0.022942124101787042,
+      "elapsed_s": 3064.524065732956
+    }
+  ],
+  "current": {
+    "variant": "seldnet_official",
+    "seed": 4,
+    "stage": "eval",
+    "since": "05:28:29"
+  },
+  "errors": []
+}
