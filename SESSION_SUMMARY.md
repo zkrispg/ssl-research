@@ -1,3 +1,9 @@
+> ⚠️ **过时提示(2026-06-04)**:本文档记录的是**早期的「合成数据多源 SSL」研究线**(week01–week11,GCA 几何 channel attention 负面结果)。
+> **当前活跃工作不是这条线**,而是 `dcase2024_baseline/` 里基于 DCASE 真实数据的「几何注入 × 时序架构」convbias 实验。
+> **接手请以仓库根目录的 [`HANDOFF.md`](HANDOFF.md) 为准**,本文件仅作历史参考。
+
+---
+
 # SSL Research — Complete Session Summary
 
 > 论文目标:Q3 SCI 期刊关于多源声源定位的方法学论文。

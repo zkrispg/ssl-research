@@ -1,3 +1,5 @@
+> ℹ️ **当前工作请先看 [`HANDOFF.md`](HANDOFF.md)**。本 README 记录的是早期「合成数据多源 SSL」研究线(week01–week11);当前活跃任务是 `dcase2024_baseline/` 的 convbias 几何注入实验,详见 HANDOFF。
+
 # SSL Research — Sound Source Localization
 
 研究目标：在标准数据集（DCASE / LOCATA）上做空间声源定位，目标三区 SCI（`Sensors` / `Applied Acoustics` / `EURASIP J. Audio Speech Music Proc.`）。
