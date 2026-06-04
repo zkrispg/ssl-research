@@ -34,8 +34,8 @@
 *.npy
 *.npz
 
-# ---- 模型权重 / checkpoint（~504MB，已单独备份到 C:\backup）----
-*.h5
+# ---- 模型权重 / checkpoint ----
+# 注意：.h5 改用 Git LFS 管理（见 .gitattributes），故不在此忽略
 *.pth
 *.pt
 *.ckpt
@@ -57,7 +57,7 @@ __pycache__/
 
 # ---- 训练运行时输出（大、可重生成）----
 results_audio/
-models_audio/
+# models_audio/ 不再忽略：其中的 .h5 checkpoint 通过 Git LFS 备份
 *.log
 
 # ---- IDE / 系统 ----
