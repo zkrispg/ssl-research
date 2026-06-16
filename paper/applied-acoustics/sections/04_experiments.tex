@@ -41,6 +41,10 @@ single-cell $p$-values are not our primary evidence}; the claim is about the
 interaction (Section~\ref{sec:anova}) and corroborate on an independent dataset
 where the recurrent benefit reaches full significance
 (Section~\ref{sec:cross}).
+This is deliberately a \emph{direction-localization} claim: the same archived
+per-seed table does not show a corresponding architecture-ordered pattern on
+$F_{20\degsym}$ or aggregate SELD score, which we therefore treat as secondary
+diagnostics rather than as the endpoint defining the prior's sign.
 
 One honest caveat about the middle of the ordering: the Conformer is the weakest
 detector in our grid (location-aware $F_{20\degsym}$ of $4$--$7\%$ and the worst
@@ -194,6 +198,54 @@ in sign for every cell---the recurrent Ambisonic benefit being significant
 out-of-domain.}
 \label{fig:forest}
 \end{figure}
+
+\subsection{Second injection check: the ordering is bounded by mechanism}
+\label{sec:convbias}
+The GCA experiments above isolate a geometry term inside channel-attention keys.
+To test whether the architecture ordering is merely an artifact of that injection
+site, we also implement an orthogonal geometry path, \texttt{convbias}: a fixed
+geometry descriptor is projected with a learned linear layer into one scalar per
+front-end convolutional filter and added as an early feature-map bias. The
+\texttt{full} and \texttt{no\_geom} variants keep identical parameter counts; the
+latter runs the same projection but with the geometry input zeroed. This makes
+the contrast a matched-capacity test of geometry content rather than extra
+parameters.
+
+Table~\ref{tab:convbias} shows the result. Rather than providing a clean
+mechanism-invariant replication, \texttt{convbias} exposes sensitivity. The FOA
+Conformer contrast is near zero in the first two independent matched runs
+($+0.21\degsym$ and $+0.31\degsym$), but after enforcing sorted file order,
+strict deterministic CUDA, math-only attention, and validation-SELD checkpoint
+selection, the same contrast moves to harm ($+7.59\degsym$) with very low
+$F_{20\degsym}$. The FOA Transformer also shifts across the three paths
+($+9.55\degsym$, $-2.89\degsym$, and $+4.81\degsym$). The microphone-array
+Transformer reverses relative to GCA ($-3.79\degsym$ versus $+5.70\degsym$). We
+therefore use \texttt{convbias} as a boundary condition: geometry effects are
+architecture-structured in the primary GCA intervention, but not stable enough
+under this second injection site to claim cross-mechanism replication.
+
+\begin{table*}[t]
+\centering
+\caption{Second injection check on DOAE$_\mathrm{CD}$. GCA injects geometry into
+channel-attention keys ($n=5$). \texttt{convbias} injects geometry as an early
+per-filter convolutional feature bias ($n=3$ per run). Each entry is
+$\Delta=\text{full}-\text{no\_geom}$ in degrees (negative $=$ helps). The
+deterministic rerun used sorted file order, strict deterministic CUDA, math-only
+attention, and validation-SELD checkpoint selection; its low $F_{20\degsym}$
+makes the table a sensitivity check rather than confirmatory evidence.}
+\label{tab:convbias}
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llccccc}
+\toprule
+Modality & Backbone & GCA & run 1 & GPU rerun & det. SELD rerun & Reading \\
+\midrule
+FOA & CRNN        & $-5.02$ & $-1.60$ & --- & --- & weak help \\
+FOA & Conformer   & $+0.88$ & $+0.21$ & $+0.31$ & $+7.59$ & checkpoint-sensitive \\
+FOA & Transformer & $+2.57$ & $+9.55$ & $-2.89$ & $+4.81$ & unstable \\
+MIC & Transformer & $+5.70$ & $-3.79$ & --- & --- & sign reversal \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
 \subsection{Mechanism probe: the effect is behavioural, not a linear feature shift}
 \label{sec:probing}

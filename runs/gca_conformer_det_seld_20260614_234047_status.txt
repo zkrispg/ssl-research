@@ -1,0 +1,1 @@
+﻿running task=172 job=det_gca_seed3 seed=3 at 2026-06-16 12:56:40

@@ -1,21 +1,31 @@
-# Cross-injection robustness: convbias geometry prior on the two extreme cells
+# Cross-injection check: convbias geometry prior versus GCA
 
 A *second* geometry-injection mechanism (`convbias`: geometry as a learned 
-per-filter conv-feature bias) re-measured on the recurrent (helps) and 
-pure-attention (harms) cells. Paired contrast = full - no_geom on matched seeds; 
+per-filter conv-feature bias) re-measures the geometry-prior effect at a
+different injection site. Paired contrast = full - no_geom on matched seeds;
 `full` and `no_geom` have identical parameter counts. The GCA column repeats the 
-main-paper result for the same cell.
+main-paper result for the same cell. Negative DOAE means geometry helps.
 
-## DOAE_CD (deg) -- headline metric (negative = geometry helps)
-| cell | n | convbias full | convbias no_geom | delta DOAE (convbias) | t (p) | d_z | 95% CI | GCA delta | sign matches? |
-| ---- | - | ------------- | ---------------- | --------------------- | ----- | --- | ------ | --------- | ------------- |
-| **FOA + CRNN** | 3 | 37.38 ± 4.39 | 38.98 ± 3.08 | **-1.60** | t=-1.64 (p=0.243) | **-0.95** | [-3.36, +0.01] | -5.02 | **yes** |
-| **MIC + Transformer** | 3 | 41.40 ± 3.90 | 45.19 ± 5.65 | **-3.79** | t=-0.94 (p=0.448) | **-0.54** | [-11.42, +2.37] | +5.70 | **NO** |
+## DOAE_CD (deg) -- headline metric
+| cell | n | convbias run 1 delta | gpu-logged rerun delta | deterministic SELD rerun delta | GCA delta | reading |
+| ---- | - | -------------------- | ---------------------- | ------------------------------- | --------- | ------- |
+| **FOA + CRNN** | 3 | **-1.60** | not rerun | not rerun | -5.02 | weak help, same sign as GCA |
+| **FOA + Conformer** | 3+3+3 | **+0.21** | **+0.31** | **+7.59** | +0.88 | changes from near-zero to harm under SELD selection |
+| **FOA + Transformer** | 3+3+3 | **+9.55** | **-2.89** | **+4.81** | +2.57 | sign/checkpoint sensitive |
+| **MIC + Transformer** | 3 | **-3.79** | not rerun | not rerun | +5.70 | sign reversal from GCA |
 
 ## F1 (%) and SELD score (paired delta = full - no_geom)
-| cell | delta F1 | t (p) | delta SELD | t (p) |
-| ---- | -------- | ----- | ---------- | ----- |
-| FOA + CRNN | -0.47 | t=-2.59 (p=0.122) | +0.001 | t=+0.18 (p=0.873) |
-| MIC + Transformer | +0.17 | t=+2.99 (p=0.096) | -0.044 | t=-1.61 (p=0.249) |
+| cell | run-1 delta F1 | run-1 delta SELD | deterministic SELD rerun delta F1 | deterministic SELD rerun delta SELD | reading |
+| ---- | -------------- | ---------------- | ---------------------------------- | ------------------------------------ | ------- |
+| FOA + CRNN | -0.47 | +0.001 | not rerun | not rerun | direction benefit is not a broad SELD-score gain |
+| FOA + Conformer | +0.47 | -0.054 | -0.91 | +0.032 | SELD-selection rerun reverses the aggregate gain |
+| FOA + Transformer | -0.67 | -0.015 | -1.11 | +0.003 | small aggregate difference but direction remains checkpoint-sensitive |
+| MIC + Transformer | +0.17 | -0.044 | not rerun | not rerun | sign reversal from GCA; injection-dependent |
 
-**Verdict:** the ordering does NOT fully replicate under convbias; interpret the geometry-prior effect as injection-dependent.
+**Verdict:** convbias is not confirmatory cross-injection evidence. The
+first two FOA Conformer runs are near zero, but the strict deterministic rerun
+with validation-SELD checkpoint selection moves the same contrast to harm. FOA
+Transformer is also sign/checkpoint sensitive, and MIC+Transformer reverses
+relative to GCA. The paper should treat convbias as a sensitivity/boundary
+condition and keep the primary architecture claim anchored on the GCA factorial
+grid and STARSS22 replication.

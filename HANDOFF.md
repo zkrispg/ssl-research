@@ -1,13 +1,13 @@
 # 项目接手清单(HANDOFF)
 
 > 给在**新机器上接手本项目的 AI 助手 / 研究者**看。读完这一份 + `README.md` 即可恢复工作。
-> 最后更新:2026-06-04。
+> 最后更新:2026-06-16。
 
 ---
 
 ## 0. 一句话项目状态
 
-正在为一篇 **SELD(声音事件定位与检测)方法学论文**(目标期刊 *Applied Acoustics*)补做"**几何先验注入 × 时序架构** 交互效应"的稳健性实验。核心代码与论文已用 git + Git LFS 备份到私有仓库 `github.com/zkrispg/ssl-research`。**当前唯一进行中的任务:把 convbias 这第二种几何注入机制,在 FOA 模态的三种架构上各跑 3 个 seed(task 184–187),验证"helps→neutral→harms"的架构序是否稳健。**
+正在为一篇 **SELD(声音事件定位与检测)方法学论文**(目标期刊 *Applied Acoustics*)收敛"**几何先验注入 × 时序架构** 交互效应"的稳健性实验和投稿稿件。核心代码与论文已用 git + Git LFS 备份到私有仓库 `github.com/zkrispg/ssl-research`。**FOA convbias 补充 task 184–187 的 ablate_seed0/1/2 已完成;RTX 5060 GPU-logged 重跑 `gpu_20260609_153817` 也已完成。两轮在 FOA+Conformer 上都接近 neutral,但 FOA+Transformer 方向反转,所以 convbias 只能作为机制/重跑敏感性边界,不能作为跨机制稳健复现。**
 
 ---
 
@@ -34,7 +34,7 @@
 
 即 **"helps → neutral → harms" 随架构从 CRNN→Conformer→Transformer 变化**。
 
-**当前要回答的问题**:这个排序是 GCA 这一种注入方式的偶然,还是更普适?于是引入**第二种机制不同的注入方式 `convbias`**:把几何描述子用一个 `Linear(G → nb_cnn2d_filt, bias=False)` 投影,作为**逐通道的加性 bias** 加到第一层卷积特征图上(实现见 `dcase2024_baseline/seldnet_model.py` 的 `per_channel_geometry_vector` + `_maybe_add_geom_bias`)。如果 convbias 也呈现同样的 helps→harms 架构序,则结论稳健(可写成论文的"跨注入机制鲁棒性"小节 = A-plan)。
+**当前回答的问题**:这个排序是 GCA 这一种注入方式的偶然,还是更普适?于是引入**第二种机制不同的注入方式 `convbias`**:把几何描述子用一个 `Linear(G → nb_cnn2d_filt, bias=False)` 投影,作为**逐通道的加性 bias** 加到第一层卷积特征图上(实现见 `dcase2024_baseline/seldnet_model.py` 的 `per_channel_geometry_vector` + `_maybe_add_geom_bias`)。新结果显示:FOA+Conformer 在两轮 convbias 中都基本 neutral(`+0.21°`/`+0.31°`),但 FOA+Transformer 从 ablate 的 harm(`+9.55°`)变为 GPU-logged rerun 的 help(`-2.89°`);MIC+Transformer 端 convbias 也与 GCA 反号(`-3.79°` vs `+5.70°`)。因此论文表述必须是"主 GCA 结论成立;第二注入机制显示机制/训练选择敏感性",不能写成跨机制稳健复现。
 
 每个实验都有一对 variant,**唯一区别是几何信息开/关**,参数量严格相等:
 - `full` = 几何先验 ON
@@ -52,14 +52,35 @@
 | 181 | FOA | CRNN | no_geom | — | ✅ 3/3 |
 | 182 | MIC | Transformer | full | 141 | ✅ 3/3 |
 | 183 | MIC | Transformer | no_geom | — | 🔄 2/3(seed2 在 3050Ti 上跑) |
-| 184 | FOA | Conformer | full | 171 | ⬜ 0/3 ← **待 5060 跑** |
-| 185 | FOA | Conformer | no_geom | — | ⬜ 0/3 ← **待 5060 跑** |
-| 186 | FOA | Transformer | full | 151 | ⬜ 0/3 ← **待 5060 跑** |
-| 187 | FOA | Transformer | no_geom | — | ⬜ 0/3 ← **待 5060 跑** |
+| 184 | FOA | Conformer | full | 171 | ✅ ablate 3/3 + GPU-logged 3/3 |
+| 185 | FOA | Conformer | no_geom | — | ✅ ablate 3/3 + GPU-logged 3/3 |
+| 186 | FOA | Transformer | full | 151 | ✅ ablate 3/3 + GPU-logged 3/3 |
+| 187 | FOA | Transformer | no_geom | — | ✅ ablate 3/3 + GPU-logged 3/3 |
 
 > 180–183 是在旧 3050Ti 上跑的(MIC+FOA 混合);184–187 是 **FOA-only 补充**,专门迁到 RTX 5060 跑,用来补全"FOA 模态、固定模态只变架构"的干净对照(CRNN=180/181, Conformer=184/185, Transformer=186/187)。
 
-**preliminary 信号(n=2 时,待 n=3 复核)**:MIC+Transformer 端 convbias 的方向疑似与 GCA 反号(convbias≈−4.52° vs GCA≈+5.70° DOAE),所以补 n=3 很关键。
+**n=3 + GPU-logged 重跑后的信号**:FOA+Conformer 稳定 neutral:ablate `+0.21°`,GPU rerun `+0.31°`。FOA+Transformer 不稳定:ablate `+9.55°`(harm),GPU rerun `-2.89°`(help)。MIC+Transformer convbias 为 `-3.79°`,也与 GCA `+5.70°` 反号。因此 convbias 应写成"第二注入机制暴露敏感性/边界条件",不是 A-plan 的稳健复现。
+
+### 3.1 2026-06-16 当前 runner 现场
+
+正在训练机上跑一批 **GCA + Conformer 的确定性补跑**，用于把 GCA 表里的 Conformer 行整理成最终可引用版本:
+
+- runner: `dcase2024_baseline/_run_gca_conformer_deterministic_local.ps1`
+- 任务矩阵: `161/162/171/172 × seed0..4`，共 20 个 train/test 单元
+- 当前进度: **15/20 test log 已完整落盘**；`172 det_gca_seed3` 已完成 60 epoch 训练，正在 `train_seldnet.py` 内部导出 unseen test 结果
+- 当前活跃日志: `runs/dcase2024_172_det_gca_seed3.log`
+- 当前状态文件: `runs/gca_conformer_det_seld_20260614_234047_status.txt`
+- 当前小汇总: `runs/gca_conformer_det_seld_progress.md` / `.csv` / `.json`
+- 若 runner 中断: 直接重跑同一个 `.ps1`；脚本会用 test log 完整性跳过已完成单元，下一步应从缺失的 `172 seed3_test.log` 或 `161 seed4` 继续
+
+已完成的 Conformer GCA test 单元:
+
+| task | 含义 | 完成 seeds | 当前均值方向 |
+|---|---|---:|---|
+| 161 | MIC + Conformer + GCA full | 0,1,2,3 | n=4, vs 162 的 ΔDOAE≈+0.01°, ΔSELD≈-0.021 |
+| 162 | MIC + Conformer + GCA no_geom | 0,1,2,3 | n=4 |
+| 171 | FOA + Conformer + GCA full | 0,1,2,3 | n=3 paired vs 172(seed0..2) 的 ΔDOAE≈-3.71°, ΔSELD≈-0.019；seed3 等 172 test 完成后再更新 |
+| 172 | FOA + Conformer + GCA no_geom | 0,1,2 完整；seed3 test 输出中 | n=3 完整 |
 
 ---
 
@@ -141,10 +162,10 @@ python _path_c_crossinject.py
 
 ## 7. 待办(按优先级)
 
-1. **[进行中]** 3050Ti 上 183 seed2 跑完(无需人工干预,批处理会自动收尾)。
-2. **[5060 主任务]** 跑 184–187 × 3 seeds(`_run_convbias_foa.ps1`),约 12 个 run。
-3. **[分析]** 全部 n=3 齐后跑 `_path_c_crossinject.py`,确认 convbias 是否复现 GCA 的 helps→neutral→harms 架构序;重点看 MIC+Transformer 端方向在 n=3 下是否稳住(n=2 时疑似反号)。
-4. **[写作]** 按 A-plan 把结论写进论文:新增"跨注入机制鲁棒性"小节 + 一张"GCA vs convbias × 架构"对照表;叙事从"架构决定几何先验有效性"升级为"注入机制 × 架构的交互效应"。
+1. **[已完成]** RTX 5060 GPU-logged 重跑 `gpu_20260609_153817` 已完成,日志在 `runs/gpu_20260609_153817_driver.out.log`,GPU 监控在 `runs/gpu_20260609_153817_nvidia_smi.csv`。
+2. **[已完成]** 184–187 × 3 seeds 的 ablate 结果已汇总到 `outputs/convbias_foa_184_187_summary.md`;GPU rerun 审计见 `outputs/convbias_gpu_rerun_audit.md`。
+3. **[写作进行中]** Applied Acoustics 稿件的"Second injection check"小节已降级为敏感性边界;后续重点是编译 PDF、检查版式、压缩图表和完善投稿材料。
+4. **[可选]** 若要继续研究 convbias,应先做 deterministic runner(排序文件列表、cuDNN deterministic、固定 checkpoint 选择指标),再补更大 seed;否则不要把 convbias Transformer 方向作为主论文证据。
 
 ---
 

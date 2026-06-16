@@ -13,7 +13,10 @@ backbones; the recurrent Ambisonic benefit replicates zero-shot at full
 significance ($\dz=-1.50$, $p=0.029$), and a controlled probe shows the effect is
 behavioural, not a shift in linearly decodable features. Orthogonally, the
 architecture that governs direction is inert on distance---a dissociation, not two
-crossed interactions. Geometry priors are thus a conditional,
-context-dependent design choice, and should be ablated, not assumed. We release a
-reproducible multi-seed pipeline so future work can audit other priors and
-backbones with the same protocol.
+crossed interactions. A second injection mechanism exposes a boundary condition:
+the measured \texttt{convbias} contrasts move under rerun and checkpoint-
+selection changes, so this second path bounds rather than confirms the primary
+GCA claim. Geometry priors are thus conditional,
+context-dependent design choices, and should be ablated, not assumed. We release
+a reproducible multi-seed pipeline so future work can audit other priors,
+injection sites, and backbones with the same protocol.

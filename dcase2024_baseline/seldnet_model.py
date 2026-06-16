@@ -11,6 +11,7 @@
 import math
 import os
 import sys
+from pathlib import Path
 
 import numpy as np
 import torch
@@ -23,10 +24,14 @@ except ImportError:
     def embed(*args, **kwargs):  # type: ignore
         raise RuntimeError("IPython.embed() requested but IPython not installed")
 
-# Make the SSL-research GCA module importable regardless of cwd.
-_SSL_REPO_ROOT = r"D:\ssl-research"
-if _SSL_REPO_ROOT not in sys.path:
-    sys.path.insert(0, _SSL_REPO_ROOT)
+# Make the SSL-research GCA module importable regardless of cwd or drive letter.
+_SSL_REPO_ROOTS = [
+    str(Path(__file__).resolve().parents[1]),
+    r"D:\ssl-research",
+]
+for _SSL_REPO_ROOT in reversed(_SSL_REPO_ROOTS):
+    if _SSL_REPO_ROOT not in sys.path:
+        sys.path.insert(0, _SSL_REPO_ROOT)
 
 try:
     from week09_geometry_attn.geometry_attn import (  # type: ignore
@@ -287,7 +292,7 @@ class SeldModel(torch.nn.Module):
             if not _HAS_GCA:
                 raise RuntimeError(
                     "GCA requested but week09_geometry_attn module not importable; "
-                    "ensure D:\\ssl-research is on sys.path."
+                    "ensure the ssl-research repo root is on sys.path."
                 )
             if self.gca_modality == 'foa':
                 # FOA path: 4 ambisonic channels (W/X/Y/Z). Geometry token

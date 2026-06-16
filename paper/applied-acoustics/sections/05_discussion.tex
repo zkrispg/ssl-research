@@ -55,10 +55,27 @@ also act as a weak regularizer toward array-consistent solutions under
 shift---reinforcing the graded account: the prior's value
 depends jointly on backbone and deployment regime.
 
+\subsection{The injection mechanism bounds the claim}
+The \texttt{convbias} check sharpens the interpretation by limiting it. Moving
+the prior from channel-attention keys to an early convolutional feature bias first
+kept the FOA Conformer near zero and flipped the FOA Transformer sign in a
+GPU-logged rerun; a strict deterministic rerun with validation-SELD checkpoint
+selection then moved both FOA contrasts positive. The MIC+Transformer contrast
+also reverses relative to GCA. This rules out stronger universal claims such as
+``geometry priors always hurt Transformers'' or ``the Conformer is mechanism-
+invariantly neutral.'' It also shows why the primary evidence should remain the
+controlled GCA factorial grid and STARSS22 replication, not the second injection
+mechanism. The design lesson is narrower and more useful: both the temporal
+backbone and the injection site must be ablated, because a hand-crafted prior can
+change role when it is imposed before convolution rather than inside channel
+attention, and checkpoint selection can move the measured directional error.
+
 \subsection{Practical guidance}
 Do not add an array-geometry prior by default: it most likely helps a
-low-capacity recurrent model and hurts a global-mixing Transformer; when in
-doubt, ablate it with a seed-matched paired test before shipping.
+low-capacity recurrent model and can hurt a global-mixing Transformer, but the
+effect also depends on the injection site. When in doubt, ablate both the prior
+and the mechanism that carries it with a seed-matched paired test before
+shipping.
 
 \subsection{Limitations}
 \label{sec:limitations}
@@ -76,7 +93,9 @@ single in-domain $t$-test, and larger budgets would sharpen the per-cell estimat
 shift detection collapses for all cells, so that corpus bounds rather than
 extends the effect; the load-bearing external validity is the STARSS22
 replication, which covers both modalities.
-\emph{(iv)~Backbone coverage}: we study three backbones spanning the
-locality spectrum but a single front-end and recipe; we expect
-the graded \emph{phenomenon} to generalize, though the exact crossover point may
-differ for other SELD paradigms.
+\emph{(iv)~Backbone, mechanism, and determinism}: we study three backbones
+spanning the locality spectrum but a single front-end and recipe, with one
+primary geometry mechanism and one smaller second-injection check. That check is
+sensitive to reruns in the Transformer cell, so it bounds rather than confirms
+the primary GCA conclusion. A deterministic training stack and larger seed budget
+would be needed to make stronger claims about alternative injection sites.

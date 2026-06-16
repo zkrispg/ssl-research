@@ -4,6 +4,8 @@
 
 import os
 import sys
+import random
+import subprocess
 import numpy as np
 import matplotlib.pyplot as plot
 import cls_feature_class
@@ -19,6 +21,129 @@ from IPython import embed
 from cls_compute_seld_results import ComputeSELDResults, reshape_3Dto2D
 from SELD_evaluation_metrics import distance_between_cartesian_coordinates
 import seldnet_model 
+
+
+def _env_flag(name, default='0'):
+    return os.environ.get(name, default).strip().lower() in {'1', 'true', 'yes', 'on'}
+
+
+def _get_git_rev():
+    try:
+        return subprocess.check_output(
+            ['git', 'rev-parse', '--short', 'HEAD'],
+            cwd=os.path.dirname(os.path.abspath(__file__)),
+            stderr=subprocess.DEVNULL,
+            text=True,
+        ).strip()
+    except Exception:
+        return 'unknown'
+
+
+def _configure_reproducibility(seed_val, use_cuda):
+    random.seed(seed_val)
+    np.random.seed(seed_val)
+    torch.manual_seed(seed_val)
+    if use_cuda:
+        torch.cuda.manual_seed_all(seed_val)
+
+    deterministic = _env_flag('SSL_DETERMINISTIC')
+    strict = _env_flag('SSL_DETERMINISTIC_STRICT')
+    if deterministic:
+        os.environ.setdefault('CUBLAS_WORKSPACE_CONFIG', ':4096:8')
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+        if use_cuda:
+            try:
+                torch.backends.cuda.enable_flash_sdp(False)
+                torch.backends.cuda.enable_mem_efficient_sdp(False)
+                torch.backends.cuda.enable_math_sdp(True)
+                print('[run] cuda_sdp = math_only')
+            except Exception as exc:
+                print(f'[run] cuda_sdp = unchanged ({exc})')
+        torch.use_deterministic_algorithms(True, warn_only=not strict)
+
+    if _env_flag('SSL_DISABLE_TF32'):
+        try:
+            torch.backends.cuda.matmul.allow_tf32 = False
+            torch.backends.cudnn.allow_tf32 = False
+        except Exception:
+            pass
+
+    print(f'[seed] training/eval seed = {seed_val}')
+    print(f'[run] deterministic = {int(deterministic)} strict = {int(strict)}')
+    print(f'[run] CUBLAS_WORKSPACE_CONFIG = {os.environ.get("CUBLAS_WORKSPACE_CONFIG", "")}')
+    print(f'[run] PYTHONHASHSEED = {os.environ.get("PYTHONHASHSEED", "")}')
+    return deterministic
+
+
+def _best_metric_config():
+    metric = os.environ.get('SSL_BEST_METRIC', 'f').strip().lower()
+    aliases = {
+        'f': ('f', 'max'),
+        'f1': ('f', 'max'),
+        'fscore': ('f', 'max'),
+        'seld': ('seld', 'min'),
+        'seld_score': ('seld', 'min'),
+        'doae': ('doae', 'min'),
+        'ae': ('doae', 'min'),
+        'le': ('doae', 'min'),
+        'dist': ('dist', 'min'),
+        'dist_err': ('dist', 'min'),
+        'reldist': ('reldist', 'min'),
+        'rel_dist_err': ('reldist', 'min'),
+    }
+    if metric not in aliases:
+        raise ValueError('Unsupported SSL_BEST_METRIC={}. Use f, seld, doae, dist, or reldist.'.format(metric))
+    tie_policy = os.environ.get('SSL_BEST_TIE', 'later').strip().lower()
+    if tie_policy not in {'earlier', 'later'}:
+        raise ValueError('Unsupported SSL_BEST_TIE={}. Use earlier or later.'.format(tie_policy))
+    metric_name, direction = aliases[metric]
+    return metric_name, direction, tie_policy
+
+
+def _to_float(value):
+    try:
+        arr = np.asarray(value)
+        if arr.shape:
+            value = arr.reshape(-1)[0]
+        return float(value)
+    except Exception:
+        return float('nan')
+
+
+def _selection_metric_value(metric_name, val_F, val_LE, val_dist_err, val_rel_dist_err, val_seld_scr):
+    values = {
+        'f': val_F,
+        'seld': val_seld_scr,
+        'doae': val_LE,
+        'dist': val_dist_err,
+        'reldist': val_rel_dist_err,
+    }
+    return _to_float(values[metric_name])
+
+
+def _metric_is_better(current_value, best_value, direction, tie_policy):
+    if not np.isfinite(current_value):
+        return False
+    if best_value is None or not np.isfinite(best_value):
+        return True
+    eps = 1e-12
+    if direction == 'max':
+        if current_value > best_value + eps:
+            return True
+        return abs(current_value - best_value) <= eps and tie_policy == 'later'
+    if current_value < best_value - eps:
+        return True
+    return abs(current_value - best_value) <= eps and tie_policy == 'later'
+
+
+def _log_data_generator(tag, data_generator):
+    filelist = data_generator.get_filelist()
+    digest = data_generator.get_file_order_digest() if hasattr(data_generator, 'get_file_order_digest') else 'na'
+    first = filelist[0] if filelist else 'na'
+    last = filelist[-1] if filelist else 'na'
+    print('[data] {} files={} digest={} first={} last={}'.format(tag, len(filelist), digest, first, last))
+
 
 def get_accdoa_labels(accdoa_in, nb_classes):
     x, y, z = accdoa_in[:, :, :nb_classes], accdoa_in[:, :, nb_classes:2*nb_classes], accdoa_in[:, :, 2*nb_classes:]
@@ -332,6 +457,9 @@ def main(argv):
     # use parameter set defined by user
     task_id = '1' if len(argv) < 2 else argv[1]
     params = parameters.get_params(task_id)
+    if _env_flag('SSL_QUICK_TEST'):
+        params['quick_test'] = True
+        print('[run] quick_test forced by SSL_QUICK_TEST')
 
     # job_id is the 3rd positional arg ('argv[2]'). The original baseline
     # used argv[-1], but with our 4-arg `<task> <job> <seed>` invocation
@@ -340,14 +468,13 @@ def main(argv):
 
     # Seeding for reproducibility / multi-seed comparisons.
     # 4th positional arg overrides; otherwise read SSL_SEED env var (default 0).
-    import random as _rand
     seed_val = int(argv[3]) if len(argv) >= 4 else int(os.environ.get('SSL_SEED', '0'))
-    _rand.seed(seed_val)
-    np.random.seed(seed_val)
-    torch.manual_seed(seed_val)
-    if use_cuda:
-        torch.cuda.manual_seed_all(seed_val)
-    print(f'[seed] training/eval seed = {seed_val}')
+    _configure_reproducibility(seed_val, use_cuda)
+    best_metric_name, best_metric_direction, best_tie_policy = _best_metric_config()
+    print(f'[run] git_rev = {_get_git_rev()}')
+    print(f'[run] torch = {torch.__version__} cuda_runtime = {torch.version.cuda}')
+    print(f'[run] device = {device}')
+    print(f'[checkpoint] best_metric = {best_metric_name} direction = {best_metric_direction} tie = {best_tie_policy}')
 
     # Training setup
     train_splits, val_splits, test_splits = None, None, None
@@ -411,6 +538,8 @@ def main(argv):
             data_gen_val = cls_data_generator.DataGenerator(
                 params=params, split=val_splits[split_cnt], shuffle=False, per_file=True
             )
+            _log_data_generator('train', data_gen_train)
+            _log_data_generator('val', data_gen_val)
 
             # Collect i/o data size and load model configuration
             if params['modality'] == 'audio_visual':
@@ -445,9 +574,13 @@ def main(argv):
             # start training
             best_val_epoch = -1
             best_ER, best_F, best_LE, best_LR, best_seld_scr, best_dist_err, best_rel_dist_err = 1., 0., 180., 0., 9999, 999999., 999999.
+            best_selection_value = None
             patience_cnt = 0
 
             nb_epoch = 2 if params['quick_test'] else params['nb_epochs']
+            if os.environ.get('SSL_MAX_EPOCHS'):
+                nb_epoch = min(nb_epoch, int(os.environ['SSL_MAX_EPOCHS']))
+                print('[run] SSL_MAX_EPOCHS applied: nb_epoch={}'.format(nb_epoch))
             optimizer = optim.Adam(model.parameters(), lr=params['lr'])
             if params['multi_accdoa'] is True:
                 criterion = seldnet_model.MSELoss_ADPIT()
@@ -473,11 +606,17 @@ def main(argv):
 
                 val_time = time.time() - start_time
 
-                # Save model if F-score is good
-                if val_F >= best_F:
+                selection_value = _selection_metric_value(
+                    best_metric_name, val_F, val_LE, val_dist_err, val_rel_dist_err, val_seld_scr
+                )
+
+                # Save model according to the configured validation selection metric.
+                if _metric_is_better(selection_value, best_selection_value, best_metric_direction, best_tie_policy):
                     best_val_epoch, best_ER, best_F, best_LE, best_LR, best_seld_scr, best_dist_err = epoch_cnt, val_ER, val_F, val_LE, val_LR, val_seld_scr, val_dist_err
                     best_rel_dist_err = val_rel_dist_err
+                    best_selection_value = selection_value
                     torch.save(model.state_dict(), model_name)
+                    print('[checkpoint] saved epoch={} {}={:0.6f}'.format(epoch_cnt, best_metric_name, selection_value))
                     patience_cnt = 0
                 else:
                     patience_cnt += 1
@@ -508,6 +647,7 @@ def main(argv):
             data_gen_test = cls_data_generator.DataGenerator(
                 params=params, split=test_splits[split_cnt], shuffle=False, per_file=True
             )
+            _log_data_generator('test', data_gen_test)
 
             # Dump results in DCASE output format for calculating final scores
             dcase_output_test_folder = os.path.join(params['dcase_output_dir'], '{}_{}_test'.format(unique_name, strftime("%Y%m%d%H%M%S", gmtime())))
@@ -555,6 +695,7 @@ def main(argv):
         print('Loading evaluation dataset:')
         data_gen_eval = cls_data_generator.DataGenerator(
             params=params, shuffle=False, per_file=True, is_eval=True)
+        _log_data_generator('eval', data_gen_eval)
 
         if params['modality'] == 'audio_visual':
             data_in, vid_data_in, data_out = data_gen_eval.get_data_sizes()

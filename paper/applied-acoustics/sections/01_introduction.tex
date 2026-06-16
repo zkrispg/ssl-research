@@ -40,6 +40,12 @@ Ambisonics: the prior improves localization by $5.0\degsym$ in-domain (a trend,
 $p=0.082$) and replicates zero-shot on an independent
 dataset at full significance ($\dz=-1.50$, $p=0.029$); the Transformer harm
 reproduces directionally in- and cross-domain ($+5.6$--$5.7\degsym$).
+As a second injection check, replacing the attention-key bias with a learned
+early convolutional feature bias exposes the boundary of this claim rather than
+strengthening it: FOA contrasts move across rerun and checkpoint-selection paths,
+and the microphone-array Transformer contrast reverses relative to GCA. The
+effect is therefore structured by architecture but not invariant to the
+injection site or to training-selection noise.
 Orthogonally, the prior's effect on \emph{distance} follows a different rule: it
 improves relative distance error for Ambisonics across all three backbones but not
 the microphone array, so the architecture that governs direction is inert on
@@ -72,7 +78,8 @@ the resulting ordering gives array-processing practitioners an actionable rule f
   indicating the effect is behavioural rather than a change in linear feature
   content---a negative result we report in full.
   \item We provide a \textbf{reproducible, statistically grounded protocol}
-  (one-bit ablation, multi-seed paired tests, factorial interaction test, and
-  probing) and release more than $100$ checkpoints trained on a single 4\,GB GPU,
-  arguing that geometry priors should be ablated rather than assumed.
+  (one-bit ablation, multi-seed paired tests, factorial interaction test, probing,
+  and a second geometry-injection sensitivity check) and release the checkpoints
+  needed to audit the claim, arguing that geometry priors should be ablated
+  rather than assumed.
 \end{enumerate}

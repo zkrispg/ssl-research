@@ -34,6 +34,8 @@ def main(argv: list[str]) -> int:
 
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
+    print(f"[test_only] torch = {torch.__version__} cuda_runtime = {torch.version.cuda}")
+    print(f"[test_only] device = {device}")
 
     params = parameters.get_params(task_id)
 
@@ -62,6 +64,11 @@ def main(argv: list[str]) -> int:
     data_gen_test = cls_data_generator.DataGenerator(
         params=params, split=test_splits[0], shuffle=False, per_file=True
     )
+    filelist = data_gen_test.get_filelist()
+    digest = data_gen_test.get_file_order_digest() if hasattr(data_gen_test, "get_file_order_digest") else "na"
+    first = filelist[0] if filelist else "na"
+    last = filelist[-1] if filelist else "na"
+    print(f"[test_only] test files = {len(filelist)} digest = {digest} first = {first} last = {last}")
     data_in, data_out = data_gen_test.get_data_sizes()
     model = seldnet_model.SeldModel(data_in, data_out, params).to(device)
     state_dict = torch.load(model_name, map_location="cpu")

@@ -3,6 +3,7 @@
 #
 
 import os
+import hashlib
 import numpy as np
 import cls_feature_class
 from IPython import embed
@@ -87,7 +88,7 @@ class DataGenerator(object):
     def _get_filenames_list_and_feat_label_sizes(self):
         print('Computing some stats about the dataset')
         max_frames, total_frames, temp_feat = -1, 0, []
-        for filename in os.listdir(self._feat_dir):
+        for filename in sorted(os.listdir(self._feat_dir)):
             if self._is_eval:
                 if self._modality == 'audio' or (hasattr(self, '_vid_feat_dir') and os.path.exists(
                         os.path.join(self._vid_feat_dir, filename))):  # some audio files do not have corresponding videos. Ignore them.
@@ -389,6 +390,13 @@ class DataGenerator(object):
 
     def get_filelist(self):
         return self._filenames_list
+
+    def get_file_order_digest(self):
+        digest = hashlib.sha256()
+        for filename in self._filenames_list:
+            digest.update(filename.encode('utf-8'))
+            digest.update(b'\n')
+        return digest.hexdigest()[:16]
 
     def get_frame_per_file(self):
         return self._label_batch_seq_len
