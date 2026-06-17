@@ -61,26 +61,26 @@
 
 **n=3 + GPU-logged 重跑后的信号**:FOA+Conformer 稳定 neutral:ablate `+0.21°`,GPU rerun `+0.31°`。FOA+Transformer 不稳定:ablate `+9.55°`(harm),GPU rerun `-2.89°`(help)。MIC+Transformer convbias 为 `-3.79°`,也与 GCA `+5.70°` 反号。因此 convbias 应写成"第二注入机制暴露敏感性/边界条件",不是 A-plan 的稳健复现。
 
-### 3.1 2026-06-16 当前 runner 现场
+### 3.1 2026-06-17 GCA Conformer deterministic runner 结果
 
-正在训练机上跑一批 **GCA + Conformer 的确定性补跑**，用于把 GCA 表里的 Conformer 行整理成最终可引用版本:
+训练机上的 **GCA + Conformer 确定性补跑** 已完成，用于把 GCA 表里的 Conformer 行整理成最终可引用版本:
 
 - runner: `dcase2024_baseline/_run_gca_conformer_deterministic_local.ps1`
 - 任务矩阵: `161/162/171/172 × seed0..4`，共 20 个 train/test 单元
-- 当前进度: **15/20 test log 已完整落盘**；`172 det_gca_seed3` 已完成 60 epoch 训练，正在 `train_seldnet.py` 内部导出 unseen test 结果
-- 当前活跃日志: `runs/dcase2024_172_det_gca_seed3.log`
-- 当前状态文件: `runs/gca_conformer_det_seld_20260614_234047_status.txt`
-- 当前小汇总: `runs/gca_conformer_det_seld_progress.md` / `.csv` / `.json`
-- 若 runner 中断: 直接重跑同一个 `.ps1`；脚本会用 test log 完整性跳过已完成单元，下一步应从缺失的 `172 seed3_test.log` 或 `161 seed4` 继续
+- 完成时间: `2026-06-17 04:32:55`
+- 当前进度: **20/20 test log 已完整落盘**
+- 状态文件: `runs/gca_conformer_det_seld_20260614_234047_status.txt`
+- 最终汇总: `runs/gca_conformer_det_seld_final.md` / `.csv` / `.json`
+- 复跑方式: 直接重跑同一个 `.ps1`；脚本会用 test log 完整性跳过已完成单元
 
-已完成的 Conformer GCA test 单元:
+最终 Conformer GCA 结果:
 
-| task | 含义 | 完成 seeds | 当前均值方向 |
+| pair | 含义 | seeds | 方向 |
 |---|---|---:|---|
-| 161 | MIC + Conformer + GCA full | 0,1,2,3 | n=4, vs 162 的 ΔDOAE≈+0.01°, ΔSELD≈-0.021 |
-| 162 | MIC + Conformer + GCA no_geom | 0,1,2,3 | n=4 |
-| 171 | FOA + Conformer + GCA full | 0,1,2,3 | n=3 paired vs 172(seed0..2) 的 ΔDOAE≈-3.71°, ΔSELD≈-0.019；seed3 等 172 test 完成后再更新 |
-| 172 | FOA + Conformer + GCA no_geom | 0,1,2 完整；seed3 test 输出中 | n=3 完整 |
+| 161-162 | MIC + Conformer, GCA full minus no_geom | 0..4 | ΔDOAE=-1.83°, ΔSELD=-0.0266: weak full advantage |
+| 171-172 | FOA + Conformer, GCA full minus no_geom | 0..4 | ΔDOAE=-0.57°, ΔSELD=-0.0510: near-neutral / weak full advantage |
+
+论文表述应保持克制: Conformer 不是 Transformer 那种明确 harm，也不是 CRNN 那种强 help；最稳妥写法是 **neutral to weak-help middle point**。
 
 ---
 
