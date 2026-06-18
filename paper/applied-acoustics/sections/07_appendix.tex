@@ -2,13 +2,13 @@
 
 \section{Complete per-cell results}
 \label{sec:appendix_cells}
-Table~\ref{tab:allcells} reports every trained configuration in the grid---the
-six modality$\times$backbone cells in their \texttt{full}, \texttt{no\_geom}, and
-\texttt{no-GCA} variants, plus the FOA baseline and the squeeze-and-excitation
-control---with all four primary metrics averaged over five seeds
-(mean\,$\pm$\,std). These are the raw numbers underlying the paired contrasts in
-the main text. The FOA no-GCA baseline (row~100) matches the published DCASE~2024
-figure ($13.1\%$), confirming pipeline parity.
+Table~\ref{tab:allcells} reports every trained configuration in the grid. It
+covers the six modality$\times$backbone cells in their \texttt{full},
+\texttt{no\_geom}, and \texttt{no-GCA} variants, plus the FOA baseline and the
+squeeze-and-excitation control, with all four primary metrics averaged over five
+seeds (mean\,$\pm$\,std). These are the raw numbers underlying the paired
+contrasts in the main text. The FOA no-GCA baseline (row~100) matches the
+published DCASE~2024 figure ($13.1\%$), confirming pipeline parity.
 
 \begin{table*}[t]
 \centering
@@ -19,7 +19,9 @@ better respectively; DOAE$_\mathrm{CD}$ and RDE: lower is better. ``full'' $=$
 geometry-aware GCA, ``no\_geom'' $=$ GCA with the geometry bias disabled,
 ``no-GCA'' $=$ channel attention removed, ``SE'' $=$ vanilla squeeze-and-excitation.}
 \label{tab:allcells}
-\setlength{\tabcolsep}{5pt}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llccccc}
 \toprule
 ID & Configuration & $n$ & $F_{20\degsym}$ (\%) & DOAE$_\mathrm{CD}$ (\degsym) & RDE & SELD \\
@@ -35,11 +37,11 @@ ID & Configuration & $n$ & $F_{20\degsym}$ (\%) & DOAE$_\mathrm{CD}$ (\degsym) &
 131 & FOA CRNN no\_geom     & 5 & 12.64\,$\pm$\,0.60 & 45.1\,$\pm$\,5.9 & 0.29\,$\pm$\,0.01 & 0.538\,$\pm$\,0.011 \\
 \midrule
 160 & MIC Conformer no-GCA  & 5 & 5.50\,$\pm$\,3.46 & 52.2\,$\pm$\,4.3 & 0.31\,$\pm$\,0.04 & 0.718\,$\pm$\,0.121 \\
-161 & MIC Conformer full    & 5 & 4.29\,$\pm$\,2.78 & 45.9\,$\pm$\,9.1 & 0.30\,$\pm$\,0.03 & 0.740\,$\pm$\,0.080 \\
-162 & MIC Conformer no\_geom & 5 & 4.76\,$\pm$\,2.87 & 47.8\,$\pm$\,5.3 & 0.31\,$\pm$\,0.03 & 0.698\,$\pm$\,0.111 \\
+161 & MIC Conformer full    & 5 & 3.59\,$\pm$\,2.35 & 47.1\,$\pm$\,3.9 & 0.27\,$\pm$\,0.02 & 0.687\,$\pm$\,0.067 \\
+162 & MIC Conformer no\_geom & 5 & 2.56\,$\pm$\,1.26 & 48.9\,$\pm$\,5.5 & 0.30\,$\pm$\,0.03 & 0.713\,$\pm$\,0.074 \\
 170 & FOA Conformer no-GCA  & 5 & 7.28\,$\pm$\,3.11 & 48.6\,$\pm$\,7.9 & 0.28\,$\pm$\,0.05 & 0.655\,$\pm$\,0.111 \\
-171 & FOA Conformer full    & 5 & 7.22\,$\pm$\,1.15 & 48.7\,$\pm$\,6.8 & 0.29\,$\pm$\,0.04 & 0.651\,$\pm$\,0.022 \\
-172 & FOA Conformer no\_geom & 5 & 6.67\,$\pm$\,2.24 & 47.8\,$\pm$\,4.9 & 0.30\,$\pm$\,0.01 & 0.684\,$\pm$\,0.065 \\
+171 & FOA Conformer full    & 5 & 5.86\,$\pm$\,0.97 & 51.2\,$\pm$\,3.0 & 0.28\,$\pm$\,0.02 & 0.649\,$\pm$\,0.072 \\
+172 & FOA Conformer no\_geom & 5 & 4.37\,$\pm$\,2.76 & 51.8\,$\pm$\,4.6 & 0.29\,$\pm$\,0.03 & 0.700\,$\pm$\,0.078 \\
 \midrule
 140 & MIC Transformer no-GCA  & 5 & 9.61\,$\pm$\,0.44 & 41.1\,$\pm$\,5.1 & 0.29\,$\pm$\,0.03 & 0.603\,$\pm$\,0.032 \\
 141 & MIC Transformer full    & 5 & 9.13\,$\pm$\,0.75 & 48.0\,$\pm$\,5.2 & 0.29\,$\pm$\,0.04 & 0.630\,$\pm$\,0.055 \\
@@ -48,13 +50,14 @@ ID & Configuration & $n$ & $F_{20\degsym}$ (\%) & DOAE$_\mathrm{CD}$ (\degsym) &
 151 & FOA Transformer full    & 5 & 11.13\,$\pm$\,0.50 & 42.7\,$\pm$\,5.1 & 0.28\,$\pm$\,0.03 & 0.598\,$\pm$\,0.034 \\
 152 & FOA Transformer no\_geom & 5 & 10.75\,$\pm$\,1.09 & 40.1\,$\pm$\,4.2 & 0.30\,$\pm$\,0.02 & 0.631\,$\pm$\,0.071 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table*}
 
 \section{Per-class detection}
 \label{sec:appendix_perclass}
-Table~\ref{tab:perclass} breaks the location-aware $F_{20\degsym}$ down by class
-for the six geometry-aware (\texttt{full}) cells. Detectable performance
+Table~\ref{tab:perclass} reports class-wise location-aware $F_{20\degsym}$ for
+the six geometry-aware (\texttt{full}) cells. Detectable performance
 concentrates in a handful of well-represented classes---speech (male/female),
 music, domestic sounds, and water tap---while sparse or transient classes
 (clapping, door, knock) sit at the floor across \emph{all} cells. The

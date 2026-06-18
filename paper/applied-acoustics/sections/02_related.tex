@@ -36,19 +36,25 @@ encodings~\cite{baek2025gidoaenet} or steered-response-power-style neural
 trackers that are trained to be array-agnostic~\cite{neuralsrp2024}. These
 methods also differ in \emph{where} geometry enters---from array coordinates
 concatenated to the input~\cite{kowalk2022geometry} to positional encodings that
-condition an array-agnostic front-end~\cite{baek2025gidoaenet,neuralsrp2024}---
-whereas our intervention is the most surgical: a layout-derived term enters a
-single channel-attention block (Eq.~\eqref{eq:gca}) and nothing else. The
-classical SELD features sit on this spectrum too: GCC-PHAT maps and Ambisonic
-intensity vectors encode geometry implicitly, so even \texttt{no\_geom} is never
-fully geometry-blind. The decisive
-limitation of this literature is methodological: the two stances are almost
-always compared across
-\emph{different architectures, feature sets, and datasets}, so the reported
-benefit (or harm) of geometry is confounded with capacity, input representation,
-and domain. We remove this confound by toggling a single geometry bias on and
-off inside one fixed architecture, and show that the answer is not universal but
-contingent on factors prior comparisons neither held fixed nor crossed.
+condition an array-agnostic front-end~\cite{baek2025gidoaenet,neuralsrp2024}.
+Recent work has also moved physical spatial priors into the training objective,
+regularizing SELD outputs with theoretically or room-impulse-response-derived
+spatial covariance matrices~\cite{liu2025physically}. These approaches make
+clear that geometry is not a single design choice but a family of constraints:
+it can enter as an input feature, a positional code, an attention bias, an early
+feature-map bias, or a loss-level structural prior. Our intervention is
+deliberately surgical within this space: a layout-derived term enters a single
+channel-attention block (Eq.~\eqref{eq:gca}) and nothing else. The classical SELD
+features sit on this spectrum too: GCC-PHAT maps and Ambisonic intensity vectors
+encode geometry implicitly, so even \texttt{no\_geom} is never fully
+geometry-blind. The decisive limitation of this literature is methodological:
+the two stances are almost always compared across \emph{different architectures,
+feature sets, and datasets}, so the reported benefit (or harm) of geometry is
+confounded with capacity, input representation, injection site, and domain. We
+remove this confound for one primary geometry path by toggling a single geometry
+bias on and off inside one fixed architecture, and show that the answer is not
+universal but contingent on factors prior comparisons neither held fixed nor
+crossed.
 
 \subsection{Inductive bias and locality in temporal models}
 Our explanatory axis---how much \emph{locality} a temporal backbone
@@ -77,9 +83,10 @@ our knowledge we are the first to test this interaction directly in SELD, with a
 modality$\times$backbone$\times$prior factorial design.
 
 \subsection{Channel attention and the geometry bias}
-Attention has entered SELD over time, where self-attention on learned
-features is now standard~\cite{sudarsanam2021attention}, and over channels, where
-squeeze-and-excitation recalibration~\cite{hu2018senet} reweights feature maps.
+Attention has entered SELD both over time and over channels. Temporal
+self-attention on learned features is now standard~\cite{sudarsanam2021attention};
+over channels, squeeze/excitation recalibration~\cite{hu2018senet} reweights
+feature maps.
 The geometry-aware channel-attention block we ablate augments channel attention
 with a layout-derived bias; removing \emph{only} this bias while keeping the
 mechanism lets our comparison separate ``channel attention with geometry'' from

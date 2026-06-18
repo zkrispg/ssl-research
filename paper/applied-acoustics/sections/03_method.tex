@@ -2,16 +2,15 @@
 \label{sec:method}
 
 Our design philosophy is \emph{intervention, not competition}: rather than
-proposing a new system, we hold a strong, widely used SELD backbone fixed and
-vary three binary factors in a fully crossed factorial design---the geometry
-prior (the variable of interest), the temporal architecture (i.e.\ how the network integrates the multichannel
-array signal over time), and the input modality---so that any change in a metric
-can be attributed to a named factor
-rather than to a tangle of co-varying design choices. This section describes the
-shared backbone (Sec.~\ref{sec:backbone}), the one-bit geometry intervention
-(Sec.~\ref{sec:gca}), the three temporal backbones that span the locality
-spectrum (Sec.~\ref{sec:arch}), and the metrics, statistics, and probing
-protocol (Sec.~\ref{sec:stats}).
+proposing a new system, we hold a strong, widely used SELD backbone fixed. We
+then vary three binary factors in a fully crossed factorial design: the geometry
+prior (the variable of interest), the temporal architecture (how the network
+integrates the multichannel array signal over time), and the input modality. This
+lets any metric change be attributed to a named factor rather than to a tangle of
+co-varying design choices. This section describes the shared backbone
+(Sec.~\ref{sec:backbone}), the one-bit geometry intervention
+(Sec.~\ref{sec:gca}), the temporal backbones (Sec.~\ref{sec:arch}), and the
+metrics, statistics, and probing protocol (Sec.~\ref{sec:stats}).
 
 \subsection{Shared backbone}
 \label{sec:backbone}
@@ -103,8 +102,8 @@ width ($128$) and depth ($\approx\!4$ temporal layers):
 backbone changes from a recurrent CRNN (strong built-in locality) through a
 convolution--attention Conformer (hybrid) to a pure-attention Transformer
 (global all-to-all mixing), the value of the hand-crafted array-geometry prior is
-predicted---and measured---to move monotonically from helpful, through neutral, to
-harmful for directional accuracy. Numbers are the in-domain extreme effects on
+predicted---and measured---to move monotonically from helpful, through
+near-neutral, to harmful for directional accuracy. Numbers are the in-domain extreme effects on
 DOAE$_\mathrm{CD}$ (Sec.~\ref{sec:main}).}
 \label{fig:locality}
 \end{figure*}

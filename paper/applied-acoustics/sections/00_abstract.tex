@@ -1,25 +1,23 @@
 Hand-crafted microphone-array geometry priors are widely injected into deep
 sound event localization and detection (SELD) systems, often on the assumption
 that explicit spatial layout can only help. We test this assumption with a
-one-bit intervention in the official DCASE~2024 SELD baseline: a geometry bias is
-toggled on or off inside an otherwise identical channel-attention block. Across
-two input modalities (MIC and FOA), three temporal backbones (CRNN+MHSA,
-Conformer, Transformer), and five paired seeds on real STARSS23 recordings, the
-prior's effect on directional accuracy is not universal but graded by temporal
-inductive bias. It helps the recurrent FOA model
-($-5.0\degsym$ class-dependent localization error, $\dz=-1.03$), is near-neutral
-in the Conformer, and harms the pure-attention Transformer (up to
-$+5.7\degsym$, $\dz=+0.71$). A factorial test over the recurrent and Transformer
-extremes confirms an architecture$\times$prior interaction ($F=4.62$,
-$p=0.039$; seed-matched paired contrast $p=0.029$), and the recurrent FOA
-benefit replicates zero-shot on STARSS22 ($\dz=-1.50$, $p=0.029$). The same
-architecture axis does not govern distance: relative-distance gains are instead
-concentrated in Ambisonics by effect size. A linear probe finds no significant
-change in linearly decodable direction, indicating a behavioural rather than
-simple representational shift. Finally, a second injection mechanism that adds
-geometry as an early convolutional feature bias exposes the boundary of this
-claim: FOA contrasts move under rerun and validation-selection changes, and one
-MIC-Transformer contrast reverses relative to GCA.
-We conclude that geometry priors are architecture-structured but
-injection- and training-selection-dependent design choices, not universal SELD
-improvements.
+controlled one-bit intervention in the official DCASE~2024 SELD baseline: a
+geometry bias is toggled on or off inside an otherwise identical
+channel-attention block. Across two input modalities (MIC and FOA), three
+temporal backbones (CRNN+MHSA, Conformer, Transformer), and five paired seeds
+on real STARSS23 recordings, the prior's effect on directional accuracy is not
+universal but graded by temporal inductive bias. It benefits the recurrent FOA
+model ($-5.0\degsym$ class-dependent localization error, $\dz=-1.03$), remains
+near-neutral to weakly helpful in the Conformer, and harms the pure-attention
+Transformer (up to $+5.7\degsym$, $\dz=+0.71$). A factorial test over the
+recurrent and Transformer extremes confirms an architecture$\times$prior
+interaction ($F=4.62$, $p=0.039$; seed-matched paired contrast $p=0.029$), and
+the recurrent FOA benefit replicates zero-shot on STARSS22 ($\dz=-1.50$,
+$p=0.029$). A linear probe finds no significant change in linearly decodable
+direction, indicating a behavioural rather than simple representational shift.
+Finally, a second injection mechanism that adds geometry as an early
+convolutional feature bias does not provide a clean cross-mechanism replication:
+its contrasts move across reruns, checkpoint-selection paths, and modalities,
+thereby bounding rather than strengthening the primary GCA claim. We conclude
+that explicit geometry priors are architecture-structured, injection-sensitive
+design choices rather than universal SELD improvements.

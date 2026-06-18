@@ -460,6 +460,15 @@ def main(argv):
     if _env_flag('SSL_QUICK_TEST'):
         params['quick_test'] = True
         print('[run] quick_test forced by SSL_QUICK_TEST')
+    if os.environ.get('SSL_LR'):
+        params['lr'] = float(os.environ['SSL_LR'])
+        print('[run] SSL_LR applied: lr={}'.format(params['lr']))
+    if os.environ.get('SSL_DROPOUT'):
+        params['dropout_rate'] = float(os.environ['SSL_DROPOUT'])
+        print('[run] SSL_DROPOUT applied: dropout_rate={}'.format(params['dropout_rate']))
+    if os.environ.get('SSL_MAX_EPOCHS_PARAM'):
+        params['nb_epochs'] = int(os.environ['SSL_MAX_EPOCHS_PARAM'])
+        print('[run] SSL_MAX_EPOCHS_PARAM applied: nb_epochs={}'.format(params['nb_epochs']))
 
     # job_id is the 3rd positional arg ('argv[2]'). The original baseline
     # used argv[-1], but with our 4-arg `<task> <job> <seed>` invocation
@@ -723,4 +732,3 @@ if __name__ == "__main__":
         sys.exit(main(sys.argv))
     except (ValueError, IOError) as e:
         sys.exit(e)
-

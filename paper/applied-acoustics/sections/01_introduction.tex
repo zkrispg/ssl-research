@@ -25,27 +25,28 @@ recipe, and parameter count (to within $80$ parameters) fixed. We embed this
 toggle in the official DCASE~2024 SELD baseline~\cite{krause2024sde} and cross it
 with two input modalities (MIC, FOA) and \emph{three} temporal backbones chosen
 to span the locality--globality spectrum: a convolutional-recurrent network with
-multi-head self-attention (CRNN+MHSA), a convolution--attention hybrid
+multi-head self-attention (CRNN with MHSA), a convolution--attention hybrid
 (Conformer), and a Transformer-only temporal stack.
 
 Our central finding is that the prior's effect on \emph{direction} is not binary
 but \emph{graded by the backbone's temporal inductive bias}. As locality is
-stripped away---recurrent, then convolution--attention hybrid, then pure
-self-attention---the prior's effect on class-dependent localization error moves
-monotonically from helpful, through neutral, to harmful. A factorial ANOVA over
-the recurrent and Transformer extremes confirms a significant
-architecture$\times$prior interaction ($F=4.62$, $p=0.039$ at $n=5$), with the
-Conformer between them. The most robust effect is the recurrent \emph{benefit} on
-Ambisonics: the prior improves localization by $5.0\degsym$ in-domain (a trend,
-$p=0.082$) and replicates zero-shot on an independent
-dataset at full significance ($\dz=-1.50$, $p=0.029$); the Transformer harm
-reproduces directionally in- and cross-domain ($+5.6$--$5.7\degsym$).
-As a second injection check, replacing the attention-key bias with a learned
-early convolutional feature bias exposes the boundary of this claim rather than
-strengthening it: FOA contrasts move across rerun and checkpoint-selection paths,
-and the microphone-array Transformer contrast reverses relative to GCA. The
-effect is therefore structured by architecture but not invariant to the
-injection site or to training-selection noise.
+progressively relaxed---from a recurrent stack, through a convolution--attention
+hybrid, to pure self-attention---the geometry effect moves from helpful, through
+near-neutral, to harmful. A factorial ANOVA over the recurrent and Transformer
+extremes confirms a significant architecture$\times$prior interaction
+($F=4.62$, $p=0.039$ at $n=5$), while the Conformer consistently occupies the
+middle of the ordering rather than violating it. The most robust effect is the
+recurrent \emph{benefit} on Ambisonics: the prior improves localization by
+$5.0\degsym$ in-domain (a trend, $p=0.082$) and replicates zero-shot on an
+independent dataset at full significance ($\dz=-1.50$, $p=0.029$); the
+Transformer harm reproduces directionally in- and cross-domain
+($+5.6$--$5.7\degsym$). A second injection check, replacing the
+channel-attention bias with an early convolutional feature bias, sharpens the
+interpretation by limiting it: the Conformer remains near-neutral in some runs,
+whereas Transformer contrasts move across rerun and checkpoint-selection paths,
+and the microphone-array Transformer can even reverse sign relative to GCA. The
+effect is therefore structured by architecture in the primary intervention, but
+not invariant to injection site or training-selection details.
 Orthogonally, the prior's effect on \emph{distance} follows a different rule: it
 improves relative distance error for Ambisonics across all three backbones but not
 the microphone array, so the architecture that governs direction is inert on
@@ -58,8 +59,8 @@ the resulting ordering gives array-processing practitioners an actionable rule f
 \subsection{Contributions}
 \begin{enumerate}
   \item We show that the effect of an array-geometry prior on SELD \emph{direction}
-  is \textbf{graded by temporal inductive bias}: it helps a recurrent model, is
-  neutral in a convolution--attention Conformer, and harms a Transformer,
+  is \textbf{graded by temporal inductive bias}: it helps a recurrent model,
+  remains near-neutral to weakly helpful in a Conformer, and harms a Transformer,
   established by multi-seed paired ablation ($n=5$) on STARSS23 across six
   modality$\times$backbone cells, with a significant recurrent-versus-Transformer
   architecture$\times$prior interaction ($p=0.039$, seed-matched $p=0.029$) and a
@@ -80,6 +81,7 @@ the resulting ordering gives array-processing practitioners an actionable rule f
   \item We provide a \textbf{reproducible, statistically grounded protocol}
   (one-bit ablation, multi-seed paired tests, factorial interaction test, probing,
   and a second geometry-injection sensitivity check) and release the checkpoints
-  needed to audit the claim, arguing that geometry priors should be ablated
-  rather than assumed.
+  needed to audit the claim, arguing that geometry priors should be ablated rather
+  than assumed and that alternative injection sites should be treated as boundary
+  conditions unless they are independently stabilized.
 \end{enumerate}

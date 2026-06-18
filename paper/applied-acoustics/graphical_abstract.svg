@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1328" height="531" viewBox="0 0 1328 531" role="img" aria-labelledby="title desc">
+  <title id="title">Array-geometry priors are conditional SELD design choices</title>
+  <desc id="desc">Geometry priors help CRNNs, are near-neutral for Conformers, and harm Transformers as temporal locality decreases.</desc>
+  <rect width="1328" height="531" fill="#ffffff"/>
+  <style>
+    text { font-family: Helvetica, Arial, sans-serif; fill: #1f2428; }
+    .title { font-size: 28px; font-weight: 700; }
+    .small { font-size: 21px; }
+    .label { font-size: 22px; font-weight: 700; }
+    .value { font-size: 29px; fill: #ffffff; }
+    .axis { font-size: 24px; }
+  </style>
+
+  <text class="title" x="664" y="48" text-anchor="middle">
+    Array-geometry priors are conditional SELD design choices, not universal gains
+  </text>
+
+  <line x1="76" y1="250" x2="1188" y2="250" stroke="#8d8d8d" stroke-width="3" stroke-dasharray="10 12"/>
+  <text class="small" x="1300" y="258" text-anchor="end" fill="#7a7a7a">Delta DOAE_CD = 0</text>
+
+  <rect x="190" y="250" width="138" height="160" fill="#21823f"/>
+  <text class="label" x="259" y="222" text-anchor="middle" fill="#21823f">helps</text>
+  <text class="value" x="259" y="334" text-anchor="middle" fill="#ffffff">-5.0°</text>
+  <text class="small" x="259" y="446" text-anchor="middle">CRNN+MHSA</text>
+  <text class="small" x="259" y="475" text-anchor="middle">(recurrent)</text>
+
+  <rect x="595" y="250" width="138" height="28" fill="#777777"/>
+  <text class="label" x="664" y="216" text-anchor="middle" fill="#777777">near-neutral ≈ 0</text>
+  <text class="small" x="664" y="446" text-anchor="middle">Conformer</text>
+  <text class="small" x="664" y="475" text-anchor="middle">(conv-attention)</text>
+
+  <rect x="998" y="96" width="138" height="154" fill="#ba2525"/>
+  <text class="label" x="1067" y="84" text-anchor="middle" fill="#ba2525">harms</text>
+  <text class="value" x="1067" y="184" text-anchor="middle" fill="#ffffff">+5.7°</text>
+  <text class="small" x="1067" y="446" text-anchor="middle">Transformer</text>
+  <text class="small" x="1067" y="475" text-anchor="middle">(global attention)</text>
+
+  <path d="M259,410 C430,350 520,315 664,264 C820,208 943,142 1067,104"
+        fill="none" stroke="#424242" stroke-width="4"/>
+  <path d="M1067,104 L1038,113 L1056,135 Z" fill="#424242"/>
+
+  <line x1="176" y1="501" x2="1138" y2="501" stroke="#111111" stroke-width="3"/>
+  <path d="M1138,501 L1106,490 L1106,512 Z" fill="#111111"/>
+  <text class="axis" x="664" y="524" text-anchor="middle">
+    built-in temporal locality decreasing →
+  </text>
+</svg>

@@ -22,17 +22,15 @@ attributable to the toggled factors, not a mis-implemented baseline.
 Table~\ref{tab:dissociation} reports the headline contrast,
 $\Delta\text{DOAE}_\mathrm{CD}=\text{full}-\text{no\_geom}$, seed-matched within
 each cell ($n=5$) and grouped by temporal backbone; Fig.~\ref{fig:dissociation}
-visualizes it. The effect on direction follows a \textbf{consistent ordering set
-by the backbone's inductive bias}: \emph{both recurrent cells shift
-non-positively} ($\Delta\le0$; FOA a clear benefit, MIC negligible at
-$-0.9\degsym$, $\dz=-0.07$), \emph{both Transformer cells shift positively}
-($\Delta\ge0$), and the convolution--attention Conformer sits between them
-(helpful on MIC, neutral on FOA). Averaged over modality the per-backbone mean $\Delta$ moves monotonically
-from $-2.9\degsym$ (CRNN) through $-0.5\degsym$ (Conformer) to $+4.1\degsym$
-(Transformer) as temporal locality is removed. The two extreme effects sit on
-opposite ends of this ordering: the prior improves localization by $5.0\degsym$
-in FOA+CRNN ($\dz=-1.03$) and degrades it by $5.7\degsym$ in MIC+Transformer
-($\dz=+0.71$).
+visualizes it. The effect on direction follows a \textbf{backbone-ordered
+pattern}: the recurrent cells are non-positive overall, the Transformer cells
+are positive overall, and the convolution--attention Conformer occupies a
+near-neutral middle position. The two extremes remain the load-bearing evidence
+in this ordering: the prior improves localization by $5.0\degsym$ in FOA+CRNN
+($\dz=-1.03$) and degrades it by $5.7\degsym$ in MIC+Transformer
+($\dz=+0.71$). The Conformer does not behave like a second Transformer. Instead,
+its paired summaries place it between the two extremes: mildly helpful on MIC
+and near-neutral on FOA.
 
 At $n=5$ the individual per-cell contrasts are trends rather than significant in
 isolation (e.g.\ FOA+CRNN $p=0.082$, MIC+Transformer $p=0.186$). \emph{These
@@ -46,14 +44,14 @@ per-seed table does not show a corresponding architecture-ordered pattern on
 $F_{20\degsym}$ or aggregate SELD score, which we therefore treat as secondary
 diagnostics rather than as the endpoint defining the prior's sign.
 
-One honest caveat about the middle of the ordering: the Conformer is the weakest
-detector in our grid (location-aware $F_{20\degsym}$ of $4$--$7\%$ and the worst
-SELD scores, vs.\ $9$--$13\%$ for the extremes), so its near-zero geometry effect
-may partly reflect a weaker operating point rather than intermediate locality. We
-therefore treat it as \emph{corroborating} the ordering, not proving it: the
-load-bearing comparison is the recurrent-versus-Transformer contrast between two
-healthy detectors, with the trend test (Section~\ref{sec:anova}) confirming only
-that the hybrid does not violate the ordering.
+One honest caveat about the middle of the ordering is that the Conformer is also
+the weakest detector in our grid (location-aware $F_{20\degsym}$ of $4$--$7\%$
+and the worst SELD scores, vs.\ $9$--$13\%$ for the extremes). Its small geometry
+effect may therefore reflect both intermediate locality and a weaker operating
+point. We accordingly treat the Conformer as a \emph{consistency check on the
+ordering}, not as the load-bearing evidence for it: the robust contrast is still
+recurrent-versus-Transformer, while the Conformer matters because it stays in the
+middle rather than collapsing to the Transformer-like harmful regime.
 
 \begin{table}[t]
 \centering
@@ -76,7 +74,7 @@ CRNN        & MIC & $-0.88$ & $-0.15$ ($0.887$) & $-0.07$ \\
 \midrule
 \multicolumn{5}{l}{\emph{Conformer (conv--attention hybrid): intermediate}}\\
 Conformer   & MIC & $-1.83$ & $-0.35$ ($0.745$) & $-0.16$ \\
-Conformer   & FOA & $+0.88$ & $+0.30$ ($0.778$) & $+0.14$ \\
+Conformer   & FOA & $-0.57$ & $-0.26$ ($0.811$) & $-0.11$ \\
 \midrule
 \multicolumn{5}{l}{\emph{Transformer-only: prior hurts}}\\
 \textbf{Transformer} & \textbf{MIC} & $\mathbf{+5.70}$ & $+1.60$ ($0.186$) & $\mathbf{+0.71}$ \\
@@ -90,13 +88,13 @@ Transformer & FOA & $+2.57$ & $+0.86$ ($0.437$) & $+0.39$ \\
 \includegraphics[width=\columnwidth]{path_c_2x2_dissociation.png}
 \caption{The geometry-prior effect on DOAE$_\mathrm{CD}$ across the
 modality$\times$backbone grid. The sign of the effect tracks temporal inductive
-bias: it helps (negative) under recurrence, is neutral for the Conformer, and
+bias: it helps (negative) under recurrence, is near-neutral for the Conformer, and
 hurts (positive) under the Transformer, the extremes being FOA+CRNN and
 MIC+Transformer.}
 \label{fig:dissociation}
 \end{figure}
 
-\subsection{Primary test: architecture$\times$prior interaction}
+\subsection{\texorpdfstring{Primary test: architecture$\times$prior interaction}{Primary test: architecture-prior interaction}}
 \label{sec:anova}
 Our primary hypothesis test asks whether the sign ordering of
 Table~\ref{tab:dissociation} is a genuine interaction rather than a collection of
@@ -105,9 +103,9 @@ per-seed DOAE$_\mathrm{CD}$, all pointing the same direction
 (Source: \texttt{path\_c\_trend\_mixed}).
 
 \emph{(i) Factorial interaction, seed-matched.} A Type-II factorial ANOVA
-restricted to the recurrent and Transformer extremes
-(modality$\times$architecture$\times$prior, $n_{\text{obs}}=40$) gives a
-significant \textbf{architecture$\times$prior interaction} ($F=4.62$, $p=0.039$):
+restricted to the recurrent and Transformer extremes finds that the
+architecture by prior interaction is significant ($F=4.62$, $p=0.039$;
+$n_{\text{obs}}=40$):
 the prior's effect on direction depends on whether the backbone is recurrent or
 pure-attention. Because the same five seeds are matched across cells, we re-express
 this interaction as a within-seed paired \emph{second difference},
@@ -121,8 +119,8 @@ between-seed structure and the fixed-effects estimate is the appropriate one.
 
 \emph{(ii) Monotone trend across all three backbones.} Rather than discard the
 intermediate Conformer, we test the \emph{ordered} hypothesis that the geometry
-effect $\Delta$ increases monotonically along the locality axis
-CRNN$<$Conformer$<$Transformer. A Jonckheere--Terpstra trend test on the per-seed
+effect $\Delta$ increases monotonically along the locality axis from CRNN to
+Conformer to Transformer. A Jonckheere--Terpstra trend test on the per-seed
 $\Delta$ (pooled over modality) is a one-sided trend at $z=+1.60$, $p=0.055$, with a
 parametric slope of $+3.5\degsym$ per locality step ($p=0.073$); the trend is
 clearest in Ambisonics (one-sided $p=0.051$) and is the weakest in the microphone
@@ -148,8 +146,8 @@ the prior.)
 The grid ordering is not a STARSS23 artifact. Evaluating the STARSS23-trained
 checkpoints zero-shot on STARSS22 (Table~\ref{tab:cross} and
 Fig.~\ref{fig:forest}, $n=5$) reproduces the same architecture ordering
-out-of-domain: both recurrent cells help, the Conformer is helpful-to-neutral,
-and both Transformer cells hurt. Fig.~\ref{fig:forest} makes the agreement
+out-of-domain: both recurrent cells help, the Conformer remains near-neutral,
+and both Transformer cells hurt. The forest plot makes the agreement
 visible---in-domain and zero-shot estimates share the same sign in every cell,
 and the effect marches monotonically from the ``helps'' to the ``hurts'' region
 as locality is removed. The single
@@ -160,7 +158,7 @@ reproducing on an independent recording campaign is strong evidence that it is a
 property of the learned model, not of one test set. The MIC+Transformer harm
 reproduces directionally ($+5.58\degsym$, $\dz=+0.77$) but, like in-domain, does
 not reach significance on its own at $n=5$. The cross-dataset per-backbone means
-trace the same monotonic path as in-domain (helpful $\to$ neutral $\to$ harmful).
+trace the same monotonic path as in-domain (helpful $\to$ near-neutral $\to$ harmful).
 
 \begin{table}[t]
 \centering
@@ -178,7 +176,7 @@ Backbone & Modality & $\Delta$DOAE (cross) & in-domain \\
 CRNN        & MIC & $-4.77$ ($\dz=-0.42$) & $-0.88$ \\
 \textbf{CRNN} & \textbf{FOA} & $\mathbf{-4.76}$ ($\dz=-1.50$, $p\!=\!.029$) & $-5.02$ \\
 Conformer   & MIC & $-3.20$ ($\dz=-0.48$) & $-1.83$ \\
-Conformer   & FOA & $-0.42$ ($\dz=-0.06$) & $+0.88$ \\
+Conformer   & FOA & $-0.42$ ($\dz=-0.06$) & $-0.57$ \\
 Transformer & MIC & $+5.58$ ($\dz=+0.77$) & $+5.70$ \\
 Transformer & FOA & $+1.72$ ($\dz=+0.39$) & $+2.57$ \\
 \bottomrule
@@ -211,40 +209,43 @@ latter runs the same projection but with the geometry input zeroed. This makes
 the contrast a matched-capacity test of geometry content rather than extra
 parameters.
 
-Table~\ref{tab:convbias} shows the result. Rather than providing a clean
-mechanism-invariant replication, \texttt{convbias} exposes sensitivity. The FOA
-Conformer contrast is near zero in the first two independent matched runs
-($+0.21\degsym$ and $+0.31\degsym$), but after enforcing sorted file order,
-strict deterministic CUDA, math-only attention, and validation-SELD checkpoint
-selection, the same contrast moves to harm ($+7.59\degsym$) with very low
-$F_{20\degsym}$. The FOA Transformer also shifts across the three paths
-($+9.55\degsym$, $-2.89\degsym$, and $+4.81\degsym$). The microphone-array
-Transformer reverses relative to GCA ($-3.79\degsym$ versus $+5.70\degsym$). We
-therefore use \texttt{convbias} as a boundary condition: geometry effects are
-architecture-structured in the primary GCA intervention, but not stable enough
-under this second injection site to claim cross-mechanism replication.
+Table~\ref{tab:convbias} shows that \texttt{convbias} should be interpreted as a
+sensitivity check rather than a confirmatory cross-mechanism replication. On
+FOA Conformer, the first matched runs remain close to zero, which is broadly
+consistent with the GCA middle-point reading, but the measured contrast moves
+under stricter rerun and checkpoint-selection paths. FOA+Transformer is more
+unstable still, changing sign across reruns, and MIC+Transformer reverses
+relative to GCA. We therefore use \texttt{convbias} to bound the claim: the
+primary architecture-ordered result is stable for the controlled GCA
+intervention, whereas this second injection site exposes training-selection and
+mechanism sensitivity that is not yet stable enough to support a stronger
+mechanism-invariant statement.
 
 \begin{table*}[t]
 \centering
-\caption{Second injection check on DOAE$_\mathrm{CD}$. GCA injects geometry into
-channel-attention keys ($n=5$). \texttt{convbias} injects geometry as an early
-per-filter convolutional feature bias ($n=3$ per run). Each entry is
-$\Delta=\text{full}-\text{no\_geom}$ in degrees (negative $=$ helps). The
-deterministic rerun used sorted file order, strict deterministic CUDA, math-only
-attention, and validation-SELD checkpoint selection; its low $F_{20\degsym}$
-makes the table a sensitivity check rather than confirmatory evidence.}
+\caption{Second injection check on DOAE$_\mathrm{CD}$. GCA injects geometry
+inside channel-attention keys ($n=5$). \texttt{convbias} injects geometry as an
+early per-filter convolutional feature bias ($n=3$ per run). Each entry is
+$\Delta=\text{full}-\text{no\_geom}$ in degrees (negative $=$ helps). Rather than
+confirming a mechanism-invariant effect, the \texttt{convbias} reruns act as a
+sensitivity audit: the Conformer stays near-neutral in early runs, whereas
+Transformer contrasts and deterministic SELD-selection reruns reveal substantial
+mechanism and checkpoint sensitivity.}
 \label{tab:convbias}
-\setlength{\tabcolsep}{5pt}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llccccc}
 \toprule
-Modality & Backbone & GCA & run 1 & GPU rerun & det. SELD rerun & Reading \\
+Modality & Backbone & GCA & run 1 & GPU rerun & det. SELD & Reading \\
 \midrule
 FOA & CRNN        & $-5.02$ & $-1.60$ & --- & --- & weak help \\
-FOA & Conformer   & $+0.88$ & $+0.21$ & $+0.31$ & $+7.59$ & checkpoint-sensitive \\
+FOA & Conformer   & $-0.57$ & $+0.21$ & $+0.31$ & $+7.59$ & checkpoint-sensitive \\
 FOA & Transformer & $+2.57$ & $+9.55$ & $-2.89$ & $+4.81$ & unstable \\
 MIC & Transformer & $+5.70$ & $-3.79$ & --- & --- & sign reversal \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table*}
 
 \subsection{Mechanism probe: the effect is behavioural, not a linear feature shift}

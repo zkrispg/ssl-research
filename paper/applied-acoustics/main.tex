@@ -1,5 +1,5 @@
 %% Applied Acoustics submission -- main file
-%% Compile: tectonic -X compile main.tex   (or Overleaf, pdfLaTeX)
+%% Compile with TeX Live/MacTeX (latexmk) or Overleaf; bibliography tooling is used.
 %% Elsevier elsarticle class; review mode gives single column + line numbers.
 \documentclass[preprint,review,12pt]{elsarticle}
 
@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{tabularx}
 \usepackage{xcolor}
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
@@ -27,8 +28,7 @@
 Localization and Detection? The Role of Temporal Inductive Bias}
 
 \author{Anonymous Author(s)}
-\affiliation{organization={Affiliation withheld for review},
-  note={Code and checkpoints to be released upon publication}}
+\affiliation{organization={Affiliation withheld for double-blind review}}
 
 \begin{abstract}
 \input{sections/00_abstract}

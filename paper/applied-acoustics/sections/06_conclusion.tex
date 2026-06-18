@@ -1,22 +1,23 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-We asked when a hand-crafted array-geometry prior helps SELD, via a controlled
-one-bit ablation over modality and three temporal backbones. The
-effect on direction is \textbf{graded by temporal inductive bias}: both recurrent
-cells shift non-positively and both Transformer cells positively, the Conformer in
-between---the prior improving localization by $5.0\degsym$ in an FOA recurrent
-model while degrading it by $5.7\degsym$ in a microphone-array Transformer. A factorial ANOVA confirms the
-recurrent-versus-Transformer architecture$\times$prior interaction ($p=0.039$,
-$n=5$; seed-matched paired $p=0.029$), with a monotone trend across all three
-backbones; the recurrent Ambisonic benefit replicates zero-shot at full
-significance ($\dz=-1.50$, $p=0.029$), and a controlled probe shows the effect is
-behavioural, not a shift in linearly decodable features. Orthogonally, the
-architecture that governs direction is inert on distance---a dissociation, not two
-crossed interactions. A second injection mechanism exposes a boundary condition:
-the measured \texttt{convbias} contrasts move under rerun and checkpoint-
-selection changes, so this second path bounds rather than confirms the primary
-GCA claim. Geometry priors are thus conditional,
-context-dependent design choices, and should be ablated, not assumed. We release
-a reproducible multi-seed pipeline so future work can audit other priors,
-injection sites, and backbones with the same protocol.
+We asked when a hand-crafted array-geometry prior helps SELD, using a controlled
+one-bit ablation across modality and three temporal backbones. The effect on
+direction is \textbf{graded by temporal inductive bias}: recurrent cells shift
+non-positively, Transformer cells positively, and the Conformer occupies a
+near-neutral middle position rather than a second harmful extreme. The most
+robust effect is the FOA recurrent benefit, which replicates zero-shot on
+STARSS22 at full significance; the strongest harm is the MIC Transformer
+contrast. A factorial ANOVA confirms the recurrent-versus-Transformer
+architecture$\times$prior interaction, and a controlled probe shows that the
+effect is behavioural rather than a shift in linearly decodable direction.
+Orthogonally, the architecture that governs direction is inert on distance---a
+dissociation, not two crossed interactions. A second injection mechanism,
+\texttt{convbias}, does not strengthen this claim into a mechanism-invariant
+law; instead it exposes rerun, checkpoint-selection, and injection-site
+sensitivity, thereby bounding the primary GCA result. The practical conclusion
+is therefore conditional rather than universal: explicit geometry priors are
+useful design choices only in the context of a particular backbone and injection
+path, and should be ablated rather than assumed. We release a reproducible
+multi-seed pipeline so future work can audit other priors, injection sites, and
+backbones with the same protocol.

@@ -1,4 +1,7 @@
 %% Graphical Abstract for the Applied Acoustics submission.
+%% Legacy TikZ source retained for reference. The current submission-facing
+%% image is graphical_abstract.svg -> graphical_abstract.png, because it is
+%% aligned with the revised near-neutral/weak-help Conformer wording.
 %% Standalone TikZ figure. Compile separately:
 %%   tectonic -X compile graphical_abstract.tex
 %% then submit the resulting PDF/PNG as the "Graphical Abstract" file.
@@ -29,9 +32,9 @@
   \node[align=center,anchor=north,font=\sffamily\small] at (2.0,-1.95)
     {CRNN+MHSA\\(recurrent)};
 
-  % --- Conformer: neutral (small, gray) ---
+  % --- Conformer: near-neutral (small, gray) ---
   \fill[cNeut] (5.3,0) rectangle (6.7,-0.28);
-  \node[cNeut,anchor=south,font=\sffamily\small\bfseries] at (6.0,0.40) {neutral $\approx 0$};
+  \node[cNeut,anchor=south,font=\sffamily\small\bfseries] at (6.0,0.40) {near-neutral $\approx 0$};
   \node[align=center,anchor=north,font=\sffamily\small] at (6.0,-1.95)
     {Conformer\\(conv--attention)};
 
