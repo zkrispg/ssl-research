@@ -1,6 +1,6 @@
 # Experiment upgrade plan
 
-Last updated: 2026-06-18
+Last updated: 2026-06-23
 
 This plan strengthens the three main review risks without turning the paper into
 a new leaderboard project.
@@ -14,6 +14,8 @@ Improve reviewer confidence on:
 3. weak Conformer operating point.
 
 ## Stage 1: key extremes to n=10
+
+Status: complete on `2026-06-20 13:52:48`.
 
 Run on the training machine:
 
@@ -38,14 +40,22 @@ runs/gca_extremes_n10_summary.csv
 runs/gca_extremes_n10_summary.json
 ```
 
-Decision rule:
+Outcome:
 
-- If FOA CRNN remains negative and MIC Transformer remains positive with tighter
-  confidence intervals, update the manuscript as an `n=10` robustness check.
-- If either flips, keep the current `n=5` manuscript result but discuss the
-  instability openly before submitting.
+- `FOA_CRNN (130-131)`: `delta DOAE = +2.275`, `p = 0.027`
+- `MIC_Transformer (141-142)`: `delta DOAE = -2.316`, `p = 0.311`
+
+Implication:
+
+- the `n=10` check should be written as a robustness clarification, not as a
+  blanket confirmation that geometry always helps;
+- the FOA CRNN extreme is now a significant negative example;
+- the MIC Transformer extreme keeps a favorable direction, but remains
+  statistically weak.
 
 ## Stage 2: Conformer operating-point pilot
+
+Status: complete on `2026-06-23 02:10:30`.
 
 Run after Stage 1, or in parallel on a second GPU:
 
@@ -75,14 +85,24 @@ runs/conformer_tune_doae_lr5em4_summary.md
 runs/conformer_tune_doae_lr3em4_summary.md
 ```
 
-Decision rule:
+Outcome:
 
-- Choose a setting that improves Conformer absolute SELD/F20 without turning the
-  geometry effect into a new extreme.
-- If no setting improves the operating point, leave Conformer as a limitation
-  rather than spending more compute.
+- `best_metric=seld, lr=3e-4` is the most balanced pilot point:
+  - `171`: `SELD 0.583`, `F20 8.00%`, `DOAE 37.80`
+  - `172`: `SELD 0.589`, `F20 8.30%`, `DOAE 39.10`
+- `best_metric=doae` is not suitable for the main paper setting because it
+  often drives `F20` to near-zero and inflates `SELD`.
+
+Implication:
+
+- keep Conformer as a neutral-to-weak-help middle point;
+- mention the tuning pilot as a guard against the "bad operating point"
+  reviewer concern;
+- do not replace the main result table with a `doae`-selected operating point.
 
 ## Stage 3: manuscript integration
+
+Status: next writing task.
 
 After syncing new summaries back to this machine:
 

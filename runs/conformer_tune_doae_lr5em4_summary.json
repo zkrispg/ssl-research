@@ -1,0 +1,143 @@
+{
+  "rows": [
+    {
+      "task": "171",
+      "job": "tune_doae_lr5em4_seed0",
+      "seed": 0,
+      "status": "complete",
+      "train_log": "C:\\Users\\Administrator\\Documents\\Codex\\2026-06-08\\1\\work\\ssl-research\\runs\\dcase2024_171_tune_doae_lr5em4_seed0.log",
+      "test_log": "C:\\Users\\Administrator\\Documents\\Codex\\2026-06-08\\1\\work\\ssl-research\\runs\\dcase2024_171_tune_doae_lr5em4_seed0_test.log",
+      "best_epoch": 0,
+      "best_metric": "doae",
+      "data_digest": "e326b4a7ee06b2ce",
+      "lr": "0.0005",
+      "dropout": "0.05",
+      "seld": 0.973,
+      "f20": 0.0,
+      "doae": 28.91,
+      "dist": 2.3,
+      "rde": 0.8
+    },
+    {
+      "task": "172",
+      "job": "tune_doae_lr5em4_seed0",
+      "seed": 0,
+      "status": "complete",
+      "train_log": "C:\\Users\\Administrator\\Documents\\Codex\\2026-06-08\\1\\work\\ssl-research\\runs\\dcase2024_172_tune_doae_lr5em4_seed0.log",
+      "test_log": "C:\\Users\\Administrator\\Documents\\Codex\\2026-06-08\\1\\work\\ssl-research\\runs\\dcase2024_172_tune_doae_lr5em4_seed0_test.log",
+      "best_epoch": 0,
+      "best_metric": "doae",
+      "data_digest": "e326b4a7ee06b2ce",
+      "lr": "0.0005",
+      "dropout": "0.05",
+      "seld": 0.973,
+      "f20": 0.0,
+      "doae": 20.3,
+      "dist": 2.38,
+      "rde": 0.85
+    },
+    {
+      "task": "171",
+      "job": "tune_doae_lr5em4_seed1",
+      "seed": 1,
+      "status": "complete",
+      "train_log": "C:\\Users\\Administrator\\Documents\\Codex\\2026-06-08\\1\\work\\ssl-research\\runs\\dcase2024_171_tune_doae_lr5em4_seed1.log",
+      "test_log": "C:\\Users\\Administrator\\Documents\\Codex\\2026-06-08\\1\\work\\ssl-research\\runs\\dcase2024_171_tune_doae_lr5em4_seed1_test.log",
+      "best_epoch": 14,
+      "best_metric": "doae",
+      "data_digest": "e326b4a7ee06b2ce",
+      "lr": "0.0005",
+      "dropout": "0.05",
+      "seld": 0.882,
+      "f20": 1.61,
+      "doae": 30.81,
+      "dist": 0.63,
+      "rde": 0.37
+    },
+    {
+      "task": "172",
+      "job": "tune_doae_lr5em4_seed1",
+      "seed": 1,
+      "status": "complete",
+      "train_log": "C:\\Users\\Administrator\\Documents\\Codex\\2026-06-08\\1\\work\\ssl-research\\runs\\dcase2024_172_tune_doae_lr5em4_seed1.log",
+      "test_log": "C:\\Users\\Administrator\\Documents\\Codex\\2026-06-08\\1\\work\\ssl-research\\runs\\dcase2024_172_tune_doae_lr5em4_seed1_test.log",
+      "best_epoch": 49,
+      "best_metric": "doae",
+      "data_digest": "e326b4a7ee06b2ce",
+      "lr": "0.0005",
+      "dropout": "0.05",
+      "seld": 0.62,
+      "f20": 8.96,
+      "doae": 29.27,
+      "dist": 0.68,
+      "rde": 0.32
+    }
+  ],
+  "summaries": [
+    {
+      "task": "171",
+      "n": 2,
+      "seeds": [
+        0,
+        1
+      ],
+      "seld_mean": 0.9275,
+      "seld_sd": 0.0643467170879758,
+      "f20_mean": 0.805,
+      "f20_sd": 1.1384419177103415,
+      "doae_mean": 29.86,
+      "doae_sd": 1.3435028842544392,
+      "dist_mean": 1.4649999999999999,
+      "dist_sd": 1.1808683245815343,
+      "rde_mean": 0.585,
+      "rde_sd": 0.30405591591021547
+    },
+    {
+      "task": "172",
+      "n": 2,
+      "seeds": [
+        0,
+        1
+      ],
+      "seld_mean": 0.7965,
+      "seld_sd": 0.24960869375885125,
+      "f20_mean": 4.48,
+      "f20_sd": 6.3356767594314665,
+      "doae_mean": 24.785,
+      "doae_sd": 6.342747827243331,
+      "dist_mean": 1.53,
+      "dist_sd": 1.2020815280171306,
+      "rde_mean": 0.585,
+      "rde_sd": 0.3747665940288702
+    }
+  ],
+  "deltas": [
+    {
+      "label": "FOA_Conformer_doae_lr5em4",
+      "pair": "171-172",
+      "seed": 0,
+      "delta_seld": 0.0,
+      "delta_f20": 0.0,
+      "delta_doae": 8.61,
+      "delta_dist": -0.08000000000000007,
+      "delta_rde": -0.04999999999999993
+    },
+    {
+      "label": "FOA_Conformer_doae_lr5em4",
+      "pair": "171-172",
+      "seed": 1,
+      "delta_seld": 0.262,
+      "delta_f20": -7.3500000000000005,
+      "delta_doae": 1.5399999999999991,
+      "delta_dist": -0.050000000000000044,
+      "delta_rde": 0.04999999999999999
+    }
+  ],
+  "pairs": [
+    [
+      "FOA_Conformer_doae_lr5em4",
+      "171",
+      "172"
+    ]
+  ]
+}
